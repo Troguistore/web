@@ -3,81 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trogui | Productos Destacados</title>
+  <title>TROGUI | Lo que necesitas, donde lo necesitas</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-    .product { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; display: flex; flex-wrap: wrap; }
-    .product img { width: 100%; max-width: 300px; object-fit: cover; }
-    .product-info { padding: 20px; flex: 1; }
-    .product h2 { font-size: 22px; margin-bottom: 10px; }
-    .short-desc { font-size: 15px; color: #333; margin-bottom: 10px; }
-    .price { font-size: 18px; font-weight: bold; color: #e53935; margin-bottom: 10px; }
-    details { background: #f9f9f9; padding: 10px; border-left: 4px solid #1976d2; border-radius: 5px; }
-    summary { cursor: pointer; font-weight: bold; }
+    :root {
+      --main-color: #ff6600;
+      --text-color: #333;
+      --bg-color: #fff;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    header {
+      background-color: var(--main-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin-top: 0.5rem;
+    }
+    .cart-bar {
+      background-color: #ffe0cc;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      background: #fff;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product h3 {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+    .price {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .btns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    button, a.btn {
+      background-color: var(--main-color);
+      color: white;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .read-more {
+      background: transparent;
+      color: var(--main-color);
+      border: none;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+    @media (min-width: 600px) {
+      .product {
+        flex: 0 0 calc(33.333% - 2rem);
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
+    <h1>TROGUI</h1>
+    <p>Productos prácticos y funcionales para el hogar que solucionan problemas reales. Envío gratis y pago contra entrega.</p>
+  </header>
 
-    <!-- Producto 1: Afeitadora 3 en 1 -->
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/241636/17019755901701975590Screenshot_139.jpg" alt="Afeitadora 3 en 1">
-      <div class="product-info">
-        <h2>Afeitadora Recargable 3 en 1</h2>
-        <p class="short-desc">Listo para todo: barba, axilas, nariz y cabello sin desorden.</p>
-        <p class="price">$59,000</p>
-        <details>
-          <summary>Ver descripción completa</summary>
-          <p>Prepárate para cualquier ocasión con esta afeitadora recargable 3 en 1. Diseñada para hombres modernos que buscan practicidad y estilo, podrás afeitar barba, recortar el cabello, eliminar vellos nasales y mantenerte impecable en segundos. Su batería de larga duración y cabezales intercambiables la hacen perfecta para el hogar o viajes. ¡Luce siempre increíble con un solo equipo!</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- Producto 2: Organizador para baño (3 niveles) -->
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/883693/1716500557imagen_2024-05-23_164213721.png" alt="Organizador de baño 3 niveles">
-      <div class="product-info">
-        <h2>Organizador de Baño 3 Niveles</h2>
-        <p class="short-desc">Ahorra espacio y mantén tu baño ordenado y hermoso.</p>
-        <p class="price">$75,000</p>
-        <details>
-          <summary>Ver descripción completa</summary>
-          <p>Transforma tu baño en un espacio funcional y atractivo. Esta estantería metálica de tres niveles permite almacenar todos tus implementos de aseo de forma organizada. Su diseño elegante y compacto es ideal para baños modernos y pequeños. ¡Olvídate del desorden y mejora tu rutina diaria!</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- Producto 3: Mini impresora portátil -->
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/715143/17105582201707951386Captura%20de%20pantalla%202024-02-14%20175254.png" alt="Mini impresora portátil">
-      <div class="product-info">
-        <h2>Mini Impresora Portátil</h2>
-        <p class="short-desc">Imprime tus ideas donde quieras, sin tinta ni complicaciones.</p>
-        <p class="price">$65,000</p>
-        <details>
-          <summary>Ver descripción completa</summary>
-          <p>Ideal para estudiantes, creativos y emprendedores. Con la app Fun Print podrás imprimir apuntes, códigos QR, fotos, listas y más. No requiere tinta, tiene batería recargable, y es ultra fácil de usar. ¡Llévala en el bolsillo y haz de cada momento una impresión inolvidable!</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- Producto 4: Organizador para baño sin tornillos -->
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/1728426/1742573039WhatsApp%20Image%202025-03-21%20at%2011.00.35%20AM%20(1).jpeg" alt="Organizador baño sin tornillos">
-      <div class="product-info">
-        <h2>Organizador de Baño sin Tornillos</h2>
-        <p class="short-desc">Mantén tu baño limpio y ordenado sin perforaciones.</p>
-        <p class="price">$49,000</p>
-        <details>
-          <summary>Ver descripción completa</summary>
-          <p>Ideal para espacios pequeños. Este estante es fácil de instalar sin herramientas ni tornillos. Su diseño vertical maximiza el almacenamiento sin ocupar mucho espacio. Perfecto para quienes quieren orden sin dañar paredes o azulejos.</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- Continúa con los demás productos en el mismo formato... -->
-
+  <div class="cart-bar">
+    <span>🛒 Total: <strong id="totalPrice">$0</strong></span>
+    <a class="btn" id="buyWhatsApp" href="#" target="_blank">Comprar por WhatsApp</a>
   </div>
+
+  <section class="products" id="productList">
+    <!-- Productos se insertarán aquí con JS -->
+  </section>
+
+  <script>
+    const products = [
+      { name: "Careta paintball máscara airsoft NA535", price: 69000, img: "https://i.imgur.com/H2RQyK3.jpg" },
+      { name: "Asador Parrilla BBQ Portátil", price: 84900, img: "https://i.imgur.com/XNo6FCp.jpg" },
+      { name: "Dispensador De Agua 3L Botella Plegable 08106", price: 25900, img: "https://i.imgur.com/OSKhhSm.jpg" },
+      { name: "Cepillo Dispensador de Jabón Líquido", price: 21900, img: "https://i.imgur.com/oyyA8FO.jpg" },
+      { name: "Trapeador Mágico 360º con escurridor integrado", price: 59000, img: "https://i.imgur.com/jk0QQIf.jpg" },
+      { name: "Cortador de vegetales multifuncional con cesta", price: 49900, img: "https://i.imgur.com/m6OwXz4.jpg" },
+      { name: "Rallador Mandolina Profesional De Acero Inoxidable", price: 23900, img: "https://i.imgur.com/j9V4Vqx.jpg" }
+    ];
+
+    let cart = [];
+
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      products.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "product";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" />
+          <h3>${p.name}</h3>
+          <button class="read-more" onclick="alert('Más información sobre: ${p.name}')">Leer más</button>
+          <p class="price">$${p.price.toLocaleString()}</p>
+          <div class="btns">
+            <button onclick="addToCart(${i})">Añadir al carrito</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function addToCart(index) {
+      cart.push(products[index]);
+      updateCart();
+    }
+
+    function updateCart() {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById("totalPrice").textContent = `$${total.toLocaleString()}`;
+      const names = cart.map(p => `- ${p.name}`).join("%0A");
+      const url = `https://wa.me/573138711131?text=Hola!%20Quiero%20comprar:%0A${names}`;
+      document.getElementById("buyWhatsApp").href = url;
+    }
+
+    renderProducts();
+  </script>
 </body>
 </html>
