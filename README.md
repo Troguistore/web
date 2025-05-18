@@ -3,160 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TROGUI</title>
+  <title>TROGUI - Tienda Online</title>
   <style>
-    :root {
-      --orange: #f97316;
-      --black: #000;
-      --white: #fff;
-    }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #fff; color: #333; }
     header {
-      background-color: var(--orange);
-      color: var(--white);
-      padding: 1rem;
+      background-color: #f97316;
+      padding: 20px;
       text-align: center;
+      color: white;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1rem;
+    header h1 { font-size: 2rem; }
+    header p { margin-top: 10px; font-size: 1rem; }
+
+    .container {
+      padding: 20px;
     }
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      gap: 20px;
     }
     .product {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      background: #fff;
     }
     .product img {
-      max-width: 100%;
-      border-radius: 8px;
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
     .product h3 {
-      font-size: 1rem;
-      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      margin: 10px;
     }
-    .price {
+    .product .price {
+      color: #f97316;
       font-weight: bold;
-      margin-bottom: 0.5rem;
+      margin: 0 10px 10px;
     }
     .buttons {
+      margin: 10px;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 10px;
     }
-    button {
+    .btn {
+      padding: 10px;
       border: none;
-      padding: 0.5rem;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
       font-size: 1rem;
     }
-    .add-to-cart {
-      background-color: var(--black);
-      color: var(--white);
+    .add-cart {
+      background-color: #000;
+      color: #fff;
     }
     .buy-whatsapp {
-      background-color: var(--orange);
-      color: var(--white);
+      background-color: #f97316;
+      color: #fff;
     }
     .cart-summary {
-      text-align: center;
-      padding: 1rem;
-      background-color: #eee;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #f97316;
+      color: white;
+      padding: 10px;
       font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>TROGUI</h1>
-    <p>Productos prácticos, funcionales y al mejor precio para tu hogar.</p>
+    <p>En TROGUI, encuentras productos únicos, útiles, prácticos y perfectos para ti y tu hogar.</p>
   </header>
 
-  <div class="cart-summary" id="cart-summary">
-    Total productos: <span id="cart-count">0</span> | Valor total: $<span id="cart-total">0</span>
+  <div class="container">
+    <div class="products" id="product-list">
+      <!-- Productos serán insertados aquí con JS -->
+    </div>
   </div>
 
-  <section class="products" id="products">
-    <!-- Productos se insertarán aquí dinámicamente -->
-  </section>
+  <div class="cart-summary" id="cart-summary">
+    <span id="cart-count">0 productos</span>
+    <span id="cart-total">Total: $0</span>
+  </div>
 
   <script>
-    const products = [
-      { id: 1, name: 'Estante Giratorio', price: 239000, image: 'https://via.placeholder.com/200' },
-      { id: 2, name: 'Organizador de Baño', price: 59000, image: 'https://via.placeholder.com/200' },
-      { id: 3, name: 'Trapeador 360º', price: 59000, image: 'https://via.placeholder.com/200' },
-      { id: 4, name: 'Mini Waflera', price: 79000, image: 'https://via.placeholder.com/200' },
-      // Agrega más productos aquí
+    const productos = [
+      { nombre: 'Lámpara Luna 3D Decorativa', precio: 49000, imagen: 'https://via.placeholder.com/300?text=Luna' },
+      { nombre: 'Estante Giratorio Metálico 360°', precio: 239000, imagen: 'https://via.placeholder.com/300?text=Estante' },
+      { nombre: 'Organizador Esquinero de Baño', precio: 59000, imagen: 'https://via.placeholder.com/300?text=Organizador' },
+      { nombre: 'Mini Waflera Antiadherente', precio: 49000, imagen: 'https://via.placeholder.com/300?text=Waflera' }
+      // Agrega más productos si deseas
     ];
 
-    const cart = [];
+    const carrito = [];
+    const contenedor = document.getElementById('product-list');
+    const resumen = document.getElementById('cart-summary');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
 
-    function renderProducts() {
-      const container = document.getElementById('products');
-      products.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'product';
-        div.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
-          <div class="price">$${product.price.toLocaleString()}</div>
-          <div class="buttons">
-            <button class="add-to-cart" onclick="addToCart(${product.id})">Añadir al carrito</button>
-            <button class="buy-whatsapp" onclick="buyViaWhatsApp(${product.id})">Comprar por WhatsApp</button>
-          </div>
-        `;
-        container.appendChild(div);
-      });
+    productos.forEach((producto, index) => {
+      const card = document.createElement('div');
+      card.className = 'product';
+      card.innerHTML = `
+        <img src="${producto.imagen}" alt="${producto.nombre}" />
+        <h3>${producto.nombre}</h3>
+        <p class="price">$${producto.precio.toLocaleString()}</p>
+        <div class="buttons">
+          <button class="btn add-cart" onclick="agregarAlCarrito(${index})">Añadir al carrito</button>
+          <button class="btn buy-whatsapp" onclick="comprarWhatsApp(${index})">Comprar por WhatsApp</button>
+        </div>
+      `;
+      contenedor.appendChild(card);
+    });
+
+    function actualizarResumen() {
+      cartCount.textContent = `${carrito.length} producto${carrito.length !== 1 ? 's' : ''}`;
+      const total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
+      cartTotal.textContent = `Total: $${total.toLocaleString()}`;
     }
 
-    function addToCart(id) {
-      const product = products.find(p => p.id === id);
-      cart.push(product);
-      updateCartSummary();
+    function agregarAlCarrito(index) {
+      carrito.push(productos[index]);
+      actualizarResumen();
     }
 
-    function updateCartSummary() {
-      const count = cart.length;
-      const total = cart.reduce((sum, p) => sum + p.price, 0);
-      document.getElementById('cart-count').textContent = count;
-      document.getElementById('cart-total').textContent = total.toLocaleString();
-    }
-
-    function buyViaWhatsApp(id) {
-      let text = "Hola, quiero comprar los siguientes productos en TROGUI:%0A";
-      if (cart.length > 0) {
-        cart.forEach(p => {
-          text += `- ${p.name} ($${p.price.toLocaleString()})%0A`;
+    function comprarWhatsApp(index) {
+      const baseUrl = 'https://wa.me/573053181755';
+      let mensaje = '';
+      if (carrito.length > 0) {
+        mensaje = 'Hola, quiero comprar los siguientes productos:%0A';
+        carrito.forEach(p => {
+          mensaje += `- ${p.nombre} ($${p.precio.toLocaleString()})%0A`;
         });
+        const total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
+        mensaje += `%0ATotal: $${total.toLocaleString()}`;
       } else {
-        const product = products.find(p => p.id === id);
-        text += `- ${product.name} ($${product.price.toLocaleString()})%0A`;
+        const producto = productos[index];
+        mensaje = `Hola, quiero comprar el producto: ${producto.nombre} por $${producto.precio.toLocaleString()}`;
       }
-      const phone = '573008437886';
-      const url = `https://wa.me/${phone}?text=${text}`;
-      window.open(url, '_blank');
+      window.open(`${baseUrl}?text=${mensaje}`, '_blank');
     }
-
-    renderProducts();
   </script>
 </body>
 </html>
