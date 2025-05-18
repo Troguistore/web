@@ -3,158 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TROGUI - Tienda Online</title>
+  <title>TROGUI - Tu tienda confiable</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #fff; color: #333; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
     header {
-      background-color: #f97316;
-      padding: 20px;
+      background-color: #fff;
+      padding: 1rem;
       text-align: center;
-      color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    header h1 { font-size: 2rem; }
-    header p { margin-top: 10px; font-size: 1rem; }
-
-    .container {
-      padding: 20px;
+    header h1 {
+      color: #ff6600;
+      margin: 0;
     }
-    .products {
+    header p {
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
     }
-    .product {
-      border: 1px solid #ccc;
-      border-radius: 10px;
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: #fff;
+      transition: transform 0.2s ease;
     }
-    .product img {
+    .product-card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
     }
-    .product h3 {
-      font-size: 1.1rem;
-      margin: 10px;
+    .product-info {
+      padding: 1rem;
+      flex-grow: 1;
     }
-    .product .price {
-      color: #f97316;
+    .product-info h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      color: #333;
+    }
+    .product-info p {
+      color: #ff6600;
       font-weight: bold;
-      margin: 0 10px 10px;
+      margin: 0 0 0.5rem;
     }
     .buttons {
-      margin: 10px;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      justify-content: space-between;
+      padding: 0.5rem 1rem 1rem;
     }
     .btn {
-      padding: 10px;
       border: none;
-      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
-    .add-cart {
-      background-color: #000;
+    .btn-cart {
+      background: #000;
       color: #fff;
     }
-    .buy-whatsapp {
-      background-color: #f97316;
+    .btn-whatsapp {
+      background: #ff6600;
       color: #fff;
     }
     .cart-summary {
-      position: fixed;
+      background: #fff;
+      padding: 1rem;
+      position: sticky;
       bottom: 0;
-      width: 100%;
-      background: #f97316;
-      color: white;
-      padding: 10px;
-      font-size: 1rem;
+      border-top: 2px solid #eee;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    }
+    .cart-summary span {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>TROGUI</h1>
-    <p>En TROGUI, encuentras productos únicos, útiles, prácticos y perfectos para ti y tu hogar.</p>
+    <p>Productos prácticos para el hogar que solucionan tus necesidades diarias. Envío gratis y pago contraentrega 🧡</p>
   </header>
 
-  <div class="container">
-    <div class="products" id="product-list">
-      <!-- Productos serán insertados aquí con JS -->
-    </div>
-  </div>
+  <main class="product-grid" id="productGrid">
+    <!-- Aquí se generan los productos -->
+  </main>
 
-  <div class="cart-summary" id="cart-summary">
-    <span id="cart-count">0 productos</span>
-    <span id="cart-total">Total: $0</span>
+  <div class="cart-summary">
+    <span id="cartCount">0 productos</span>
+    <span id="cartTotal">Total: $0</span>
+    <button class="btn btn-whatsapp" onclick="buyOnWhatsApp()">Comprar por WhatsApp</button>
   </div>
 
   <script>
-    const productos = [
-      { nombre: 'Lámpara Luna 3D Decorativa', precio: 49000, imagen: 'https://via.placeholder.com/300?text=Luna' },
-      { nombre: 'Estante Giratorio Metálico 360°', precio: 239000, imagen: 'https://via.placeholder.com/300?text=Estante' },
-      { nombre: 'Organizador Esquinero de Baño', precio: 59000, imagen: 'https://via.placeholder.com/300?text=Organizador' },
-      { nombre: 'Mini Waflera Antiadherente', precio: 49000, imagen: 'https://via.placeholder.com/300?text=Waflera' }
-      // Agrega más productos si deseas
+    const whatsappBaseUrl = "https://wa.me/573053928847?text=";
+
+    const products = [
+      {
+        name: "Estante giratorio 360°",
+        price: 189000,
+        image: "https://example.com/estante.jpg"
+      },
+      {
+        name: "Organizador de baño esquinero",
+        price: 59000,
+        image: "https://example.com/organizador.jpg"
+      },
+      {
+        name: "Trapeador mágico 360°",
+        price: 59000,
+        image: "https://example.com/trapeador.jpg"
+      },
+      {
+        name: "Mini waflera antiadherente",
+        price: 79000,
+        image: "https://example.com/waflera.jpg"
+      }
+      // Agrega más productos aquí
     ];
 
-    const carrito = [];
-    const contenedor = document.getElementById('product-list');
-    const resumen = document.getElementById('cart-summary');
-    const cartCount = document.getElementById('cart-count');
-    const cartTotal = document.getElementById('cart-total');
+    const cart = [];
 
-    productos.forEach((producto, index) => {
-      const card = document.createElement('div');
-      card.className = 'product';
-      card.innerHTML = `
-        <img src="${producto.imagen}" alt="${producto.nombre}" />
-        <h3>${producto.nombre}</h3>
-        <p class="price">$${producto.precio.toLocaleString()}</p>
-        <div class="buttons">
-          <button class="btn add-cart" onclick="agregarAlCarrito(${index})">Añadir al carrito</button>
-          <button class="btn buy-whatsapp" onclick="comprarWhatsApp(${index})">Comprar por WhatsApp</button>
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = products.map((p, index) => `
+        <div class="product-card">
+          <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>$${p.price.toLocaleString()}</p>
+          </div>
+          <div class="buttons">
+            <button class="btn btn-cart" onclick="addToCart(${index})">Añadir al carrito</button>
+          </div>
         </div>
-      `;
-      contenedor.appendChild(card);
-    });
-
-    function actualizarResumen() {
-      cartCount.textContent = `${carrito.length} producto${carrito.length !== 1 ? 's' : ''}`;
-      const total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
-      cartTotal.textContent = `Total: $${total.toLocaleString()}`;
+      `).join("");
     }
 
-    function agregarAlCarrito(index) {
-      carrito.push(productos[index]);
-      actualizarResumen();
+    function addToCart(index) {
+      cart.push(products[index]);
+      updateCart();
     }
 
-    function comprarWhatsApp(index) {
-      const baseUrl = 'https://wa.me/573053181755';
-      let mensaje = '';
-      if (carrito.length > 0) {
-        mensaje = 'Hola, quiero comprar los siguientes productos:%0A';
-        carrito.forEach(p => {
-          mensaje += `- ${p.nombre} ($${p.precio.toLocaleString()})%0A`;
-        });
-        const total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
-        mensaje += `%0ATotal: $${total.toLocaleString()}`;
-      } else {
-        const producto = productos[index];
-        mensaje = `Hola, quiero comprar el producto: ${producto.nombre} por $${producto.precio.toLocaleString()}`;
+    function updateCart() {
+      document.getElementById("cartCount").innerText = `${cart.length} producto${cart.length !== 1 ? 's' : ''}`;
+      const total = cart.reduce((sum, p) => sum + p.price, 0);
+      document.getElementById("cartTotal").innerText = `Total: $${total.toLocaleString()}`;
+    }
+
+    function buyOnWhatsApp() {
+      if (cart.length === 0) {
+        alert("Agrega al menos un producto al carrito.");
+        return;
       }
-      window.open(`${baseUrl}?text=${mensaje}`, '_blank');
+      const items = cart.map(p => `- ${p.name} ($${p.price.toLocaleString()})`).join("%0A");
+      const total = cart.reduce((sum, p) => sum + p.price, 0);
+      const message = `Hola, quiero comprar los siguientes productos en TROGUI:%0A${items}%0A%0ATotal: $${total.toLocaleString()}`;
+      window.open(whatsappBaseUrl + encodeURIComponent(message), "_blank");
     }
+
+    renderProducts();
   </script>
 </body>
 </html>
