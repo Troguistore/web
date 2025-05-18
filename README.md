@@ -3,25 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TROGUI | Lo que necesitas, donde lo necesitas</title>
+  <title>TROGUI</title>
   <style>
     :root {
-      --main-color: #ff6600;
-      --text-color: #333;
-      --bg-color: #fff;
-    }
-    * {
-      box-sizing: border-box;
+      --orange: #f97316;
+      --black: #000;
+      --white: #fff;
     }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      background-color: #f9f9f9;
+      color: #333;
     }
     header {
-      background-color: var(--main-color);
-      color: white;
+      background-color: var(--orange);
+      color: var(--white);
       padding: 1rem;
       text-align: center;
     }
@@ -30,130 +27,133 @@
       font-size: 2rem;
     }
     header p {
-      margin-top: 0.5rem;
-    }
-    .cart-bar {
-      background-color: #ffe0cc;
-      padding: 0.5rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      margin: 0.5rem 0 0;
+      font-size: 1rem;
     }
     .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
+      padding: 1rem;
     }
     .product {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 300px;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
-      padding: 1rem;
-      background: #fff;
+      justify-content: space-between;
     }
     .product img {
-      width: 100%;
-      border-radius: 10px;
+      max-width: 100%;
+      border-radius: 8px;
     }
     .product h3 {
-      font-size: 1.1rem;
+      font-size: 1rem;
       margin: 0.5rem 0;
     }
     .price {
       font-weight: bold;
       margin-bottom: 0.5rem;
     }
-    .btns {
+    .buttons {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
-    button, a.btn {
-      background-color: var(--main-color);
-      color: white;
+    button {
       border: none;
-      padding: 0.6rem;
-      border-radius: 5px;
+      padding: 0.5rem;
+      border-radius: 6px;
       cursor: pointer;
+      font-size: 1rem;
+    }
+    .add-to-cart {
+      background-color: var(--black);
+      color: var(--white);
+    }
+    .buy-whatsapp {
+      background-color: var(--orange);
+      color: var(--white);
+    }
+    .cart-summary {
       text-align: center;
-      text-decoration: none;
-    }
-    .read-more {
-      background: transparent;
-      color: var(--main-color);
-      border: none;
-      cursor: pointer;
-      margin-bottom: 0.5rem;
-    }
-    @media (min-width: 600px) {
-      .product {
-        flex: 0 0 calc(33.333% - 2rem);
-      }
+      padding: 1rem;
+      background-color: #eee;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>TROGUI</h1>
-    <p>Productos prácticos y funcionales para el hogar que solucionan problemas reales. Envío gratis y pago contra entrega.</p>
+    <p>Productos prácticos, funcionales y al mejor precio para tu hogar.</p>
   </header>
 
-  <div class="cart-bar">
-    <span>🛒 Total: <strong id="totalPrice">$0</strong></span>
-    <a class="btn" id="buyWhatsApp" href="#" target="_blank">Comprar por WhatsApp</a>
+  <div class="cart-summary" id="cart-summary">
+    Total productos: <span id="cart-count">0</span> | Valor total: $<span id="cart-total">0</span>
   </div>
 
-  <section class="products" id="productList">
-    <!-- Productos se insertarán aquí con JS -->
+  <section class="products" id="products">
+    <!-- Productos se insertarán aquí dinámicamente -->
   </section>
 
   <script>
     const products = [
-      { name: "Careta paintball máscara airsoft NA535", price: 69000, img: "https://i.imgur.com/H2RQyK3.jpg" },
-      { name: "Asador Parrilla BBQ Portátil", price: 84900, img: "https://i.imgur.com/XNo6FCp.jpg" },
-      { name: "Dispensador De Agua 3L Botella Plegable 08106", price: 25900, img: "https://i.imgur.com/OSKhhSm.jpg" },
-      { name: "Cepillo Dispensador de Jabón Líquido", price: 21900, img: "https://i.imgur.com/oyyA8FO.jpg" },
-      { name: "Trapeador Mágico 360º con escurridor integrado", price: 59000, img: "https://i.imgur.com/jk0QQIf.jpg" },
-      { name: "Cortador de vegetales multifuncional con cesta", price: 49900, img: "https://i.imgur.com/m6OwXz4.jpg" },
-      { name: "Rallador Mandolina Profesional De Acero Inoxidable", price: 23900, img: "https://i.imgur.com/j9V4Vqx.jpg" }
+      { id: 1, name: 'Estante Giratorio', price: 239000, image: 'https://via.placeholder.com/200' },
+      { id: 2, name: 'Organizador de Baño', price: 59000, image: 'https://via.placeholder.com/200' },
+      { id: 3, name: 'Trapeador 360º', price: 59000, image: 'https://via.placeholder.com/200' },
+      { id: 4, name: 'Mini Waflera', price: 79000, image: 'https://via.placeholder.com/200' },
+      // Agrega más productos aquí
     ];
 
-    let cart = [];
+    const cart = [];
 
     function renderProducts() {
-      const container = document.getElementById("productList");
-      products.forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "product";
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" />
-          <h3>${p.name}</h3>
-          <button class="read-more" onclick="alert('Más información sobre: ${p.name}')">Leer más</button>
-          <p class="price">$${p.price.toLocaleString()}</p>
-          <div class="btns">
-            <button onclick="addToCart(${i})">Añadir al carrito</button>
+      const container = document.getElementById('products');
+      products.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <div class="price">$${product.price.toLocaleString()}</div>
+          <div class="buttons">
+            <button class="add-to-cart" onclick="addToCart(${product.id})">Añadir al carrito</button>
+            <button class="buy-whatsapp" onclick="buyViaWhatsApp(${product.id})">Comprar por WhatsApp</button>
           </div>
         `;
-        container.appendChild(card);
+        container.appendChild(div);
       });
     }
 
-    function addToCart(index) {
-      cart.push(products[index]);
-      updateCart();
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cart.push(product);
+      updateCartSummary();
     }
 
-    function updateCart() {
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      document.getElementById("totalPrice").textContent = `$${total.toLocaleString()}`;
-      const names = cart.map(p => `- ${p.name}`).join("%0A");
-      const url = `https://wa.me/573138711131?text=Hola!%20Quiero%20comprar:%0A${names}`;
-      document.getElementById("buyWhatsApp").href = url;
+    function updateCartSummary() {
+      const count = cart.length;
+      const total = cart.reduce((sum, p) => sum + p.price, 0);
+      document.getElementById('cart-count').textContent = count;
+      document.getElementById('cart-total').textContent = total.toLocaleString();
+    }
+
+    function buyViaWhatsApp(id) {
+      let text = "Hola, quiero comprar los siguientes productos en TROGUI:%0A";
+      if (cart.length > 0) {
+        cart.forEach(p => {
+          text += `- ${p.name} ($${p.price.toLocaleString()})%0A`;
+        });
+      } else {
+        const product = products.find(p => p.id === id);
+        text += `- ${product.name} ($${product.price.toLocaleString()})%0A`;
+      }
+      const phone = '573008437886';
+      const url = `https://wa.me/${phone}?text=${text}`;
+      window.open(url, '_blank');
     }
 
     renderProducts();
