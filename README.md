@@ -3,181 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TROGUI - Tu tienda confiable</title>
+  <title>Tienda de Productos</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background-color: #f5f5f5;
+      padding: 0;
+      background: #f5f5f5;
     }
-    header {
-      background-color: #fff;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    header h1 {
-      color: #ff6600;
-      margin: 0;
-    }
-    header p {
-      color: #333;
-      font-size: 0.9rem;
-    }
-    .product-grid {
+    .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
     }
-    .product-card {
+    .product {
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      overflow: hidden;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease;
-    }
-    .product-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .product-info {
-      padding: 1rem;
-      flex-grow: 1;
-    }
-    .product-info h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1rem;
-      color: #333;
-    }
-    .product-info p {
-      color: #ff6600;
-      font-weight: bold;
-      margin: 0 0 0.5rem;
-    }
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 1rem 1rem;
-    }
-    .btn {
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .btn-cart {
-      background: #000;
-      color: #fff;
-    }
-    .btn-whatsapp {
-      background: #ff6600;
-      color: #fff;
-    }
-    .cart-summary {
-      background: #fff;
-      padding: 1rem;
-      position: sticky;
-      bottom: 0;
-      border-top: 2px solid #eee;
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
     }
-    .cart-summary span {
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .product h3 {
+      font-size: 18px;
+      margin: 10px 0 5px;
+    }
+    .price {
+      color: #27ae60;
       font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .description {
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .whatsapp-button {
+      background-color: #25d366;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .whatsapp-button:hover {
+      background-color: #1ebe57;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>TROGUI</h1>
-    <p>Productos prácticos para el hogar que solucionan tus necesidades diarias. Envío gratis y pago contraentrega 🧡</p>
-  </header>
+  <div class="container">
+    <div class="product">
+      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/241636/17019755901701975590Screenshot_139.jpg" alt="Afeitadora 3 en 1">
+      <h3>Afeitadora Recargable 3 en 1</h3>
+      <div class="price">$59.000</div>
+      <div class="description">Barba, axilas, nariz y cabello. Práctica, recargable y portátil.</div>
+      <a class="whatsapp-button" href="https://wa.me/573206572598?text=%C2%A1Hola!%20Quisiera%20realizar%20una%20compra%20en%20tu%20tienda.%20%C2%BFPuedes%20ayudarme%20con%20los%20detalles%20de%20la%20Afeitadora%203%20en%201?" target="_blank">Comprar por WhatsApp</a>
+    </div>
 
-  <main class="product-grid" id="productGrid">
-    <!-- Aquí se generan los productos -->
-  </main>
+    <div class="product">
+      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/883693/1716500557imagen_2024-05-23_164213721.png" alt="Organizador de Baño 3 niveles">
+      <h3>Organizador de Baño 3 Niveles</h3>
+      <div class="price">$75.000</div>
+      <div class="description">Estructura metálica para mantener tu baño organizado sin ocupar espacio.</div>
+      <a class="whatsapp-button" href="https://wa.me/573206572598?text=%C2%A1Hola!%20Estoy%20interesado%20en%20el%20organizador%20de%20ba%C3%B1o%20de%203%20niveles.%20%C2%BFMe%20puedes%20dar%20m%C3%A1s%20detalles?" target="_blank">Comprar por WhatsApp</a>
+    </div>
 
-  <div class="cart-summary">
-    <span id="cartCount">0 productos</span>
-    <span id="cartTotal">Total: $0</span>
-    <button class="btn btn-whatsapp" onclick="buyOnWhatsApp()">Comprar por WhatsApp</button>
+    <div class="product">
+      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/715143/17105582201707951386Captura%20de%20pantalla%202024-02-14%20175254.png" alt="Mini Impresora Portátil">
+      <h3>Mini Impresora Portátil</h3>
+      <div class="price">$65.000</div>
+      <div class="description">Imprime sin tinta desde tu celular: notas, fotos, listas y más.</div>
+      <a class="whatsapp-button" href="https://wa.me/573206572598?text=%C2%A1Hola!%20Quiero%20comprar%20la%20mini%20impresora%20port%C3%A1til.%20%C2%BFMe%20puedes%20ayudar%20con%20la%20compra?" target="_blank">Comprar por WhatsApp</a>
+    </div>
   </div>
-
-  <script>
-    const whatsappBaseUrl = "https://wa.me/573053928847?text=";
-
-    const products = [
-      {
-        name: "Estante giratorio 360°",
-        price: 189000,
-        image: "https://example.com/estante.jpg"
-      },
-      {
-        name: "Organizador de baño esquinero",
-        price: 59000,
-        image: "https://example.com/organizador.jpg"
-      },
-      {
-        name: "Trapeador mágico 360°",
-        price: 59000,
-        image: "https://example.com/trapeador.jpg"
-      },
-      {
-        name: "Mini waflera antiadherente",
-        price: 79000,
-        image: "https://example.com/waflera.jpg"
-      }
-      // Agrega más productos aquí
-    ];
-
-    const cart = [];
-
-    function renderProducts() {
-      const grid = document.getElementById("productGrid");
-      grid.innerHTML = products.map((p, index) => `
-        <div class="product-card">
-          <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
-          <div class="product-info">
-            <h3>${p.name}</h3>
-            <p>$${p.price.toLocaleString()}</p>
-          </div>
-          <div class="buttons">
-            <button class="btn btn-cart" onclick="addToCart(${index})">Añadir al carrito</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function addToCart(index) {
-      cart.push(products[index]);
-      updateCart();
-    }
-
-    function updateCart() {
-      document.getElementById("cartCount").innerText = `${cart.length} producto${cart.length !== 1 ? 's' : ''}`;
-      const total = cart.reduce((sum, p) => sum + p.price, 0);
-      document.getElementById("cartTotal").innerText = `Total: $${total.toLocaleString()}`;
-    }
-
-    function buyOnWhatsApp() {
-      if (cart.length === 0) {
-        alert("Agrega al menos un producto al carrito.");
-        return;
-      }
-      const items = cart.map(p => `- ${p.name} ($${p.price.toLocaleString()})`).join("%0A");
-      const total = cart.reduce((sum, p) => sum + p.price, 0);
-      const message = `Hola, quiero comprar los siguientes productos en TROGUI:%0A${items}%0A%0ATotal: $${total.toLocaleString()}`;
-      window.open(whatsappBaseUrl + encodeURIComponent(message), "_blank");
-    }
-
-    renderProducts();
-  </script>
 </body>
 </html>
