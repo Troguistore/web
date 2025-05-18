@@ -1,107 +1,75 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tienda Online</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-      margin: 0;
-      padding: 20px;
-    }
+import React from "react";
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+export default function ProductGrid() {
+  const products = [
+    {
+      name: "Afeitadora Eléctrica Recargable MicroTouch Solo",
+      price: "$59.000",
+      image: "https://i.postimg.cc/dVkBbcfN/afeitadora.jpg",
+    },
+    {
+      name: "Organizador Esquinero Baño Acero Inoxidable",
+      price: "$59.000",
+      image: "https://i.postimg.cc/VkfKfx1s/organizador-esquinero.jpg",
+    },
+    {
+      name: "Organizador Esquinero Extensible 4 Niveles",
+      price: "$59.000",
+      image: "https://i.postimg.cc/4N26Xxqx/organizador-banera.jpg",
+    },
+    {
+      name: "Mini Impresora Térmica Portátil + Papel Térmico",
+      price: "$109.000",
+      image: "https://i.postimg.cc/XNd15nqZ/mini-impresora.jpg",
+    },
+    {
+      name: "Mini Hidrolavadora Portátil Inalámbrica Alta Presión",
+      price: "$229.000",
+      image: "https://i.postimg.cc/mr6mnDFx/hidrolavadora.jpg",
+    },
+    {
+      name: "Escurridor de Platos 2 Niveles + Bandeja",
+      price: "$59.000",
+      image: "https://i.postimg.cc/XNTmdK2W/escurridor.jpg",
+    },
+    {
+      name: "Organizador Giratorio Multiusos De Acero",
+      price: "$239.000",
+      image: "https://i.postimg.cc/pV3ZG5KR/organizador-giratorio.jpg",
+    },
+  ];
 
-    .product {
-      background-color: white;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-    }
-
-    .product img {
-      max-width: 100%;
-      max-height: 200px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-
-    .product h3 {
-      font-size: 18px;
-      margin: 10px 0 5px;
-      text-align: center;
-    }
-
-    .product p {
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .price {
-      font-weight: bold;
-      color: green;
-      margin: 10px 0;
-      font-size: 16px;
-    }
-
-    .buy-btn {
-      background-color: orange;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: auto;
-    }
-
-    .buy-btn:hover {
-      background-color: darkorange;
-    }
-  </style>
-</head>
-<body>
-  <h1 style="text-align: center;">Catálogo de Productos</h1>
-  <div class="container">
-
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/241636/17019755901701975590Screenshot_139.jpg" alt="Afeitadora 3 en 1" />
-      <h3>Afeitadora recargable 3 en 1</h3>
-      <p>Para barba, axilas, nariz y cabello. ¡Siempre listo!</p>
-      <div class="price">$59,000</div>
-      <a class="buy-btn" href="https://wa.me/573206572598?text=%C2%A1Hola!%20Quisiera%20realizar%20una%20compra%20en%20tu%20tienda.%20%C2%BFPuedes%20ayudarme%20con%20los%20detalles%20de">Comprar por WhatsApp</a>
+  return (
+    <div className="min-h-screen bg-white p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-7xl mx-auto">
+        {products.map((product, index) => (
+          <div
+            key={index}
+            className="border rounded-2xl shadow-md p-4 flex flex-col items-center bg-white"
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-48 object-cover rounded-xl mb-2"
+            />
+            <h3 className="text-center font-semibold text-base mb-1">
+              {product.name}
+            </h3>
+            <p className="text-green-600 font-bold text-lg mb-2">{product.price}</p>
+            <button className="bg-black text-white px-4 py-2 rounded-full mb-2">
+              Añadir al carrito
+            </button>
+            <a
+              href="https://wa.me/573206572598?text=%C2%A1Hola!%20Quisiera%20realizar%20una%20compra%20en%20tu%20tienda.%20%C2%BFPuedes%20ayudarme%20con%20los%20detalles"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-orange-500 text-white px-4 py-2 rounded-full"
+            >
+              Comprar por WhatsApp
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
-
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/883693/1716500557imagen_2024-05-23_164213721.png" alt="Organizador baño 3 niveles" />
-      <h3>Organizador de baño 3 niveles</h3>
-      <p>Ideal para mantener tu baño cómodo y hermoso.</p>
-      <div class="price">$75,000</div>
-      <a class="buy-btn" href="https://wa.me/573206572598?text=%C2%A1Hola!%20Quisiera%20realizar%20una%20compra%20en%20tu%20tienda.%20%C2%BFPuedes%20ayudarme%20con%20los%20detalles%20de">Comprar por WhatsApp</a>
-    </div>
-
-    <div class="product">
-      <img src="https://d39ru7awumhhs2.cloudfront.net/colombia/products/715143/17105582201707951386Captura%20de%20pantalla%202024-02-14%20175254.png" alt="Mini impresora térmica portátil" />
-      <h3>Mini impresora portátil</h3>
-      <p>Imprime fotos, apuntes y más. Sin tinta, ¡sólo con tu celular!</p>
-      <div class="price">$65,000</div>
-      <a class="buy-btn" href="https://wa.me/573206572598?text=%C2%A1Hola!%20Quisiera%20realizar%20una%20compra%20en%20tu%20tienda.%20%C2%BFPuedes%20ayudarme%20con%20los%20detalles%20de">Comprar por WhatsApp</a>
-    </div>
-
-    <!-- Puedes seguir agregando más productos con el mismo formato -->
-
-  </div>
-</body>
-</html>
+  );
+}
