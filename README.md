@@ -3,240 +3,227 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tienda Colombiana - Productos</title>
+<title>TROGUI - Tienda Colombiana</title>
 <style>
-  /* Reset y base */
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-  body { background: #f9f9f9; color: #333; min-height: 100vh; display: flex; flex-direction: column;}
-  a { text-decoration: none; color: inherit; }
-
-  /* Header */
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+  }
+  /* Barra superior */
   header {
-    background: #007a00;
+    background: #ff6f00; /* naranja */
     color: white;
-    padding: 10px 20px;
-    font-weight: bold;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
   }
-  header .envio-info {
-    font-size: 1rem;
+  header h1 {
+    font-weight: 900;
+    font-size: 1.8rem;
   }
-  header .carrito-info {
-    font-size: 1rem;
-  }
-  header .busqueda {
-    margin-top: 10px;
-    flex-basis: 100%;
-  }
-  header input[type="search"] {
-    width: 100%;
-    max-width: 350px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
+  header .envios {
+    font-size: 0.9rem;
   }
 
-  /* Contenedor principal */
-  main {
-    flex-grow: 1;
-    max-width: 1200px;
+  /* Buscador */
+  #searchBar {
     margin: 20px auto;
-    padding: 0 15px;
+    max-width: 600px;
+    width: 90%;
+    display: flex;
   }
-  .descripcion-principal {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-    text-align: center;
-    color: #444;
+  #searchInput {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid #ff6f00;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+  }
+  #searchBtn {
+    background: #ff6f00;
+    color: white;
+    border: 2px solid #ff6f00;
+    border-radius: 0 5px 5px 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.3s;
+  }
+  #searchBtn:hover {
+    background: #e65c00;
   }
 
-  /* Productos grid */
-  .productos-grid {
+  /* Contenedor productos */
+  #productList {
+    max-width: 960px;
+    margin: 0 auto 60px;
+    padding: 0 15px;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
   }
 
-  /* Tarjeta producto */
-  .producto-card {
-    background: white;
+  .productCard {
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    background: #fafafa;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
-    transition: transform 0.15s ease-in-out;
+    justify-content: space-between;
+    box-shadow: 0 0 8px rgb(0 0 0 / 0.05);
+    transition: box-shadow 0.3s;
   }
-  .producto-card:hover {
-    transform: translateY(-5px);
+  .productCard:hover {
+    box-shadow: 0 0 15px rgb(0 0 0 / 0.15);
   }
-  .producto-img {
+  .productImg {
     width: 100%;
-    height: 200px;
+    cursor: pointer;
     object-fit: contain;
-    border-radius: 8px 8px 0 0;
-    background: #f5f5f5;
+    max-height: 220px;
+    background: white;
   }
-  .producto-info {
-    padding: 15px;
+  .productInfo {
+    padding: 12px 15px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
   }
-  .producto-nombre {
-    font-weight: 600;
-    font-size: 1.1rem;
+  .productName {
+    font-weight: 700;
     margin-bottom: 6px;
+    font-size: 1.1rem;
   }
-  .producto-precio {
-    font-weight: bold;
-    font-size: 1.2rem;
+  .productPrice {
+    color: #ff6f00;
+    font-weight: 900;
     margin-bottom: 8px;
-    color: #007a00;
   }
-  .producto-desc {
+  .productDesc {
     flex-grow: 1;
     font-size: 0.9rem;
     color: #555;
   }
-  .producto-botones {
-    margin-top: 12px;
+  .buttons {
+    margin-top: 10px;
     display: flex;
-    gap: 8px;
+    gap: 10px;
   }
   button {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 6px;
+    flex: 1;
+    padding: 10px 0;
     border: none;
-    font-weight: bold;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.25s ease;
+    font-weight: 700;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: background 0.3s;
   }
-  .btn-anadir {
-    background: #007a00;
+  .btnAdd {
+    background: #ff6f00;
     color: white;
   }
-  .btn-anadir:hover {
-    background: #005900;
+  .btnAdd:hover {
+    background: #e65c00;
   }
-  .btn-whatsapp {
-    background: #25d366;
+  .btnWhats {
+    background: #25d366; /* verde WhatsApp */
     color: white;
   }
-  .btn-whatsapp:hover {
-    background: #1ebe57;
+  .btnWhats:hover {
+    background: #1da851;
   }
 
-  /* Modal Detalles */
-  .modal {
+  /* Carrito superior */
+  #cartBar {
     position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    z-index: 1000;
-  }
-  .modal.active {
-    display: flex;
-  }
-  .modal-content {
+    top: 0; left: 0; right: 0;
     background: white;
-    border-radius: 8px;
-    max-width: 700px;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    padding: 12px 20px;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+    z-index: 9999;
     gap: 15px;
   }
-  .modal-close {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #888;
+
+  /* Modal producto */
+  #modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 10000;
   }
-  .modal-img {
-    flex: 1 1 250px;
+  #modalContent {
+    background: white;
+    max-width: 800px;
+    width: 100%;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #modalImg {
+    flex: 1 1 300px;
     max-height: 400px;
     object-fit: contain;
-    border-radius: 6px;
-    background: #f5f5f5;
+    background: #fafafa;
+    border-radius: 8px 0 0 8px;
   }
-  .modal-info {
-    flex: 1 1 300px;
+  #modalDetails {
+    flex: 1 1 400px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
   }
-  .modal-nombre {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 12px;
+  #modalDetails h2 {
+    color: #ff6f00;
+    margin-bottom: 10px;
   }
-  .modal-precio {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #007a00;
-    margin-bottom: 12px;
-  }
-  .modal-desc {
+  #modalDetails p {
     flex-grow: 1;
     font-size: 1rem;
-    color: #555;
-    margin-bottom: 15px;
+    color: #444;
+    margin-bottom: 20px;
+    white-space: pre-line;
   }
-  .modal-botones {
+  #modalDetails .modalButtons {
     display: flex;
-    gap: 15px;
+    gap: 10px;
   }
-
-  /* Footer WhatsApp flotante */
-  .whatsapp-float {
-    position: fixed;
-    bottom: 20px;
+  #modalClose {
+    position: absolute;
+    top: 15px;
     right: 20px;
-    background: #25d366;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    font-size: 2rem;
+    color: white;
     cursor: pointer;
-    z-index: 1100;
-    transition: background-color 0.3s;
   }
-  .whatsapp-float:hover {
-    background: #1ebe57;
-  }
-  .whatsapp-float svg {
-    width: 32px;
-    height: 32px;
-    fill: white;
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    header {
+  @media(max-width:600px) {
+    #modalContent {
       flex-direction: column;
-      align-items: flex-start;
     }
-    header .carrito-info {
-      margin-top: 10px;
+    #modalImg, #modalDetails {
+      flex: 1 1 100%;
+      max-height: none;
+      border-radius: 8px 8px 0 0;
     }
   }
 </style>
@@ -244,222 +231,233 @@
 <body>
 
 <header>
-  <div class="envio-info">🚚 Envíos gratis y pagos contra entrega Colombia</div>
-  <div class="carrito-info">Carrito: <span id="carrito-total">0</span> productos | Total: <span id="carrito-importe">$0</span></div>
-  <div class="busqueda">
-    <input type="search" id="busqueda" placeholder="Buscar productos..." autocomplete="off" />
-  </div>
+  <h1 style="color:#ff6f00;">TROGUI</h1>
+  <div class="envios">🚚 Envíos gratis • Pago contra entrega Colombia</div>
 </header>
 
-<main>
-  <div class="descripcion-principal">
-    Organiza tu vida con productos prácticos, duraderos y pensados para ti. ¡Compra fácil, rápido y con envío gratis!
-  </div>
+<div id="cartBar">
+  Total: <span id="cartTotal">0</span> COP
+</div>
 
-  <div class="productos-grid" id="productos-grid">
-    <!-- Productos se insertan aquí con JS -->
-  </div>
-</main>
+<div id="searchBar">
+  <input type="text" id="searchInput" placeholder="Buscar productos..." />
+  <button id="searchBtn">Buscar</button>
+</div>
 
-<!-- Modal Detalle Producto -->
-<div class="modal" id="modal-detalle">
-  <div class="modal-content">
-    <span class="modal-close" id="modal-close">&times;</span>
-    <img src="" alt="Producto" class="modal-img" id="modal-img" />
-    <div class="modal-info">
-      <h2 class="modal-nombre" id="modal-nombre"></h2>
-      <p class="modal-precio" id="modal-precio"></p>
-      <p class="modal-desc" id="modal-desc"></p>
-      <div class="modal-botones">
-        <button class="btn-anadir" id="modal-add-cart">Añadir al carrito</button>
-        <button class="btn-whatsapp" id="modal-buy-whatsapp">Comprar por WhatsApp</button>
+<section id="productList">
+  <!-- Aquí se cargan los productos desde JS -->
+</section>
+
+<!-- Modal producto -->
+<div id="modal">
+  <span id="modalClose">&times;</span>
+  <div id="modalContent">
+    <img id="modalImg" src="" alt="Producto" />
+    <div id="modalDetails">
+      <h2 id="modalName"></h2>
+      <p id="modalDesc"></p>
+      <div class="modalButtons">
+        <button class="btnAdd" id="modalAddBtn">Añadir al carrito</button>
+        <button class="btnWhats" id="modalWhatsBtn">Comprar por WhatsApp</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- WhatsApp flotante -->
-<div class="whatsapp-float" id="whatsapp-float" title="Comprar por WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.91 11.91 0 0012 0C5.37 0 0 5.37 0 12a11.78 11.78 0 001.58 6.15L0 24l5.93-1.56a11.92 11.92 0 006.07 1.58c6.63 0 12-5.37 12-12a11.94 11.94 0 00-3.48-8.54zm-8.52 16a8 8 0 01-4.19-1.18l-.3-.18-3.13.82.83-3.06-.2-.31A8 8 0 1112 20.52zm3.87-5.11c-.21-.11-1.25-.62-1.44-.69s-.33-.11-.47.11-.54.69-.66.83-.24.16-.45.05a6.29 6.29 0 01-1.85-1.14 6.9 6.9 0 01-1.28-1.58c-.13-.22 0-.34.1-.45s.21-.26.31-.39a.42.42 0 00.06-.35c-.02-.11-.47-1.13-.64-1.55s-.33-.36-.47-.36h-.4a1.15 1.15 0 00-.83.38 3.57 3.57 0 00-1.1 2.62c0 1.54 1.44 3 1.64 3.2s2.83 4.35 6.86 6.1a6.79 6.79 0 002.96.48 4.22 4.22 0 002.98-1.41 4.09 4.09 0 001.23-2.19 3.61 3.61 0 00-.52-2.25 3.25 3.25 0 00-1.99-1.56z"/></svg>
-</div>
-
 <script>
-  // Datos productos (ejemplo con tres, agrega los demás igual)
-  const productos = [
+  // Datos de productos
+  const products = [
     {
       id: 1,
-      nombre: "Afeitadora Plegable 2 en 1",
-      precio: 79000,
+      name: "Afeitadora 3 en 1",
+      price: 59000,
       img: "https://d39ru7awumhhs2.cloudfront.net/colombia/products/241636/17019755901701975590Screenshot_139.jpg",
-      desc_corta: "Práctica, portátil, recargable y resistente al agua.",
-      desc_larga: "Afeitadora plegable 2 en 1 para barba, patillas y cuerpo. Carga USB, resistente al agua, portátil y con garantía de calidad."
+      shortDesc: "Recargable 3 en 1 para barba, axilas, nariz y cabello. Orden y estilo siempre.",
+      fullDesc: `Afeitadora recargable 3 en 1 que no se note el desorden, te deja listo para todo: barba, axilas, nariz y cabello.`,
     },
     {
       id: 2,
-      nombre: "Organizador Baño Esquinero",
-      precio: 59000,
-      img: "https://d39ru7awumhhs2.cloudfront.net/colombia/products/883693/17165003051716500306Screenshot_177.jpg",
-      desc_corta: "Organizador sin tornillos, resistente y anti-óxido.",
-      desc_larga: "Organizador esquinero para baño con 4 repisas, soporte para toalla, sin tornillos, acero inoxidable y plástico ABS, anti-óxido y muy resistente."
+      name: "Organizador para baño 1",
+      price: 75000,
+      img: "https://d39ru7awumhhs2.cloudfront.net/colombia/products/883693/1716500557imagen_2024-05-23_164213721.png",
+      shortDesc: "Organizador de acero inoxidable, resistente y sin óxido para tu baño u otros espacios.",
+      fullDesc: `Organizador de baño hecho en acero inoxidable y ABS, resistente, sin óxido, con 4 repisas y colgadores.`,
     },
     {
       id: 3,
-      nombre: "Mopa Giratoria 360º",
-      precio: 59000,
-      img: "https://d39ru7awumhhs2.cloudfront.net/colombia/products/836380/17116356801711635680Screenshot_132.jpg",
-      desc_corta: "Mopa doble cabeza, limpia rápido y fácil.",
-      desc_larga: "Mopa giratoria 360 grados con dos cabezas de microfibra turbo, cubeta profunda, limpia 6 veces más rápido, ultra absorbente y fácil de usar."
+      name: "Organizador para baño 2",
+      price: 59000,
+      img: "https://d39ru7awumhhs2.cloudfront.net/colombia/products/883706/1716500639Screenshot_2024-05-23-16-48-32-042_com.google.android.apps_.photos.jpg",
+      shortDesc: "Multiuso, sin óxido y resistente, ideal para organizar tu baño de forma práctica.",
+      fullDesc: `Organizador multiuso de baño, sin óxido y resistente, con diseño compacto y práctico.`,
     },
-    // Puedes añadir aquí los otros productos que diste, siguiendo esta estructura
+    {
+      id: 4,
+      name: "Organizador para baño 3",
+      price: 59000,
+      img: "https://d39ru7awumhhs2.cloudfront.net/colombia/products/883708/1716500691Screenshot_2024-05-23-16-48-55-090_com.google.android.apps_.photos.jpg",
+      shortDesc: "Esquinero para baño, con espacio para toallas y productos, sin instalación necesaria.",
+      fullDesc: `Esquinero para baño con múltiples niveles para toallas, productos y más, fácil de colocar sin instalación.`,
+    }
   ];
 
-  const productosGrid = document.getElementById("productos-grid");
-  const carritoTotal = document.getElementById("carrito-total");
-  const carritoImporte = document.getElementById("carrito-importe");
-  const busquedaInput = document.getElementById("busqueda");
+  let cart = [];
 
-  let carrito = [];
+  // Referencias DOM
+  const productList = document.getElementById('productList');
+  const cartTotalEl = document.getElementById('cartTotal');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const modalName = document.getElementById('modalName');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalAddBtn = document.getElementById('modalAddBtn');
+  const modalWhatsBtn = document.getElementById('modalWhatsBtn');
+  const modalClose = document.getElementById('modalClose');
 
-  // Función para mostrar productos en la cuadrícula
-  function mostrarProductos(productosLista) {
-    productosGrid.innerHTML = "";
-    productosLista.forEach(producto => {
-      const card = document.createElement("div");
-      card.className = "producto-card";
+  // Función para mostrar productos en pantalla
+  function renderProducts(list) {
+    productList.innerHTML = "";
+    list.forEach(prod => {
+      const card = document.createElement('div');
+      card.className = 'productCard';
+
       card.innerHTML = `
-        <img src="${producto.img}" alt="${producto.nombre}" class="producto-img" loading="lazy" />
-        <div class="producto-info">
-          <div class="producto-nombre">${producto.nombre}</div>
-          <div class="producto-precio">$${producto.precio.toLocaleString('es-CO')}</div>
-          <div class="producto-desc">${producto.desc_corta}</div>
-          <div class="producto-botones">
-            <button class="btn-anadir" data-id="${producto.id}">Añadir al carrito</button>
-            <button class="btn-whatsapp" data-id="${producto.id}">Comprar por WhatsApp</button>
+        <img src="${prod.img}" alt="${prod.name}" class="productImg" data-id="${prod.id}" />
+        <div class="productInfo">
+          <div class="productName">${prod.name}</div>
+          <div class="productPrice">${prod.price.toLocaleString()} COP</div>
+          <div class="productDesc">${prod.shortDesc}</div>
+          <div class="buttons">
+            <button class="btnAdd" data-id="${prod.id}">Añadir al carrito</button>
+            <button class="btnWhats" data-id="${prod.id}">Comprar por WhatsApp</button>
           </div>
         </div>
       `;
-      productosGrid.appendChild(card);
-
-      // Click en imagen para modal
-      card.querySelector(".producto-img").addEventListener("click", () => abrirModal(producto.id));
-      // Botón añadir carrito
-      card.querySelector(".btn-anadir").addEventListener("click", (e) => {
-        e.stopPropagation();
-        añadirCarrito(producto.id);
-      });
-      // Botón comprar WhatsApp
-      card.querySelector(".btn-whatsapp").addEventListener("click", (e) => {
-        e.stopPropagation();
-        comprarPorWhatsApp([producto]);
-      });
+      productList.appendChild(card);
     });
   }
 
   // Añadir producto al carrito
-  function añadirCarrito(id) {
-    const producto = productos.find(p => p.id === id);
-    if (!producto) return;
-    // Ver si ya está
-    const item = carrito.find(i => i.id === id);
-    if (item) {
-      item.cantidad++;
+  function addToCart(id) {
+    const prod = products.find(p => p.id === id);
+    if(!prod) return;
+    const found = cart.find(c => c.id === id);
+    if(found) {
+      found.qty++;
     } else {
-      carrito.push({...producto, cantidad: 1});
+      cart.push({...prod, qty: 1});
     }
-    actualizarCarritoUI();
-    alert(`Producto "${producto.nombre}" añadido al carrito.`);
+    updateCartTotal();
   }
 
-  // Actualizar carrito en UI
-  function actualizarCarritoUI() {
-    const totalCantidad = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    const totalPrecio = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-    carritoTotal.textContent = totalCantidad;
-    carritoImporte.textContent = `$${totalPrecio.toLocaleString('es-CO')}`;
+  // Actualiza el total en el carrito
+  function updateCartTotal() {
+    const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+    cartTotalEl.textContent = total.toLocaleString();
   }
 
-  // Modal detalles producto
-  const modal = document.getElementById("modal-detalle");
-  const modalClose = document.getElementById("modal-close");
-  const modalImg = document.getElementById("modal-img");
-  const modalNombre = document.getElementById("modal-nombre");
-  const modalPrecio = document.getElementById("modal-precio");
-  const modalDesc = document.getElementById("modal-desc");
-  const modalAddCart = document.getElementById("modal-add-cart");
-  const modalBuyWhatsApp = document.getElementById("modal-buy-whatsapp");
-
-  let productoModalActual = null;
-
-  function abrirModal(id) {
-    const producto = productos.find(p => p.id === id);
-    if (!producto) return;
-    productoModalActual = producto;
-    modalImg.src = producto.img;
-    modalNombre.textContent = producto.nombre;
-    modalPrecio.textContent = `$${producto.precio.toLocaleString('es-CO')}`;
-    modalDesc.textContent = producto.desc_larga;
-    modal.classList.add("active");
+  // Limpieza de texto para búsqueda: elimina tildes y pasa a minúsculas
+  function cleanText(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
+
+  // Búsqueda simple ignorando tildes y errores simples
+  function searchProducts(term) {
+    const cleanedTerm = cleanText(term);
+    return products.filter(p => cleanText(p.name).includes(cleanedTerm) || cleanText(p.shortDesc).includes(cleanedTerm));
+  }
+
+  // Mostrar modal con detalles del producto
+  function openModal(id) {
+    const prod = products.find(p => p.id === id);
+    if(!prod) return;
+    modalImg.src = prod.img;
+    modalName.textContent = prod.name;
+    modalDesc.textContent = prod.fullDesc;
+    modal.style.display = 'flex';
+
+    // Añadir al carrito desde modal
+    modalAddBtn.onclick = () => {
+      addToCart(id);
+      alert(`Producto "${prod.name}" añadido al carrito.`);
+    };
+    // Comprar por WhatsApp desde modal
+    modalWhatsBtn.onclick = () => {
+      sendWhatsApp([ {...prod, qty: 1} ]);
+    }
+  }
+
+  // Cerrar modal
   modalClose.onclick = () => {
-    modal.classList.remove("active");
-  }
-  modalAddCart.onclick = () => {
-    if (!productoModalActual) return;
-    añadirCarrito(productoModalActual.id);
-    modal.classList.remove("active");
-  }
-  modalBuyWhatsApp.onclick = () => {
-    if (!productoModalActual) return;
-    comprarPorWhatsApp([productoModalActual]);
-  }
-  window.onclick = (e) => {
-    if(e.target === modal){
-      modal.classList.remove("active");
-    }
-  }
+    modal.style.display = 'none';
+  };
+  modal.onclick = e => {
+    if(e.target === modal) modal.style.display = 'none';
+  };
 
-  // WhatsApp flotante botón: envía carrito completo
-  const whatsappFloat = document.getElementById("whatsapp-float");
-  whatsappFloat.onclick = () => {
-    if (carrito.length === 0) {
-      alert("Tu carrito está vacío.");
-      return;
+  // Botón añadir al carrito en lista productos
+  productList.addEventListener('click', e => {
+    if(e.target.classList.contains('btnAdd')) {
+      const id = Number(e.target.dataset.id);
+      addToCart(id);
+      alert("Producto añadido al carrito.");
     }
-    comprarPorWhatsApp(carrito);
-  }
+    if(e.target.classList.contains('btnWhats')) {
+      const id = Number(e.target.dataset.id);
+      const prod = products.find(p => p.id === id);
+      sendWhatsApp([ {...prod, qty: 1} ]);
+    }
+    if(e.target.classList.contains('productImg')) {
+      const id = Number(e.target.dataset.id);
+      openModal(id);
+    }
+  });
 
-  // Función para abrir WhatsApp con mensaje
-  function comprarPorWhatsApp(listaProductos) {
-    const telefono = "57TU_NUMERO_AQUI"; // Cambia TU_NUMERO_AQUI por tu número de WhatsApp en formato internacional sin signos
-    let mensaje = "Hola, quiero comprar estos productos:%0A";
-    listaProductos.forEach(p => {
-      mensaje += `- ${p.nombre} x${p.cantidad || 1} - $${p.precio.toLocaleString('es-CO')}%0A`;
+  // Enviar mensaje a WhatsApp con lista de productos
+  function sendWhatsApp(items) {
+    if(items.length === 0) return;
+    let msg = `Hola, quiero hacer un pedido en TROGUI:\n`;
+    items.forEach(item => {
+      msg += `- ${item.name} x${item.qty} = ${(item.price * item.qty).toLocaleString()} COP\n`;
     });
-    const total = listaProductos.reduce((acc, p) => acc + p.precio * (p.cantidad || 1), 0);
-    mensaje += `%0ATotal: $${total.toLocaleString('es-CO')}`;
-    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    const total = items.reduce((acc, i) => acc + i.price * i.qty, 0);
+    msg += `Total: ${total.toLocaleString()} COP\n\nGracias!`;
+    const url = `https://wa.me/573001234567?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
   }
 
-  // Función para normalizar texto y hacer búsqueda simple tolerante a tildes y mayúsculas
-  function normalizar(texto) {
-    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  }
-
-  // Buscador
-  busquedaInput.addEventListener("input", () => {
-    const query = normalizar(busquedaInput.value.trim());
-    if (query === "") {
-      mostrarProductos(productos);
+  // Botón comprar carrito WhatsApp
+  const cartBar = document.getElementById('cartBar');
+  cartBar.addEventListener('click', () => {
+    if(cart.length === 0) {
+      alert("El carrito está vacío.");
       return;
     }
-    const filtrados = productos.filter(p => normalizar(p.nombre).includes(query) || normalizar(p.desc_corta).includes(query));
-    mostrarProductos(filtrados);
+    sendWhatsApp(cart);
   });
 
-  // Al cargar página
-  mostrarProductos(productos);
-  actualizarCarritoUI();
+  // Búsqueda
+  searchBtn.addEventListener('click', () => {
+    const term = searchInput.value.trim();
+    if(term === '') {
+      renderProducts(products);
+    } else {
+      const results = searchProducts(term);
+      if(results.length === 0) alert('No se encontraron productos.');
+      renderProducts(results);
+    }
+  });
+
+  // Enter en input búsqueda activa botón buscar
+  searchInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter') searchBtn.click();
+  });
+
+  // Render inicial
+  renderProducts(products);
+  updateCartTotal();
 </script>
 
 </body>
