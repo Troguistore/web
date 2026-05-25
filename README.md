@@ -3,320 +3,345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TROGÜI - Tienda Online Colombia</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>TROGÜI - Tienda Online Colombia 🇨🇴</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --orange:#FF5200;
+  --orange-light:#FF7A3D;
   --dark:#1a1a2e;
   --white:#fff;
-  --light:#f8f8f8;
+  --light:#f5f5f5;
   --green:#00b050;
   --red:#e00;
   --gray:#666;
-  --border:#e5e5e5;
-  --shadow:0 4px 20px rgba(0,0,0,.10);
+  --border:#e8e8e8;
+  --shadow:0 4px 24px rgba(0,0,0,.10);
+  --shadow-hover:0 12px 40px rgba(255,82,0,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#f4f4f4;color:var(--dark);overflow-x:hidden}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:#f2f2f2;color:var(--dark);overflow-x:hidden}
 a{text-decoration:none;color:inherit}
-img{max-width:100%;border-radius:8px}
+img{max-width:100%}
+button{font-family:'Nunito',sans-serif}
 
-.topbar{background:var(--dark);color:#fff;text-align:center;padding:7px;font-size:13px;font-weight:700;letter-spacing:.5px}
+/* TOPBAR */
+.topbar{background:var(--dark);color:#fff;text-align:center;padding:8px 12px;font-size:13px;font-weight:700;letter-spacing:.3px;position:relative;overflow:hidden}
 .topbar span{color:var(--orange)}
+.topbar-scroll{display:inline-block;white-space:nowrap;animation:marquee 30s linear infinite}
+@keyframes marquee{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
 
-header{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.09);position:sticky;top:0;z-index:900}
-.header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:12px 16px;flex-wrap:wrap}
-.logo-area{display:flex;align-items:center;gap:8px;min-width:160px}
-.logo-svg{width:130px;height:44px}
-.search-bar{flex:1;min-width:180px;position:relative}
-.search-bar input{width:100%;padding:10px 44px 10px 16px;border:2px solid var(--border);border-radius:30px;font-size:15px;font-family:'Nunito',sans-serif;outline:none;transition:.2s}
-.search-bar input:focus{border-color:var(--orange)}
-.search-bar button{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--orange);border:none;border-radius:50%;width:32px;height:32px;color:#fff;cursor:pointer;font-size:15px}
-.header-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.whatsapp-btn{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:8px 14px;border-radius:20px;font-weight:700;font-size:13px;transition:.2s}
-.whatsapp-btn:hover{background:#128C7E}
-.cart-btn{position:relative;background:var(--orange);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px}
-.cart-count{background:#fff;color:var(--orange);border-radius:50%;width:20px;height:20px;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
-.social-links{display:flex;gap:8px}
-.social-links a{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;transition:.2s}
-.social-links a.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
-.social-links a.tk{background:#010101;color:#fff}
-.social-links a.wa{background:#25D366;color:#fff}
-.social-links a:hover{transform:scale(1.13)}
+/* HEADER */
+header{background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.1);position:sticky;top:0;z-index:900}
+.header-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.logo-area{min-width:150px}
+.logo-img{height:50px;width:auto;object-fit:contain}
+.search-bar{flex:1;min-width:200px;position:relative}
+.search-bar input{width:100%;padding:11px 48px 11px 18px;border:2.5px solid var(--border);border-radius:30px;font-size:15px;font-family:'Nunito',sans-serif;outline:none;transition:.25s;background:#fafafa}
+.search-bar input:focus{border-color:var(--orange);background:#fff;box-shadow:0 0 0 4px rgba(255,82,0,.08)}
+.search-bar button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--orange);border:none;border-radius:50%;width:36px;height:36px;color:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.search-bar button:hover{background:#e04800;transform:translateY(-50%) scale(1.08)}
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wa-btn{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;padding:9px 16px;border-radius:22px;font-weight:800;font-size:13px;transition:.2s;white-space:nowrap}
+.wa-btn:hover{background:#128C7E;transform:scale(1.04)}
+.cart-btn{position:relative;background:var(--orange);color:#fff;border:none;border-radius:22px;padding:9px 18px;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.2s}
+.cart-btn:hover{background:#e04800;transform:scale(1.04)}
+.cart-count{background:#fff;color:var(--orange);border-radius:50%;min-width:22px;height:22px;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.socials{display:flex;gap:6px}
+.socials a{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.2s}
+.socials a:hover{transform:scale(1.15)}
+.socials a.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.socials a.tk{background:#010101;color:#fff}
+.socials a.wa{background:#25D366;color:#fff}
 
-nav{background:var(--orange);padding:0 16px}
-.nav-inner{max-width:1300px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:0}
-.nav-inner a{color:#fff;padding:12px 18px;font-weight:700;font-size:14px;white-space:nowrap;border-bottom:3px solid transparent;transition:.2s}
-.nav-inner a:hover,.nav-inner a.active{border-bottom-color:#fff;background:rgba(255,255,255,.12)}
+/* NAV */
+nav{background:var(--orange);position:sticky;top:70px;z-index:800}
+.nav-inner{max-width:1320px;margin:0 auto;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner a{color:#fff;padding:13px 20px;font-weight:800;font-size:13.5px;white-space:nowrap;border-bottom:3px solid transparent;transition:.2s;display:flex;align-items:center;gap:5px}
+.nav-inner a:hover,.nav-inner a.active{border-bottom-color:#fff;background:rgba(255,255,255,.15)}
 
-.slider-section{background:#fff;padding:0}
-.slider-wrap{position:relative;overflow:hidden;max-height:320px}
-.slider-track{display:flex;transition:transform .6s ease}
-.slide{min-width:100%;height:260px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.slide-1{background:linear-gradient(135deg,#1a1a2e 60%,#FF5200 100%)}
-.slide-2{background:linear-gradient(135deg,#0f3460 60%,#e94560 100%)}
-.slide-3{background:linear-gradient(135deg,#16213e 60%,#0f3460 100%)}
-.slide-content{color:#fff;padding:32px;z-index:2}
-.slide-content h2{font-size:clamp(22px,4vw,42px);font-weight:900;line-height:1.2;font-family:'Poppins',sans-serif}
+/* SLIDER */
+.slider-section{background:#fff}
+.slider-wrap{position:relative;overflow:hidden;height:280px}
+.slider-track{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1);height:100%}
+.slide{min-width:100%;height:100%;display:flex;align-items:center;position:relative;overflow:hidden}
+.slide-1{background:linear-gradient(135deg,#1a1a2e 55%,#FF5200 100%)}
+.slide-2{background:linear-gradient(135deg,#0d3b2e 55%,#00b050 100%)}
+.slide-3{background:linear-gradient(135deg,#16213e 55%,#e94560 100%)}
+.slide-content{color:#fff;padding:40px;z-index:2;max-width:600px}
+.slide-content h2{font-size:clamp(22px,4vw,44px);font-weight:900;line-height:1.15;font-family:'Poppins',sans-serif}
 .slide-content h2 span{color:var(--orange)}
-.slide-content p{font-size:15px;margin:10px 0 18px;opacity:.9}
-.slide-btn{background:var(--orange);color:#fff;padding:12px 28px;border-radius:30px;font-weight:800;font-size:15px;display:inline-block;transition:.2s}
-.slide-btn:hover{background:#e04800;transform:scale(1.05)}
+.slide-content p{font-size:15px;margin:10px 0 20px;opacity:.9;line-height:1.5}
+.slide-btn{background:var(--orange);color:#fff;padding:13px 30px;border-radius:30px;font-weight:900;font-size:15px;display:inline-block;transition:.25s;border:2px solid transparent}
+.slide-btn:hover{background:transparent;border-color:#fff;transform:scale(1.05)}
+.slide-deco{position:absolute;right:0;top:0;height:100%;width:45%;opacity:.08;background:radial-gradient(circle at center,#fff 0%,transparent 70%)}
+.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);backdrop-filter:blur(4px);color:#fff;border:none;font-size:24px;width:46px;height:46px;border-radius:50%;cursor:pointer;z-index:10;transition:.2s;border:1px solid rgba(255,255,255,.2)}
+.slider-arrow:hover{background:rgba(255,255,255,.3)}
+.slider-arrow.prev{left:14px}
+.slider-arrow.next{right:14px}
 .slider-dots{display:flex;justify-content:center;gap:8px;padding:12px;background:#fff}
-.dot{width:10px;height:10px;border-radius:50%;background:#ccc;cursor:pointer;transition:.2s}
-.dot.active{background:var(--orange);width:24px;border-radius:5px}
-.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);color:#fff;border:none;font-size:22px;width:42px;height:42px;border-radius:50%;cursor:pointer;z-index:10;transition:.2s}
-.slider-arrow:hover{background:rgba(255,255,255,.4)}
-.slider-arrow.prev{left:12px}
-.slider-arrow.next{right:12px}
+.dot{width:10px;height:10px;border-radius:50%;background:#ddd;cursor:pointer;transition:.3s}
+.dot.active{background:var(--orange);width:28px;border-radius:5px}
 
-.badges-strip{background:#fff;border-bottom:2px solid var(--border)}
-.badges-inner{max-width:1300px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:0}
-.badge-item{display:flex;align-items:center;gap:8px;padding:14px 24px;font-weight:700;font-size:13px;border-right:1px solid var(--border)}
+/* BADGES */
+.badges-strip{background:#fff;border-top:1px solid var(--border);border-bottom:3px solid var(--orange)}
+.badges-inner{max-width:1320px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap}
+.badge-item{display:flex;align-items:center;gap:8px;padding:14px 22px;font-weight:800;font-size:13px;border-right:1px solid var(--border);color:var(--dark)}
 .badge-item:last-child{border-right:none}
+.badge-item em{color:var(--orange);font-style:normal}
 
-.notif{position:fixed;bottom:80px;left:16px;background:var(--dark);color:#fff;padding:10px 16px;border-radius:12px;font-size:13px;font-weight:700;z-index:1200;display:none;max-width:280px;box-shadow:0 4px 20px rgba(0,0,0,.3);animation:slideUp .4s}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.notif .notif-name{color:var(--orange)}
-
-.section-title{text-align:center;padding:30px 16px 8px;font-size:clamp(20px,3vw,28px);font-weight:900;font-family:'Poppins',sans-serif;color:var(--dark)}
+/* SECTION TITLES */
+.section-title{text-align:center;padding:32px 16px 6px;font-size:clamp(22px,3vw,30px);font-weight:900;font-family:'Poppins',sans-serif;color:var(--dark)}
 .section-title span{color:var(--orange)}
-.section-sub{text-align:center;color:var(--gray);margin-bottom:20px;font-size:14px}
+.section-sub{text-align:center;color:var(--gray);margin-bottom:22px;font-size:14px;padding:0 16px}
 
-.products-section{max-width:1300px;margin:0 auto;padding:0 12px 40px}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+/* PRODUCTS */
+.products-section{max-width:1320px;margin:0 auto;padding:0 14px 50px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
 
-/* ---- PRODUCT CARD ---- */
-.product-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:.25s;position:relative;cursor:pointer}
-.product-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.15)}
-.product-img-wrap{position:relative;background:#f8f8f8;height:200px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.product-img-wrap img{height:180px;width:100%;object-fit:cover;transition:.3s}
-.product-card:hover .product-img-wrap img{transform:scale(1.06)}
-.badge-offer{position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px}
-.badge-sold{position:absolute;top:10px;right:10px;background:var(--dark);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px}
-.badge-last{position:absolute;bottom:10px;left:10px;background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:10px;animation:pulse 1.2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
-.product-info{padding:12px}
-.product-name{font-weight:800;font-size:14px;line-height:1.3;margin-bottom:6px;font-family:'Poppins',sans-serif}
-.stars{color:#f5c518;font-size:14px;margin-bottom:4px}
+/* PRODUCT CARD */
+.product-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:.28s;position:relative;display:flex;flex-direction:column}
+.product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover)}
+.product-img-wrap{position:relative;background:#f8f8f8;height:210px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.product-img-wrap img{height:100%;width:100%;object-fit:cover;transition:.4s}
+.product-card:hover .product-img-wrap img{transform:scale(1.07)}
+.badge-off{position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;font-size:11px;font-weight:900;padding:4px 10px;border-radius:20px;z-index:2}
+.badge-sold-c{position:absolute;top:10px;right:10px;background:rgba(26,26,46,.85);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;z-index:2}
+.badge-last{position:absolute;bottom:10px;left:10px;background:var(--red);color:#fff;font-size:10px;font-weight:900;padding:3px 9px;border-radius:10px;z-index:2;animation:pulse 1.3s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.product-info{padding:13px 13px 0;flex:1;cursor:pointer}
+.product-name{font-weight:800;font-size:14px;line-height:1.35;margin-bottom:6px;font-family:'Poppins',sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.stars{color:#f5c518;font-size:14px;margin-bottom:5px}
 .stars span{color:var(--gray);font-size:12px;margin-left:4px}
-.price-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.price-old{color:var(--gray);font-size:13px;text-decoration:line-through}
-.price-new{color:var(--orange);font-size:20px;font-weight:900}
-.timer-badge{background:#fff3e0;border:1px solid var(--orange);border-radius:8px;padding:4px 8px;font-size:11px;font-weight:800;color:var(--orange);margin-top:6px;display:flex;align-items:center;gap:4px}
-.free-ship{font-size:11px;color:var(--green);font-weight:800;display:flex;align-items:center;gap:3px;margin-top:4px}
-.delivery-info{font-size:11px;color:var(--gray);margin-top:3px}
-
-/* ---- BOTONES DE ACCIÓN EN CARD ---- */
-.card-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.btn-add{background:var(--orange);color:#fff;border:none;padding:9px 6px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;transition:.2s;font-family:'Nunito',sans-serif;width:100%}
-.btn-add:hover{background:#e04800}
-
-/* ---- BOTÓN PEDIR AHORA CON SHAKE ---- */
-.btn-pedir{background:var(--dark);color:#fff;border:none;padding:9px 6px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:'Nunito',sans-serif;width:100%;position:relative;overflow:hidden}
-.btn-pedir:hover{background:#0f0f25}
-
+.price-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+.price-old{color:#aaa;font-size:13px;text-decoration:line-through}
+.price-new{color:var(--orange);font-size:22px;font-weight:900}
+.timer-badge{background:#fff5ee;border:1px solid #ffccaa;border-radius:8px;padding:4px 9px;font-size:11px;font-weight:800;color:var(--orange);display:flex;align-items:center;gap:4px;margin-bottom:6px}
+.free-ship{font-size:11.5px;color:var(--green);font-weight:800;display:flex;align-items:center;gap:3px;margin-bottom:3px}
+.contra-e{font-size:11px;color:var(--gray);margin-bottom:10px}
+.card-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 13px 13px;margin-top:auto}
+.btn-add{background:var(--dark);color:#fff;border:none;padding:10px 6px;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer;transition:.2s;width:100%}
+.btn-add:hover{background:#0f0f25}
+.btn-pedir{background:var(--orange);color:#fff;border:none;padding:10px 6px;border-radius:12px;font-weight:900;font-size:13px;cursor:pointer;width:100%;position:relative;overflow:hidden;transition:.2s}
+.btn-pedir:hover{background:#e04800}
 @keyframes shake{
-  0%{transform:translateX(0)}
-  10%{transform:translateX(-5px) rotate(-1deg)}
-  20%{transform:translateX(5px) rotate(1deg)}
-  30%{transform:translateX(-5px) rotate(-1deg)}
-  40%{transform:translateX(5px) rotate(1deg)}
-  50%{transform:translateX(-4px)}
-  60%{transform:translateX(4px)}
-  70%{transform:translateX(-2px)}
-  80%{transform:translateX(2px)}
-  90%{transform:translateX(-1px)}
+  0%{transform:translateX(0) rotate(0)}
+  15%{transform:translateX(-5px) rotate(-1.5deg)}
+  30%{transform:translateX(5px) rotate(1.5deg)}
+  45%{transform:translateX(-4px) rotate(-1deg)}
+  60%{transform:translateX(4px) rotate(1deg)}
+  75%{transform:translateX(-2px)}
+  90%{transform:translateX(2px)}
   100%{transform:translateX(0)}
 }
-.btn-pedir.shaking{animation:shake 0.6s ease-in-out}
+.btn-pedir.shaking{animation:shake .65s ease-in-out}
 
-/* ---- MODAL ---- */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1100;align-items:center;justify-content:center;padding:16px}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1100;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active{display:flex}
-.modal-box{background:#fff;border-radius:20px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;padding:0}
-.modal-close{position:absolute;top:14px;right:14px;background:var(--dark);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;z-index:10}
-.modal-content{padding:24px}
-.modal-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.modal-imgs img{border-radius:10px;height:200px;object-fit:cover}
-.modal-title{font-size:20px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:8px}
-.modal-price-wrap{display:flex;align-items:center;gap:12px;margin:10px 0}
-.modal-price-old{font-size:16px;text-decoration:line-through;color:var(--gray)}
-.modal-price-new{font-size:28px;font-weight:900;color:var(--orange)}
-.modal-desc{font-size:14px;color:var(--gray);line-height:1.6;margin:10px 0}
-.modal-delivery{background:#f0fff4;border:1px solid var(--green);border-radius:10px;padding:12px;margin:12px 0;font-size:13px}
+.modal-box{background:#fff;border-radius:22px;max-width:720px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--dark);color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center}
+.modal-content{padding:26px}
+.modal-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:16px}
+.modal-gallery img{border-radius:12px;height:190px;width:100%;object-fit:cover;cursor:pointer;transition:.2s;border:2px solid transparent}
+.modal-gallery img:hover,.modal-gallery img.active-img{border-color:var(--orange)}
+.modal-title{font-size:21px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:8px}
+.modal-price-wrap{display:flex;align-items:center;gap:14px;margin:10px 0;flex-wrap:wrap}
+.modal-price-old{font-size:16px;text-decoration:line-through;color:#aaa}
+.modal-price-new{font-size:30px;font-weight:900;color:var(--orange)}
+.modal-desc{font-size:14px;color:#555;line-height:1.65;margin:12px 0}
+.modal-delivery{background:#f0fff4;border:1px solid var(--green);border-radius:12px;padding:14px;margin:14px 0;font-size:13.5px}
 .modal-delivery strong{color:var(--green)}
-.btn-order{width:100%;background:var(--orange);color:#fff;border:none;padding:14px;border-radius:14px;font-weight:900;font-size:16px;cursor:pointer;margin-top:12px;font-family:'Nunito',sans-serif;transition:.2s}
-.btn-order:hover{background:#e04800}
-
-.review-list{margin-top:20px}
-.review-item{border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px}
+.btn-order{width:100%;background:var(--orange);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:16px;cursor:pointer;margin-top:12px;transition:.2s}
+.btn-order:hover{background:#e04800;transform:scale(1.02)}
+.review-list{margin-top:22px}
+.review-item{border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:11px;background:#fafafa}
 .review-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.review-avatar{width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px}
+.review-avatar{width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;flex-shrink:0}
 .review-name{font-weight:800;font-size:14px}
 .review-stars{color:#f5c518;font-size:13px}
-.review-text{font-size:13px;color:#444;line-height:1.5}
+.review-text{font-size:13px;color:#444;line-height:1.55}
 
-/* ---- ORDER FORM ---- */
-.order-form-section{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1200;align-items:center;justify-content:center;padding:16px}
-.order-form-section.active{display:flex}
-.order-form-box{background:#fff;border-radius:20px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:28px;position:relative}
-.form-title{font-size:20px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:6px}
-.form-prod{font-size:14px;color:var(--gray);margin-bottom:16px}
-.form-price-show{background:#fff8f0;border:2px solid var(--orange);border-radius:12px;padding:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.form-price-show .fprice{font-size:22px;font-weight:900;color:var(--orange)}
-.form-price-show .fold{font-size:13px;text-decoration:line-through;color:var(--gray)}
+/* ORDER FORM */
+.order-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1200;align-items:center;justify-content:center;padding:16px}
+.order-overlay.active{display:flex}
+.order-form-box{background:#fff;border-radius:22px;max-width:540px;width:100%;max-height:92vh;overflow-y:auto;padding:28px;position:relative}
+.form-title{font-size:21px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:6px}
+.form-prod{font-size:14px;color:var(--gray);margin-bottom:14px}
+.form-price-show{background:#fff8f0;border:2.5px solid var(--orange);border-radius:13px;padding:14px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.form-price-show .fprice{font-size:24px;font-weight:900;color:var(--orange)}
+.form-price-show .fold{font-size:13px;text-decoration:line-through;color:#aaa}
 .form-group{margin-bottom:14px}
-.form-group label{font-weight:700;font-size:14px;display:block;margin-bottom:4px}
-.form-group label span.req{color:var(--red)}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;color:var(--dark)}
-.form-group input:focus,.form-group textarea:focus{border-color:var(--orange)}
-.form-group textarea{resize:vertical;min-height:70px}
-.btn-confirm{width:100%;background:var(--green);color:#fff;border:none;padding:14px;border-radius:14px;font-weight:900;font-size:16px;cursor:pointer;margin-top:8px;font-family:'Nunito',sans-serif;transition:.2s}
+.form-group label{font-weight:800;font-size:14px;display:block;margin-bottom:5px}
+.req{color:var(--red)}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:11px;font-size:14px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;color:var(--dark);background:#fafafa}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--orange);background:#fff}
+.form-group textarea{resize:vertical;min-height:72px}
+.btn-confirm{width:100%;background:var(--green);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:16px;cursor:pointer;margin-top:10px;transition:.2s}
 .btn-confirm:hover{background:#009040}
-.btn-cancel{width:100%;background:#eee;color:var(--dark);border:none;padding:11px;border-radius:14px;font-weight:700;font-size:14px;cursor:pointer;margin-top:8px;font-family:'Nunito',sans-serif}
+.btn-cancel-f{width:100%;background:#eee;color:var(--dark);border:none;padding:12px;border-radius:14px;font-weight:700;font-size:14px;cursor:pointer;margin-top:8px}
 
-/* ---- CART DRAWER ---- */
-.cart-drawer{position:fixed;right:-400px;top:0;height:100vh;width:370px;background:#fff;box-shadow:-4px 0 30px rgba(0,0,0,.2);z-index:1300;transition:.35s;overflow-y:auto;padding:20px}
+/* CART DRAWER */
+.cart-drawer{position:fixed;right:-420px;top:0;height:100vh;width:390px;background:#fff;box-shadow:-6px 0 40px rgba(0,0,0,.18);z-index:1300;transition:.35s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:22px}
 .cart-drawer.open{right:0}
-.cart-drawer-title{font-size:20px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.cart-item{display:flex;gap:12px;border-bottom:1px solid var(--border);padding:12px 0}
-.cart-item img{width:70px;height:70px;object-fit:cover;border-radius:8px;background:#f4f4f4}
+.cart-title{font-size:21px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.cart-item{display:flex;gap:12px;border-bottom:1px solid var(--border);padding:13px 0;align-items:center}
+.cart-item img{width:72px;height:72px;object-fit:cover;border-radius:10px;background:#f4f4f4;flex-shrink:0}
 .cart-item-info{flex:1}
-.cart-item-name{font-weight:700;font-size:14px}
+.cart-item-name{font-weight:800;font-size:14px;line-height:1.3;margin-bottom:3px}
 .cart-item-price{color:var(--orange);font-weight:900;font-size:15px}
-.cart-item-remove{color:var(--red);font-size:18px;cursor:pointer;background:none;border:none}
-.cart-total{font-size:18px;font-weight:900;color:var(--orange);text-align:right;margin:16px 0}
-.btn-checkout{width:100%;background:var(--orange);color:#fff;border:none;padding:14px;border-radius:14px;font-weight:900;font-size:16px;cursor:pointer;font-family:'Nunito',sans-serif}
-.empty-cart{text-align:center;color:var(--gray);padding:40px 0;font-size:15px}
+.cart-qty{display:flex;align-items:center;gap:8px;margin-top:5px}
+.qty-btn{background:var(--border);border:none;border-radius:6px;width:26px;height:26px;font-weight:900;cursor:pointer;font-size:14px}
+.qty-val{font-weight:800;font-size:14px;min-width:20px;text-align:center}
+.cart-remove{color:var(--red);background:none;border:none;font-size:20px;cursor:pointer;flex-shrink:0;padding:0 4px}
+.cart-total-row{font-size:18px;font-weight:900;color:var(--orange);text-align:right;margin:18px 0;padding-top:4px}
+.btn-checkout{width:100%;background:var(--orange);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:16px;cursor:pointer;transition:.2s}
+.btn-checkout:hover{background:#e04800}
+.empty-cart{text-align:center;color:var(--gray);padding:48px 0;font-size:15px}
 
-.delivery-calc{background:#fff;max-width:500px;margin:0 auto 30px;border-radius:16px;padding:20px;box-shadow:var(--shadow)}
-.delivery-calc h3{font-size:17px;font-weight:900;margin-bottom:12px;font-family:'Poppins',sans-serif}
-.delivery-result{background:#f0fff4;border:1px solid var(--green);border-radius:10px;padding:12px;font-size:14px;font-weight:700;color:var(--green);margin-top:10px}
+/* DELIVERY CALC */
+.delivery-wrap{max-width:520px;margin:0 auto 36px;background:#fff;border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.delivery-wrap h3{font-size:18px;font-weight:900;margin-bottom:12px;font-family:'Poppins',sans-serif}
+.delivery-result{background:#f0fff4;border:1px solid var(--green);border-radius:11px;padding:13px;font-size:14px;font-weight:700;color:#006630;margin-top:12px;display:none}
 
-footer{background:var(--dark);color:#fff;padding:40px 16px 20px;margin-top:20px}
-.footer-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
-.footer-logo{font-size:28px;font-weight:900;color:var(--orange);margin-bottom:12px}
-.footer-col h4{font-weight:800;margin-bottom:12px;color:var(--orange)}
-.footer-col p,.footer-col li{font-size:13px;color:#bbb;line-height:1.9;list-style:none}
-.footer-bottom{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid #333;font-size:12px;color:#888}
+/* NOTIFICATION */
+.notif{position:fixed;bottom:90px;left:16px;background:var(--dark);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;z-index:1200;display:none;max-width:300px;box-shadow:0 6px 24px rgba(0,0,0,.35);animation:slideUp .4s}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.notif .nn{color:var(--orange)}
 
-.wa-float{position:fixed;bottom:90px;right:20px;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:1000;transition:.2s;text-decoration:none}
-.wa-float:hover{transform:scale(1.1);background:#128C7E}
+/* ROULETTE MODAL */
+.roulette-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;padding:16px}
+.roulette-overlay.active{display:flex}
+.roulette-box{background:#fff;border-radius:26px;max-width:500px;width:100%;padding:32px;text-align:center;position:relative;overflow:hidden}
+.roulette-box::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--orange),#ff9a5c,var(--orange))}
+.roulette-title{font-size:26px;font-weight:900;font-family:'Poppins',sans-serif;margin-bottom:6px;color:var(--dark)}
+.roulette-title span{color:var(--orange)}
+.roulette-sub{font-size:14px;color:var(--gray);margin-bottom:22px}
+.roulette-canvas-wrap{position:relative;width:280px;height:280px;margin:0 auto 20px}
+.roulette-canvas-wrap canvas{border-radius:50%;box-shadow:0 8px 32px rgba(255,82,0,.25)}
+.roulette-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:36px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.roulette-btn{background:var(--orange);color:#fff;border:none;padding:14px 36px;border-radius:30px;font-weight:900;font-size:17px;cursor:pointer;transition:.2s;margin-top:8px}
+.roulette-btn:hover{background:#e04800;transform:scale(1.05)}
+.roulette-btn:disabled{background:#ccc;cursor:not-allowed;transform:none}
+.roulette-result{margin-top:18px;font-size:18px;font-weight:900;color:var(--orange);display:none;animation:slideUp .4s}
+.roulette-close{position:absolute;top:14px;right:14px;background:var(--dark);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.roulette-close:hover{background:#333}
 
+/* ADMIN */
 .admin-btns{position:fixed;bottom:16px;right:16px;display:flex;gap:8px;z-index:1100}
-.admin-btn{width:36px;height:36px;border-radius:50%;border:none;font-weight:900;font-size:14px;cursor:pointer;opacity:.6;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.admin-btn:hover{opacity:1;transform:scale(1.1)}
+.admin-btn{width:38px;height:38px;border-radius:50%;border:none;font-weight:900;font-size:13px;cursor:pointer;opacity:.55;transition:.2s;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.admin-btn:hover{opacity:1;transform:scale(1.12)}
 .admin-btn.r-btn{background:var(--orange);color:#fff}
 .admin-btn.c-btn{background:var(--dark);color:#fff}
 .admin-btn.e-btn{background:#0f3460;color:#fff}
 
-.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto}
+.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:2000;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto}
 .admin-overlay.active{display:flex}
-.admin-panel{background:#fff;border-radius:20px;max-width:960px;width:100%;margin:20px auto;padding:24px;position:relative;max-height:90vh;overflow-y:auto}
+.admin-panel{background:#fff;border-radius:22px;max-width:980px;width:100%;margin:20px auto;padding:26px;position:relative;max-height:90vh;overflow-y:auto}
 .admin-panel h2{font-size:22px;font-weight:900;font-family:'Poppins',sans-serif;color:var(--orange);margin-bottom:20px}
-.admin-product-list{display:grid;gap:12px}
-.admin-product-item{border:2px solid var(--border);border-radius:12px;padding:16px;display:grid;gap:8px}
-.admin-product-item label{font-weight:700;font-size:13px;margin-bottom:2px;display:block}
-.admin-product-item input,.admin-product-item textarea{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif}
-.admin-product-item .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn-save-admin{background:var(--green);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:8px}
-.btn-del-admin{background:var(--red);color:#fff;border:none;padding:6px 12px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;font-family:'Nunito',sans-serif}
-.btn-add-prod{background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px;font-family:'Nunito',sans-serif;margin-bottom:20px}
+.admin-product-item{border:2px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px}
+.admin-product-item label{font-weight:800;font-size:13px;display:block;margin-bottom:3px;margin-top:10px}
+.admin-product-item input,.admin-product-item textarea,.admin-product-item select{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'Nunito',sans-serif}
+.admin-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-save-admin{background:var(--green);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:800;cursor:pointer;margin-top:10px}
+.btn-del-admin{background:var(--red);color:#fff;border:none;padding:6px 12px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px}
+.btn-add-prod{background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:900;cursor:pointer;font-size:15px;margin-bottom:20px}
+.img-preview{width:80px;height:80px;object-fit:cover;border-radius:10px;border:2px solid var(--border);margin-top:6px;cursor:pointer}
 
-/* ---- PANEL DE PEDIDOS MEJORADO ---- */
-.orders-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;padding:14px;background:#f8f8f8;border-radius:12px}
-.orders-toolbar input{flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif;outline:none}
-.orders-toolbar input:focus{border-color:var(--orange)}
-.orders-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
-.stat-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px;text-align:center}
-.stat-card .sv{font-size:22px;font-weight:900;color:var(--orange)}
+.orders-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px}
+.stat-card{background:#fff;border:2px solid var(--border);border-radius:13px;padding:14px;text-align:center}
+.stat-card .sv{font-size:24px;font-weight:900;color:var(--orange)}
 .stat-card .sl{font-size:12px;color:var(--gray);font-weight:700;margin-top:2px}
-.order-card{border:2px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;background:#fff;transition:.2s}
-.order-card:hover{border-color:var(--orange);box-shadow:0 4px 16px rgba(255,82,0,.1)}
-.order-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.order-id{font-size:12px;color:var(--gray);font-weight:700}
-.order-time-badge{background:#fff3e0;border:1px solid var(--orange);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:800;color:var(--orange)}
+.orders-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;padding:14px;background:#f8f8f8;border-radius:13px;align-items:center}
+.orders-toolbar input{flex:1;min-width:160px;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'Nunito',sans-serif;outline:none}
+.orders-toolbar input:focus{border-color:var(--orange)}
+.order-card{border:2px solid var(--border);border-radius:15px;padding:16px;margin-bottom:12px;background:#fff;transition:.2s}
+.order-card:hover{border-color:var(--orange);box-shadow:0 4px 18px rgba(255,82,0,.1)}
 .order-product-name{font-size:15px;font-weight:900;color:var(--dark);font-family:'Poppins',sans-serif;margin-bottom:8px}
 .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:13px}
-.order-field{display:flex;flex-direction:column;gap:2px}
-.order-field .of-label{font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.5px}
+.order-field .of-label{font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;display:block}
 .order-field .of-value{font-weight:700;color:var(--dark)}
-.order-price-row{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.order-price-row{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap}
 .order-price-new{font-size:20px;font-weight:900;color:var(--orange)}
-.order-price-old{font-size:13px;text-decoration:line-through;color:var(--gray)}
-.order-discount-badge{background:#fff0e6;color:var(--orange);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:800}
-.order-wa-btn{margin-left:auto;background:#25D366;color:#fff;border:none;border-radius:10px;padding:7px 14px;font-weight:800;font-size:12px;cursor:pointer;font-family:'Nunito',sans-serif}
-.order-nota{background:#fffbe6;border:1px solid #ffe082;border-radius:8px;padding:8px 12px;font-size:12px;color:#7a6000;margin-top:8px;font-weight:700}
-.no-orders{text-align:center;padding:40px 20px;color:var(--gray)}
-.no-orders .no-ico{font-size:48px;margin-bottom:12px}
+.order-price-old{font-size:13px;text-decoration:line-through;color:#aaa}
+.order-wa-btn{margin-left:auto;background:#25D366;color:#fff;border:none;border-radius:10px;padding:8px 16px;font-weight:800;font-size:12px;cursor:pointer}
+.order-nota{background:#fffbe6;border:1px solid #ffe082;border-radius:9px;padding:8px 12px;font-size:12px;color:#7a6000;margin-top:8px;font-weight:700}
+.no-orders{text-align:center;padding:40px;color:var(--gray);font-size:15px}
+.visitors-badge{background:var(--dark);color:#fff;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.visitors-dot{width:10px;height:10px;border-radius:50%;background:var(--green);animation:blink 1.1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
 
-/* ---- PAGE EDITOR ---- */
-.page-editor-section{display:grid;gap:14px}
-.page-editor-group{border:1px solid var(--border);border-radius:12px;padding:14px}
-.page-editor-group label{font-weight:800;font-size:14px;display:block;margin-bottom:6px;color:var(--dark)}
-.page-editor-group input,.page-editor-group textarea{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif}
-.page-editor-group textarea{min-height:60px;resize:vertical}
-
-.visitors-badge{background:var(--dark);color:#fff;border-radius:12px;padding:10px 16px;font-size:13px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.visitors-dot{width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
-.search-dropdown{position:absolute;top:110%;left:0;right:0;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:500;display:none;max-height:280px;overflow-y:auto}
+/* SEARCH DROPDOWN */
+.search-dropdown{position:absolute;top:108%;left:0;right:0;background:#fff;border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.14);z-index:600;display:none;max-height:300px;overflow-y:auto}
 .search-dropdown.open{display:block}
-.search-dropdown-item{padding:10px 16px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--border);transition:.15px;display:flex;align-items:center;gap:10px}
-.search-dropdown-item:hover{background:#fff8f0}
-.search-dropdown-item img{width:36px;height:36px;object-fit:cover;border-radius:6px;background:#f4f4f4}
+.search-dd-item{padding:11px 16px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:.15s}
+.search-dd-item:hover{background:#fff8f0}
+.search-dd-item img{width:40px;height:40px;object-fit:cover;border-radius:8px}
+.search-dd-item .sdi-name{font-weight:800;font-size:14px}
+.search-dd-item .sdi-price{color:var(--orange);font-weight:900;font-size:13px}
 
-.admin-review-item{border:1.5px solid var(--border);border-radius:10px;padding:12px;display:grid;gap:6px;margin-bottom:10px}
-.admin-review-item input,.admin-review-item textarea,.admin-review-item select{width:100%;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'Nunito',sans-serif}
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:90px;right:20px;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,.3);z-index:1000;transition:.2s}
+.wa-float:hover{transform:scale(1.12);background:#128C7E}
 
-#audio-autoplay{display:none}
+/* FLOAT MSG */
+.float-msg{position:fixed;bottom:160px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:11px 22px;border-radius:22px;font-weight:700;font-size:14px;z-index:9999;animation:slideUp .4s;white-space:nowrap}
 
+/* PAGE EDITOR */
+.page-editor-group{border:1.5px solid var(--border);border-radius:13px;padding:16px;margin-bottom:14px}
+.page-editor-group label{font-weight:800;font-size:14px;display:block;margin-bottom:6px;color:var(--dark)}
+.page-editor-group input,.page-editor-group textarea{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'Nunito',sans-serif}
+.page-editor-group textarea{min-height:64px;resize:vertical}
+.admin-review-item{border:1.5px solid var(--border);border-radius:11px;padding:13px;margin-bottom:10px;display:grid;gap:6px}
+.admin-review-item input,.admin-review-item textarea,.admin-review-item select{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif}
+
+/* RESPONSIVE */
 @media(max-width:700px){
-  .header-inner{flex-wrap:wrap;gap:10px}
-  .products-grid{grid-template-columns:repeat(2,1fr)}
-  .modal-imgs{grid-template-columns:1fr}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .modal-gallery{grid-template-columns:1fr 1fr}
   .cart-drawer{width:100%;right:-110%}
-  .admin-product-item .row2{grid-template-columns:1fr}
-  .badges-inner{gap:0}
-  .badge-item{padding:10px 12px;font-size:12px}
+  .slide-content{padding:24px}
+  .admin-row2{grid-template-columns:1fr}
   .order-grid{grid-template-columns:1fr}
   .orders-stats{grid-template-columns:1fr 1fr}
-  .card-btns{grid-template-columns:1fr}
+  .card-btns{grid-template-columns:1fr 1fr}
+  .badge-item{padding:9px 12px;font-size:12px}
 }
-@media(max-width:400px){
+@media(max-width:380px){
   .products-grid{grid-template-columns:1fr}
 }
+
+/* GIF/VIDEO in modal */
+.modal-media-item{border-radius:12px;overflow:hidden;height:190px;object-fit:cover;width:100%}
 </style>
 </head>
 <body>
 
-<audio id="audio-autoplay" autoplay loop>
-  <source id="audio-src" src="" type="audio/mpeg">
-</audio>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-scroll" id="topbar-text">
+    🇨🇴 Envíos a TODA Colombia &nbsp;|&nbsp; 💵 PAGO CONTRA ENTREGA &nbsp;|&nbsp; 📦 Interrapidísimo · Coordinadora · Envia &nbsp;|&nbsp; ⭐ +500 clientes felices &nbsp;|&nbsp; 🔒 Compra 100% segura &nbsp;|&nbsp; 🚚 Envío GRATIS en todos los productos
+  </div>
+</div>
 
-<div class="topbar">🇨🇴 Envíos a toda Colombia &nbsp;|&nbsp; <span>¡PAGO CONTRA ENTREGA!</span> &nbsp;|&nbsp; 📦 Interrapidísimo · Coordinadora · Envia</div>
-
+<!-- HEADER -->
 <header>
   <div class="header-inner">
     <div class="logo-area">
-      <svg class="logo-svg" viewBox="0 0 200 70" xmlns="http://www.w3.org/2000/svg" id="main-logo">
-        <rect width="200" height="70" rx="10" fill="#FF5200"/>
-        <text x="16" y="52" font-family="Poppins,sans-serif" font-weight="900" font-size="38" fill="#1a1a2e" letter-spacing="-1">TROGÜI</text>
-      </svg>
+      <img src="https://i.imgur.com/7QZqKhP.png" alt="TROGÜI" class="logo-img" onerror="this.outerHTML='<svg width=\'140\' height=\'50\' viewBox=\'0 0 140 50\' xmlns=\'http://www.w3.org/2000/svg\'><rect width=\'140\' height=\'50\' rx=\'8\' fill=\'#FF5200\'/><text x=\'10\' y=\'36\' font-family=\'Poppins,sans-serif\' font-weight=\'900\' font-size=\'28\' fill=\'#1a1a2e\'>TROGÜI</text></svg>'">
     </div>
     <div class="search-bar" style="position:relative">
-      <input type="text" id="search-input" placeholder="🔍  Buscar productos..." autocomplete="off" oninput="searchProducts(this.value)">
-      <button onclick="searchProducts(document.getElementById('search-input').value)">🔍</button>
+      <input type="text" id="search-input" placeholder="🔍  Buscar productos..." autocomplete="off" oninput="searchProducts(this.value)" onfocus="searchProducts(this.value)">
+      <button onclick="doSearch()">🔍</button>
       <div class="search-dropdown" id="search-dropdown"></div>
     </div>
     <div class="header-actions">
-      <a href="https://wa.link/lhneng" target="_blank" class="whatsapp-btn">📱 320 657 2598</a>
-      <div class="social-links">
-        <a href="https://www.instagram.com/store_trog?igsh=MWZleXFlY21weDhnMQ%3D%3D&utm_source=qr" target="_blank" class="ig" title="Instagram">📸</a>
-        <a href="https://www.tiktok.com/@trogui_store?_r=1&_t=ZS-96QXU6BiNk2" target="_blank" class="tk" title="TikTok">🎵</a>
+      <a href="https://wa.link/lhneng" target="_blank" class="wa-btn">📱 320 657 2598</a>
+      <div class="socials">
+        <a href="https://www.instagram.com/store_trog" target="_blank" class="ig" title="Instagram">📸</a>
+        <a href="https://www.tiktok.com/@trogui_store" target="_blank" class="tk" title="TikTok">🎵</a>
         <a href="https://wa.link/lhneng" target="_blank" class="wa" title="WhatsApp">💬</a>
       </div>
       <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-count" id="cart-count">0</span></button>
@@ -324,41 +349,47 @@ footer{background:var(--dark);color:#fff;padding:40px 16px 20px;margin-top:20px}
   </div>
 </header>
 
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="active" onclick="filterCat('all',this)">🏠 Tienda</a>
-    <a href="#" onclick="filterCat('belleza',this)">💄 Belleza</a>
-    <a href="#" onclick="filterCat('hogar',this)">🏡 Hogar</a>
-    <a href="#" onclick="filterCat('tecnologia',this)">📱 Tecnología</a>
-    <a href="#" onclick="filterCat('salud',this)">💊 Salud</a>
-    <a href="#" onclick="filterCat('fitness',this)">🏋️ Fitness</a>
-    <a href="#" onclick="filterCat('juguetes',this)">🧸 Juguetes</a>
-    <a href="#" onclick="filterCat('accesorios',this)">👜 Accesorios</a>
+    <a href="#products" class="active" onclick="filterCat('all',this)">🏠 Todo</a>
+    <a href="#products" onclick="filterCat('hogar',this)">🏡 Hogar</a>
+    <a href="#products" onclick="filterCat('tecnologia',this)">📱 Tecnología</a>
+    <a href="#products" onclick="filterCat('salud',this)">💊 Salud</a>
+    <a href="#products" onclick="filterCat('belleza',this)">💄 Belleza</a>
+    <a href="#products" onclick="filterCat('fitness',this)">🏋️ Fitness</a>
+    <a href="#products" onclick="filterCat('accesorios',this)">👜 Accesorios</a>
+    <a href="#products" onclick="filterCat('juguetes',this)">🧸 Juguetes</a>
+    <a href="#products" onclick="filterCat('cocina',this)">🍳 Cocina</a>
   </div>
 </nav>
 
+<!-- SLIDER -->
 <div class="slider-section">
-  <div class="slider-wrap" id="main-slider">
+  <div class="slider-wrap">
     <div class="slider-track" id="slider-track">
       <div class="slide slide-1">
+        <div class="slide-deco"></div>
         <div class="slide-content">
-          <h2>🇨🇴 Envíos Gratis<br>a <span>Toda Colombia</span></h2>
-          <p>Más de 45 productos con descuentos increíbles • Pago contra entrega</p>
+          <h2>🇨🇴 Envío Gratis<br>a <span>Toda Colombia</span></h2>
+          <p>Más de 35 productos increíbles · Pago contra entrega · Sin riesgo</p>
           <a href="#products" class="slide-btn">¡Ver Ofertas!</a>
         </div>
       </div>
       <div class="slide slide-2">
+        <div class="slide-deco"></div>
         <div class="slide-content">
-          <h2>⚡ Pago<br><span>Contra Entrega</span></h2>
-          <p>Sin riesgo, sin tarjetas. Pagas cuando recibes tu pedido en casa.</p>
-          <a href="#products" class="slide-btn">Ver Productos</a>
+          <h2>💵 Pago<br><span>Contra Entrega</span></h2>
+          <p>Pagas cuando recibes tu pedido. Sin tarjeta, sin riesgo, con confianza.</p>
+          <a href="#products" class="slide-btn">Comprar Ahora</a>
         </div>
       </div>
       <div class="slide slide-3">
+        <div class="slide-deco"></div>
         <div class="slide-content">
           <h2>📦 Recibe en<br><span>3 a 7 Días</span></h2>
-          <p>Coordinadora · Interrapidísimo · Envia · Entrega a domicilio</p>
-          <a href="#products" class="slide-btn">Comprar Ahora</a>
+          <p>Enviamos con Coordinadora, Interrapidísimo y Envia a todo el país.</p>
+          <a href="#products" class="slide-btn">Ver Productos</a>
         </div>
       </div>
     </div>
@@ -372,33 +403,37 @@ footer{background:var(--dark);color:#fff;padding:40px 16px 20px;margin-top:20px}
   </div>
 </div>
 
+<!-- BADGES -->
 <div class="badges-strip">
   <div class="badges-inner">
-    <div class="badge-item">✅ <b>Pago Contra Entrega</b></div>
-    <div class="badge-item">🚚 <b>Envío Gratis Colombia</b></div>
-    <div class="badge-item">📦 <b>3 a 7 días hábiles</b></div>
-    <div class="badge-item">🔒 <b>Compra 100% Segura</b></div>
-    <div class="badge-item">⭐ <b>+500 Clientes Felices</b></div>
+    <div class="badge-item">✅ <em>Pago Contra Entrega</em></div>
+    <div class="badge-item">🚚 <em>Envío GRATIS</em></div>
+    <div class="badge-item">📦 <em>3 a 7 días hábiles</em></div>
+    <div class="badge-item">🔒 <em>Compra Segura</em></div>
+    <div class="badge-item">⭐ <em>+500 Clientes Felices</em></div>
   </div>
 </div>
 
+<!-- NOTIFICATION -->
 <div class="notif" id="notif-box"></div>
 
+<!-- PRODUCTS -->
 <div id="products">
-  <h2 class="section-title">🔥 Productos en <span>OFERTA</span></h2>
-  <p class="section-sub">Envío gratis a toda Colombia · Pago contra entrega · Solo quedan pocas unidades</p>
+  <h2 class="section-title" id="products-title">🔥 Productos en <span>OFERTA</span></h2>
+  <p class="section-sub">Envío gratis a toda Colombia · Pago contra entrega · ¡Precios increíbles!</p>
   <div class="products-section">
     <div class="products-grid" id="products-grid"></div>
   </div>
 </div>
 
-<div style="max-width:1300px;margin:0 auto;padding:0 12px 20px">
-  <div class="delivery-calc">
+<!-- DELIVERY CALC -->
+<div style="max-width:1320px;margin:0 auto;padding:0 14px 20px">
+  <div class="delivery-wrap">
     <h3>📅 ¿Cuándo llega mi pedido?</h3>
-    <p style="font-size:13px;color:var(--gray);margin-bottom:10px">Ingresa tu ciudad y te decimos la fecha estimada de entrega:</p>
-    <select id="delivery-city" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:10px;font-size:14px;margin-bottom:8px;font-family:'Nunito',sans-serif">
+    <p style="font-size:13px;color:var(--gray);margin-bottom:12px">Selecciona tu ciudad y te calculamos la fecha estimada:</p>
+    <select id="delivery-city" style="width:100%;padding:11px;border:2px solid var(--border);border-radius:11px;font-size:14px;font-family:'Nunito',sans-serif;margin-bottom:10px;outline:none">
       <option value="">-- Selecciona tu ciudad --</option>
-      <option value="3">Bogotá</option>
+      <option value="3">Bogotá D.C.</option>
       <option value="4">Medellín</option>
       <option value="4">Cali</option>
       <option value="5">Barranquilla</option>
@@ -410,8 +445,8 @@ footer{background:var(--dark);color:#fff;padding:40px 16px 20px;margin-top:20px}
       <option value="7">Montería</option>
       <option value="7">Leticia</option>
     </select>
-    <button onclick="calcDelivery()" style="background:var(--orange);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">Calcular</button>
-    <div class="delivery-result" id="delivery-result" style="display:none"></div>
+    <button onclick="calcDelivery()" style="background:var(--orange);color:#fff;border:none;padding:11px 26px;border-radius:11px;font-weight:800;cursor:pointer;font-size:14px">Calcular Fecha</button>
+    <div class="delivery-result" id="delivery-result"></div>
   </div>
 </div>
 
@@ -424,302 +459,399 @@ footer{background:var(--dark);color:#fff;padding:40px 16px 20px;margin-top:20px}
 </div>
 
 <!-- ORDER FORM -->
-<div class="order-form-section" id="order-form-section">
+<div class="order-overlay" id="order-overlay">
   <div class="order-form-box">
     <h2 class="form-title">📋 Confirmar Pedido</h2>
     <p class="form-prod" id="form-prod-name"></p>
     <div class="form-price-show" id="form-price-show"></div>
-    <div class="form-group">
-      <label>Nombre <span class="req">*</span></label>
-      <input type="text" id="f-nombre" placeholder="Digita tu nombre completo">
-    </div>
-    <div class="form-group">
-      <label>Apellido <span class="req">*</span></label>
-      <input type="text" id="f-apellido" placeholder="Digita tu apellido">
-    </div>
+    <div class="form-group"><label>Nombre <span class="req">*</span></label><input type="text" id="f-nombre" placeholder="Tu nombre completo"></div>
+    <div class="form-group"><label>Apellido <span class="req">*</span></label><input type="text" id="f-apellido" placeholder="Tu apellido"></div>
     <div class="form-group">
       <label>Departamento <span class="req">*</span></label>
       <select id="f-departamento">
-        <option value="">-- Selecciona departamento --</option>
-        <option>Amazonas</option><option>Antioquia</option><option>Arauca</option>
-        <option>Atlántico</option><option>Bolívar</option><option>Boyacá</option>
-        <option>Caldas</option><option>Caquetá</option><option>Casanare</option>
-        <option>Cauca</option><option>Cesar</option><option>Chocó</option>
-        <option>Córdoba</option><option>Cundinamarca</option><option>Guainía</option>
-        <option>Guaviare</option><option>Huila</option><option>La Guajira</option>
-        <option>Magdalena</option><option>Meta</option><option>Nariño</option>
-        <option>Norte de Santander</option><option>Putumayo</option><option>Quindío</option>
-        <option>Risaralda</option><option>San Andrés y Providencia</option>
-        <option>Santander</option><option>Sucre</option><option>Tolima</option>
-        <option>Valle del Cauca</option><option>Vaupés</option><option>Vichada</option>
-        <option>Bogotá D.C.</option>
+        <option value="">-- Selecciona --</option>
+        <option>Amazonas</option><option>Antioquia</option><option>Arauca</option><option>Atlántico</option>
+        <option>Bolívar</option><option>Boyacá</option><option>Caldas</option><option>Caquetá</option>
+        <option>Casanare</option><option>Cauca</option><option>Cesar</option><option>Chocó</option>
+        <option>Córdoba</option><option>Cundinamarca</option><option>Guainía</option><option>Guaviare</option>
+        <option>Huila</option><option>La Guajira</option><option>Magdalena</option><option>Meta</option>
+        <option>Nariño</option><option>Norte de Santander</option><option>Putumayo</option><option>Quindío</option>
+        <option>Risaralda</option><option>San Andrés y Providencia</option><option>Santander</option>
+        <option>Sucre</option><option>Tolima</option><option>Valle del Cauca</option><option>Vaupés</option>
+        <option>Vichada</option><option>Bogotá D.C.</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>Ciudad o Municipio <span class="req">*</span></label>
-      <input type="text" id="f-ciudad" placeholder="Ej: Bogotá, Medellín, Cali...">
-    </div>
-    <div class="form-group">
-      <label>Dirección completa <span class="req">*</span></label>
-      <input type="text" id="f-direccion" placeholder="Calle, carrera, barrio, detalle...">
-    </div>
-    <div class="form-group">
-      <label>Teléfono <span class="req">*</span></label>
-      <input type="tel" id="f-telefono" placeholder="Ej: 3001234567">
-    </div>
-    <div class="form-group">
-      <label>Nota (opcional)</label>
-      <textarea id="f-nota" placeholder="Color, talla, instrucciones especiales..."></textarea>
-    </div>
+    <div class="form-group"><label>Ciudad <span class="req">*</span></label><input type="text" id="f-ciudad" placeholder="Ej: Bogotá, Medellín, Cali..."></div>
+    <div class="form-group"><label>Dirección completa <span class="req">*</span></label><input type="text" id="f-direccion" placeholder="Calle, carrera, barrio, apto..."></div>
+    <div class="form-group"><label>Teléfono <span class="req">*</span></label><input type="tel" id="f-telefono" placeholder="Ej: 3001234567"></div>
+    <div class="form-group"><label>Nota (opcional)</label><textarea id="f-nota" placeholder="Color, talla, variante u otro detalle..."></textarea></div>
     <button class="btn-confirm" onclick="confirmOrder()">✅ Confirmar Pedido por WhatsApp</button>
-    <button class="btn-cancel" onclick="closeOrderForm()">Cancelar</button>
+    <button class="btn-cancel-f" onclick="closeOrderForm()">Cancelar</button>
   </div>
 </div>
 
 <!-- CART DRAWER -->
 <div class="cart-drawer" id="cart-drawer">
-  <div class="cart-drawer-title">
-    🛒 Mi Carrito
-    <button onclick="toggleCart()" style="background:none;border:none;font-size:22px;cursor:pointer">✕</button>
-  </div>
+  <div class="cart-title">🛒 Mi Carrito <button onclick="toggleCart()" style="background:none;border:none;font-size:24px;cursor:pointer">✕</button></div>
   <div id="cart-items-list"></div>
-  <div class="cart-total" id="cart-total"></div>
-  <button class="btn-checkout" onclick="checkoutCart()" id="btn-checkout" style="display:none">Pedir por WhatsApp 💬</button>
+  <div class="cart-total-row" id="cart-total"></div>
+  <button class="btn-checkout" id="btn-checkout" onclick="checkoutCart()" style="display:none">Pedir Todo por WhatsApp 💬</button>
 </div>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-col">
-      <div class="footer-logo">TROGÜI</div>
-      <p>Tienda colombiana de confianza. Enviamos a todo el país con las mejores transportadoras.</p>
-      <div style="display:flex;gap:10px;margin-top:12px">
-        <a href="https://wa.link/lhneng" target="_blank" style="color:#25D366;font-size:22px">💬</a>
-        <a href="https://www.instagram.com/store_trog" target="_blank" style="font-size:22px">📸</a>
-        <a href="https://www.tiktok.com/@trogui_store" target="_blank" style="color:#fff;font-size:22px">🎵</a>
-      </div>
+<!-- ROULETTE MODAL -->
+<div class="roulette-overlay" id="roulette-overlay">
+  <div class="roulette-box">
+    <button class="roulette-close" onclick="closeRoulette()">✕</button>
+    <div class="roulette-title">🎡 ¡Gira y <span>Gana!</span></div>
+    <p class="roulette-sub">¡Gira la ruleta y obtén un premio especial para tu pedido!</p>
+    <div class="roulette-canvas-wrap">
+      <div class="roulette-pointer">▼</div>
+      <canvas id="roulette-canvas" width="280" height="280"></canvas>
     </div>
-    <div class="footer-col">
-      <h4>Información</h4>
-      <ul>
-        <li>📞 Línea: 320 657 2598</li>
-        <li>📧 trogui.store@gmail.com</li>
-        <li>🇨🇴 Colombia - Nacional</li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Transportadoras</h4>
-      <ul>
-        <li>📦 Interrapidísimo</li>
-        <li>📦 Coordinadora</li>
-        <li>📦 Envia</li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Métodos de Pago</h4>
-      <ul>
-        <li>💵 Contra Entrega</li>
-        <li>🏦 Transferencia</li>
-        <li>💳 Nequi / Daviplata</li>
-      </ul>
-    </div>
+    <button class="roulette-btn" id="roulette-btn" onclick="spinRoulette()">¡Girar Ruleta! 🎉</button>
+    <div class="roulette-result" id="roulette-result"></div>
   </div>
-  <div class="footer-bottom">© 2025 TROGÜI · Tienda Colombiana de Confianza 🇨🇴</div>
-</footer>
+</div>
 
-<a href="https://wa.link/lhneng" target="_blank" class="wa-float" title="WhatsApp">💬</a>
-
+<!-- ADMIN PANELS -->
 <div class="admin-btns">
   <button class="admin-btn r-btn" title="Editar Productos" onclick="adminAuth('r')">R</button>
   <button class="admin-btn c-btn" title="Ver Pedidos" onclick="adminAuth('c')">C</button>
   <button class="admin-btn e-btn" title="Editar Página" onclick="adminAuth('e')">E</button>
 </div>
 
-<!-- ADMIN PANEL R -->
+<!-- ADMIN R: PRODUCTS -->
 <div class="admin-overlay" id="admin-r">
   <div class="admin-panel">
     <h2>✏️ Editor de Productos</h2>
-    <div class="visitors-badge">
-      <span class="visitors-dot"></span>
-      <span id="visitors-count">0</span> personas viendo la página ahora
-    </div>
-    <button class="btn-add-prod" onclick="addNewProduct()">+ Agregar Nuevo Producto</button>
-    <div class="admin-product-list" id="admin-product-list"></div>
-    <div style="display:flex;gap:10px;margin-top:20px">
-      <button class="btn-save-admin" onclick="saveProducts()">💾 Guardar Cambios</button>
+    <div class="visitors-badge"><span class="visitors-dot"></span><span id="v1">0</span> personas en la página ahora</div>
+    <button class="btn-add-prod" onclick="addNewProduct()">+ Agregar Producto</button>
+    <div id="admin-product-list"></div>
+    <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+      <button class="btn-save-admin" onclick="saveAllProducts()">💾 Guardar Todos</button>
       <button onclick="closeAdmin('admin-r')" style="background:#eee;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:700">Cerrar</button>
     </div>
   </div>
 </div>
 
-<!-- ADMIN PANEL C - PEDIDOS MEJORADO -->
+<!-- ADMIN C: ORDERS -->
 <div class="admin-overlay" id="admin-c">
   <div class="admin-panel">
     <h2>📦 Pedidos Recibidos</h2>
-    <div class="visitors-badge">
-      <span class="visitors-dot"></span>
-      <span id="visitors-count2">0</span> personas viendo la página ahora
-    </div>
-    <!-- Stats -->
+    <div class="visitors-badge"><span class="visitors-dot"></span><span id="v2">0</span> personas en la página ahora</div>
     <div class="orders-stats" id="orders-stats"></div>
-    <!-- Toolbar -->
     <div class="orders-toolbar">
       <input type="text" id="order-search" placeholder="🔍 Buscar por nombre, ciudad, producto..." oninput="filterOrders(this.value)">
-      <button onclick="exportOrdersCSV()" style="background:var(--green);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap">📥 Exportar CSV</button>
-      <button onclick="clearOrders()" style="background:var(--red);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap">🗑️ Limpiar</button>
+      <button onclick="exportCSV()" style="background:var(--green);color:#fff;border:none;padding:9px 16px;border-radius:9px;font-weight:800;cursor:pointer;white-space:nowrap">📥 Exportar CSV</button>
+      <button onclick="clearOrders()" style="background:var(--red);color:#fff;border:none;padding:9px 14px;border-radius:9px;font-weight:700;cursor:pointer;white-space:nowrap">🗑️ Limpiar</button>
     </div>
-    <!-- Orders list -->
     <div id="admin-orders-list"></div>
-    <div style="margin-top:16px">
-      <button onclick="closeAdmin('admin-c')" style="background:#eee;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:700">Cerrar</button>
-    </div>
+    <button onclick="closeAdmin('admin-c')" style="background:#eee;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:700;margin-top:16px">Cerrar</button>
   </div>
 </div>
 
-<!-- ADMIN PANEL E -->
+<!-- ADMIN E: PAGE EDITOR -->
 <div class="admin-overlay" id="admin-e">
   <div class="admin-panel">
     <h2>🎨 Editor de Página</h2>
-    <div class="page-editor-section">
-      <div class="page-editor-group">
-        <label>🔊 Audio de Bienvenida (URL MP3)</label>
-        <input type="text" id="audio-url-input" placeholder="https://... .mp3">
-        <button class="btn-save-admin" onclick="setAudio()" style="margin-top:8px">Establecer Audio</button>
-      </div>
-      <div class="page-editor-group">
-        <label>🏷️ Texto del TopBar</label>
-        <input type="text" id="edit-topbar" placeholder="Texto del top bar">
-        <button class="btn-save-admin" onclick="savePageSetting('topbar')" style="margin-top:8px">Guardar</button>
-      </div>
-      <div class="page-editor-group">
-        <label>📝 Título Sección Productos</label>
-        <input type="text" id="edit-prod-title" placeholder="Título de sección">
-        <button class="btn-save-admin" onclick="savePageSetting('prod-title')" style="margin-top:8px">Guardar</button>
-      </div>
-      <div class="page-editor-group">
-        <label>⭐ Editar Reseñas</label>
-        <div id="admin-reviews-list"></div>
-        <button class="btn-save-admin" onclick="saveReviews()">💾 Guardar Reseñas</button>
-      </div>
+    <div class="page-editor-group">
+      <label>🔊 URL de Audio/Música de Fondo (MP3)</label>
+      <input type="text" id="audio-url" placeholder="https://... .mp3">
+      <button class="btn-save-admin" onclick="setAudio()" style="margin-top:8px">Aplicar Audio</button>
     </div>
-    <div style="margin-top:20px">
-      <button onclick="closeAdmin('admin-e')" style="background:#eee;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:700">Cerrar</button>
+    <div class="page-editor-group">
+      <label>📢 Texto del Marquee (Barra superior)</label>
+      <input type="text" id="edit-topbar" placeholder="Texto scrolling del topbar">
+      <button class="btn-save-admin" onclick="saveSetting('topbar')" style="margin-top:8px">Guardar</button>
     </div>
+    <div class="page-editor-group">
+      <label>🏷️ Título de Sección Productos</label>
+      <input type="text" id="edit-prod-title" placeholder="Ej: 🔥 Productos en OFERTA">
+      <button class="btn-save-admin" onclick="saveSetting('prod-title')" style="margin-top:8px">Guardar</button>
+    </div>
+    <div class="page-editor-group">
+      <label>⭐ Editar Reseñas</label>
+      <div id="admin-reviews-list"></div>
+      <button class="btn-save-admin" onclick="saveReviews()">💾 Guardar Reseñas</button>
+    </div>
+    <button onclick="closeAdmin('admin-e')" style="background:#eee;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:700;margin-top:16px">Cerrar</button>
   </div>
 </div>
 
+<a href="https://wa.link/lhneng" target="_blank" class="wa-float" title="WhatsApp">💬</a>
+<audio id="bg-audio" loop style="display:none"><source id="bg-audio-src" src="" type="audio/mpeg"></audio>
+
+<footer style="background:var(--dark);color:#fff;padding:44px 16px 22px;margin-top:30px">
+  <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px">
+    <div>
+      <div style="font-size:30px;font-weight:900;color:var(--orange);margin-bottom:12px;font-family:'Poppins',sans-serif">TROGÜI</div>
+      <p style="font-size:13px;color:#bbb;line-height:1.8">Tienda colombiana de confianza. Enviamos a todo el país con las mejores transportadoras.</p>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <a href="https://wa.link/lhneng" target="_blank" style="color:#25D366;font-size:24px">💬</a>
+        <a href="https://www.instagram.com/store_trog" target="_blank" style="font-size:24px">📸</a>
+        <a href="https://www.tiktok.com/@trogui_store" target="_blank" style="color:#fff;font-size:24px">🎵</a>
+      </div>
+    </div>
+    <div>
+      <h4 style="font-weight:800;margin-bottom:12px;color:var(--orange)">Contacto</h4>
+      <ul style="list-style:none;font-size:13px;color:#bbb;line-height:2">
+        <li>📞 320 657 2598</li>
+        <li>📧 trogui.store@gmail.com</li>
+        <li>🇨🇴 Colombia - Nacional</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-weight:800;margin-bottom:12px;color:var(--orange)">Transportadoras</h4>
+      <ul style="list-style:none;font-size:13px;color:#bbb;line-height:2">
+        <li>📦 Interrapidísimo</li>
+        <li>📦 Coordinadora</li>
+        <li>📦 Envia</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-weight:800;margin-bottom:12px;color:var(--orange)">Pagos</h4>
+      <ul style="list-style:none;font-size:13px;color:#bbb;line-height:2">
+        <li>💵 Contra Entrega</li>
+        <li>🏦 Transferencia</li>
+        <li>💳 Nequi / Daviplata</li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid #333;font-size:12px;color:#888">© 2025 TROGÜI · Tienda Colombiana de Confianza 🇨🇴</div>
+</footer>
+
 <script>
 const ADMIN_PASS = '4325';
-
-let products = JSON.parse(localStorage.getItem('trogui_products') || 'null') || [
-  {id:'P001',name:'Quita Callos Profesional',cat:'belleza',img:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400',img2:'https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?w=400',price:49000,oldPrice:89000,desc:'Elimina callos y durezas de forma rápida y segura. Resultado desde la primera aplicación. Incluye lima especial.',sold:120,stars:5,lastUnits:true,timer:30*60,cat:'belleza'},
-  {id:'P002',name:'Masajeador Eléctrico Cervical',cat:'salud',img:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400',img2:'https://images.unsplash.com/photo-1585559609834-b89c95c17c72?w=400',price:79000,oldPrice:130000,desc:'Alivio inmediato del dolor de cuello y espalda. 8 modos de masaje. Calor infrarrojo. Recargable USB.',sold:300,stars:5,lastUnits:false,timer:2*60*60,cat:'salud'},
-  {id:'P003',name:'Plancha de Cabello Profesional',cat:'belleza',img:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400',img2:'https://images.unsplash.com/photo-1527799820374-87ae27d38c85?w=400',price:89000,oldPrice:160000,desc:'Plancha cerámica profesional con control de temperatura. Alisado perfecto sin dañar el cabello.',sold:80,stars:4,lastUnits:true,timer:60*60,cat:'belleza'},
-  {id:'P004',name:'Rodillo Facial Jade Anti-Edad',cat:'belleza',img:'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400',img2:'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400',price:44000,oldPrice:75000,desc:'Reduce bolsas, ojeras y arrugas. Mejora la circulación facial. Piedra de jade natural.',sold:210,stars:5,lastUnits:false,timer:45*60,cat:'belleza'},
-  {id:'P005',name:'Organizador Cocina Giratorio',cat:'hogar',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',img2:'https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?w=400',price:54000,oldPrice:90000,desc:'Organizador 360° para especias, salsas y condimentos. Ahorra espacio. Fácil limpieza.',sold:175,stars:5,lastUnits:false,timer:24*60*60,cat:'hogar'},
-  {id:'P006',name:'Lámpara LED Solar Jardín',cat:'hogar',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',img2:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400',price:49000,oldPrice:85000,desc:'Pack x4 lámparas solares. Enciende automáticamente al oscurecer. Resistente al agua. Sin cables.',sold:90,stars:4,lastUnits:true,timer:3*60*60,cat:'hogar'},
-  {id:'P007',name:'Banda Resistencia Fitness',cat:'fitness',img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400',img2:'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=400',price:39000,oldPrice:70000,desc:'Set de 5 bandas elásticas. Ideal para glúteos, piernas y brazos. Material premium antirasgado.',sold:400,stars:5,lastUnits:false,timer:2*60*60,cat:'fitness'},
-  {id:'P008',name:'Smartwatch Deportivo',cat:'tecnologia',img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400',img2:'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=400',price:119000,oldPrice:199000,desc:'Monitor cardíaco, GPS, 20+ modos deporte. Batería 7 días. Compatible Android/iPhone.',sold:150,stars:5,lastUnits:true,timer:60*60,cat:'tecnologia'},
-  {id:'P009',name:'Audífonos Bluetooth Inalámbricos',cat:'tecnologia',img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',img2:'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400',price:84000,oldPrice:149000,desc:'Sonido HD. Cancelación de ruido activa. Batería 40 horas. Carga rápida 15 min.',sold:320,stars:5,lastUnits:false,timer:6*60*60,cat:'tecnologia'},
-  {id:'P010',name:'Cepillo Eléctrico Ultrasónico',cat:'salud',img:'https://images.unsplash.com/photo-1559304787-1a0c9c1a2c2e?w=400',img2:'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400',price:69000,oldPrice:110000,desc:'40,000 vibraciones por minuto. 3 modos de limpieza. Cabezal de repuesto incluido. Batería 30 días.',sold:88,stars:4,lastUnits:false,timer:30*60,cat:'salud'},
-  {id:'P011',name:'Juego Yoga Mat Antideslizante',cat:'fitness',img:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400',img2:'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=400',price:74000,oldPrice:120000,desc:'Mat 6mm ultra grip. Incluye bolsa de transporte y banda. 183x61cm. Ecológico TPE.',sold:60,stars:5,lastUnits:true,timer:4*60*60,cat:'fitness'},
-  {id:'P012',name:'Vaporizador Facial Portátil',cat:'belleza',img:'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400',img2:'https://images.unsplash.com/photo-1522337913716-6a5aa24e2c3c?w=400',price:59000,oldPrice:95000,desc:'Hidratación profunda, abre poros, limpieza facial. Nano vapor frío. Uso en casa o viaje.',sold:140,stars:5,lastUnits:false,timer:2*60*60,cat:'belleza'},
-  {id:'P013',name:'Organizador Cables USB',cat:'hogar',img:'https://images.unsplash.com/photo-1558618047-f4f89e5e1e7b?w=400',img2:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',price:34000,oldPrice:60000,desc:'Pack x10 organizadores de cables. Adhesivo fuerte. Ideal escritorio, televisor, consola.',sold:500,stars:5,lastUnits:false,timer:30*60,cat:'hogar'},
-  {id:'P014',name:'Crema Reductora Anticelulítica',cat:'belleza',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400',img2:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400',price:64000,oldPrice:105000,desc:'Reduce medidas y celulitis. Con cafeína, retinol y aloe vera. Resultados en 30 días.',sold:230,stars:4,lastUnits:true,timer:60*60,cat:'belleza'},
-  {id:'P015',name:'Mini Ventilador USB de Escritorio',cat:'hogar',img:'https://images.unsplash.com/photo-1589275862052-c5b5bb9c7a93?w=400',img2:'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400',price:44000,oldPrice:75000,desc:'3 velocidades silencioso. Rotación 360°. Conexión USB o banco de energía. Ideal oficina.',sold:190,stars:5,lastUnits:false,timer:45*60,cat:'hogar'},
-  {id:'P016',name:'Cargador Inalámbrico 15W',cat:'tecnologia',img:'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400',img2:'https://images.unsplash.com/photo-1612815153805-37df13efa28e?w=400',price:49000,oldPrice:89000,desc:'Carga rápida compatible con iPhone y Android. Diseño ultrafino. LED indicador.',sold:280,stars:5,lastUnits:false,timer:3*60*60,cat:'tecnologia'},
-  {id:'P017',name:'Kit Pesas Mancuernas Ajustables',cat:'fitness',img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400',img2:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',price:149000,oldPrice:250000,desc:'Set 2kg a 10kg ajustables. Agarre antideslizante. Ideal para ejercicios en casa.',sold:70,stars:5,lastUnits:true,timer:24*60*60,cat:'fitness'},
-  {id:'P018',name:'Mascarilla LED Facial',cat:'belleza',img:'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400',img2:'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400',price:129000,oldPrice:220000,desc:'7 colores terapia de luz. Anti-acné, anti-arrugas, rejuvenecimiento. Uso profesional en casa.',sold:55,stars:5,lastUnits:true,timer:2*60*60,cat:'belleza'},
-  {id:'P019',name:'Termómetro Digital Infrarrojo',cat:'salud',img:'https://images.unsplash.com/photo-1584515933487-779824d29309?w=400',img2:'https://images.unsplash.com/photo-1584515933487-779824d29309?w=400',price:49000,oldPrice:90000,desc:'Sin contacto. Resultado en 1 segundo. Indicador de fiebre. Apto bebés y adultos.',sold:350,stars:5,lastUnits:false,timer:4*60*60,cat:'salud'},
-  {id:'P020',name:'Bolsa Térmica Lonchera',cat:'hogar',img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400',img2:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',price:54000,oldPrice:90000,desc:'Mantiene frío o calor 8 horas. Impermeable. Capacidad 8L. Varios colores.',sold:160,stars:4,lastUnits:false,timer:6*60*60,cat:'hogar'},
-  {id:'P021',name:'Collar Anti-Pulgas Perro/Gato',cat:'accesorios',img:'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400',img2:'https://images.unsplash.com/photo-1546422072-7a5d6e8c2f44?w=400',price:39000,oldPrice:70000,desc:'Protege por 8 meses. Efecto repelente natural. Ajustable. Para mascotas hasta 50kg.',sold:420,stars:5,lastUnits:false,timer:30*60,cat:'accesorios'},
-  {id:'P022',name:'Faja Reductora Cintura',cat:'fitness',img:'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=400',img2:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400',price:59000,oldPrice:100000,desc:'Reduce cintura, control postural. Neopreno de alta compresión. Tallas S-XXXL.',sold:310,stars:4,lastUnits:true,timer:60*60,cat:'fitness'},
-  {id:'P023',name:'Silla Gaming Ergonómica',cat:'hogar',img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',img2:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',price:349000,oldPrice:580000,desc:'Espaldar reclinable 180°. Descansabrazos ajustables. Cojín lumbar y cervical.',sold:45,stars:5,lastUnits:true,timer:24*60*60,cat:'hogar'},
-  {id:'P024',name:'Set Pincel Maquillaje 15pcs',cat:'belleza',img:'https://images.unsplash.com/photo-1522337913716-6a5aa24e2c3c?w=400',img2:'https://images.unsplash.com/photo-1503236823255-94609f598e71?w=400',price:44000,oldPrice:79000,desc:'Cerdas sintéticas ultra suaves. Incluye estuche. Aptos para polvo, líquido y crema.',sold:260,stars:5,lastUnits:false,timer:45*60,cat:'belleza'},
-  {id:'P025',name:'Purificador Aire USB',cat:'hogar',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',img2:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',price:74000,oldPrice:130000,desc:'Filtro HEPA. Elimina polvo, alérgenos y bacterias. Silencioso. Para habitaciones hasta 20m².',sold:100,stars:4,lastUnits:false,timer:3*60*60,cat:'hogar'},
-  {id:'P026',name:'Pastillero Semanal Electrónico',cat:'salud',img:'https://images.unsplash.com/photo-1584515933487-779824d29309?w=400',img2:'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=400',price:54000,oldPrice:90000,desc:'Alarma para recordar tus medicamentos. 7 compartimentos. Pantalla LCD. Portátil.',sold:75,stars:5,lastUnits:false,timer:2*60*60,cat:'salud'},
-  {id:'P027',name:'Cuerda para Saltar Profesional',cat:'fitness',img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',img2:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',price:34000,oldPrice:60000,desc:'Ajustable. Mango ergonómico con contador de saltos y calorías. Acero recubierto.',sold:380,stars:5,lastUnits:false,timer:30*60,cat:'fitness'},
-  {id:'P028',name:'Mascarilla Puntos Negros',cat:'belleza',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400',img2:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400',price:39000,oldPrice:69000,desc:'Peel-off de carbón activo. Elimina puntos negros, impurezas y poros dilatados en 20 min.',sold:190,stars:4,lastUnits:true,timer:45*60,cat:'belleza'},
-  {id:'P029',name:'Luz LED RGB Escritorio',cat:'tecnologia',img:'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=400',img2:'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400',price:59000,oldPrice:100000,desc:'16 millones de colores. Control por app. Ideal gaming, streaming y estudiar.',sold:215,stars:5,lastUnits:false,timer:6*60*60,cat:'tecnologia'},
-  {id:'P030',name:'Soporte Celular Auto Magnético',cat:'accesorios',img:'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400',img2:'https://images.unsplash.com/photo-1612815153805-37df13efa28e?w=400',price:34000,oldPrice:60000,desc:'Imán potente 360°. Ajuste por rejilla o parabrisas. Compatible todos los celulares.',sold:550,stars:5,lastUnits:false,timer:30*60,cat:'accesorios'},
-  {id:'P031',name:'Almohada Ortopédica Cervical',cat:'hogar',img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',img2:'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=400',price:89000,oldPrice:149000,desc:'Espuma viscoelástica. Alivia dolor de cuello y mejora postura al dormir. Funda lavable.',sold:130,stars:5,lastUnits:true,timer:60*60,cat:'hogar'},
-  {id:'P032',name:'Depiladora Eléctrica Facial',cat:'belleza',img:'https://images.unsplash.com/photo-1522337913716-6a5aa24e2c3c?w=400',img2:'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400',price:49000,oldPrice:85000,desc:'Elimina el vello no deseado de raíz. Sin dolor. Recargable USB. Para dama.',sold:290,stars:5,lastUnits:false,timer:45*60,cat:'belleza'},
-  {id:'P033',name:'Bolígrafo Espía HD 1080p',cat:'tecnologia',img:'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400',img2:'https://images.unsplash.com/photo-1612815153805-37df13efa28e?w=400',price:74000,oldPrice:125000,desc:'Cámara oculta en bolígrafo. Graba video Full HD. Detección de movimiento. 32GB.',sold:85,stars:4,lastUnits:true,timer:2*60*60,cat:'tecnologia'},
-  {id:'P034',name:'Guantes Box Entrenamiento',cat:'fitness',img:'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=400',img2:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400',price:79000,oldPrice:140000,desc:'Cuero sintético PU. Relleno gel. Tallas S-XL. Para saco, sparring y entrenamiento.',sold:65,stars:5,lastUnits:false,timer:24*60*60,cat:'fitness'},
-  {id:'P035',name:'Mochila USB Antirrobo',cat:'accesorios',img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400',img2:'https://images.unsplash.com/photo-1573100925118-870b8efc799d?w=400',price:119000,oldPrice:200000,desc:'Puerto USB integrado, cerradura oculta. Impermeable. Capacidad 30L. Para laptop 15.6".',sold:170,stars:5,lastUnits:true,timer:3*60*60,cat:'accesorios'},
-  {id:'P036',name:'Secadora de Uñas UV/LED',cat:'belleza',img:'https://images.unsplash.com/photo-1503236823255-94609f598e71?w=400',img2:'https://images.unsplash.com/photo-1522337913716-6a5aa24e2c3c?w=400',price:64000,oldPrice:110000,desc:'36W. Seca gel en 30 segundos. Timer automático. Temporizador. Para manos y pies.',sold:200,stars:5,lastUnits:false,timer:45*60,cat:'belleza'},
-  {id:'P037',name:'Tensiómetro Digital Brazo',cat:'salud',img:'https://images.unsplash.com/photo-1584515933487-779824d29309?w=400',img2:'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=400',price:89000,oldPrice:149000,desc:'Medición precisa ±2mmHg. Detecta arritmias. Memoria 60 mediciones. Pantalla grande.',sold:95,stars:5,lastUnits:false,timer:6*60*60,cat:'salud'},
-  {id:'P038',name:'Taza Calentadora USB Inteligente',cat:'hogar',img:'https://images.unsplash.com/photo-1510972527921-ce03766a1cf1?w=400',img2:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',price:54000,oldPrice:89000,desc:'Mantiene tu bebida a 55°C. Base calentadora inteligente. Control de temperatura.',sold:240,stars:5,lastUnits:false,timer:30*60,cat:'hogar'},
-  {id:'P039',name:'Tapete Acupuntura Spa',cat:'salud',img:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400',img2:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400',price:69000,oldPrice:120000,desc:'6,210 puntos de acupuntura. Reduce estrés, dolor muscular. Incluye almohada.',sold:145,stars:4,lastUnits:true,timer:2*60*60,cat:'salud'},
-  {id:'P040',name:'Sombra de Ojos 18 Tonos',cat:'belleza',img:'https://images.unsplash.com/photo-1503236823255-94609f598e71?w=400',img2:'https://images.unsplash.com/photo-1522337913716-6a5aa24e2c3c?w=400',price:44000,oldPrice:79000,desc:'Paleta pigmentada mate y brillante. Larga duración 24h. Sin grumos.',sold:310,stars:5,lastUnits:false,timer:60*60,cat:'belleza'},
-  {id:'P041',name:'Altavoz Bluetooth Resistente Agua',cat:'tecnologia',img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400',img2:'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400',price:99000,oldPrice:169000,desc:'IPX7 sumergible. 360° sonido. Batería 20h. Ideal ducha, piscina, camping.',sold:195,stars:5,lastUnits:true,timer:3*60*60,cat:'tecnologia'},
-  {id:'P042',name:'Kit Herramientas Reparación Celular',cat:'tecnologia',img:'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400',img2:'https://images.unsplash.com/photo-1612815153805-37df13efa28e?w=400',price:39000,oldPrice:70000,desc:'25 piezas. Abre pantallas, destornilladores de precisión, palancas, pinzas.',sold:115,stars:4,lastUnits:false,timer:4*60*60,cat:'tecnologia'},
-  {id:'P043',name:'Aceite Esencial Relajante',cat:'salud',img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400',img2:'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400',price:44000,oldPrice:75000,desc:'100% natural. Lavanda, eucalipto y menta. Difusor, masajes o baño relajante.',sold:280,stars:5,lastUnits:false,timer:45*60,cat:'salud'},
-  {id:'P044',name:'Plantillas Ortopédicas',cat:'salud',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',img2:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',price:49000,oldPrice:85000,desc:'Corrección de pisada plana. Gel silicona. Alivio fascitis plantar. Tallas 35-45.',sold:165,stars:5,lastUnits:false,timer:6*60*60,cat:'salud'},
-  {id:'P045',name:'Collar GPS para Mascotas',cat:'accesorios',img:'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400',img2:'https://images.unsplash.com/photo-1546422072-7a5d6e8c2f44?w=400',price:119000,oldPrice:199000,desc:'Rastreo tiempo real por app. Alerta zona segura. Resistente al agua. Batería 7 días.',sold:55,stars:4,lastUnits:true,timer:24*60*60,cat:'accesorios'},
+let products = JSON.parse(localStorage.getItem('trogui_v2_products') || 'null') || [
+  {id:'T001',name:'Escurridor Loza Con Tapa 65cm 2 Niveles',cat:'cocina',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1916715/1756999631142.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1886527/1753723291WhatsApp%20Image%202025-07-27%20at%209.38.06%20PM%20(1).jpeg'],
+   price:139000,oldPrice:220000,
+   desc:'Escurreplatos con tapa innovadora que mantiene el polvo fuera. Gran capacidad para platos, cuencos, tazas y cubiertos. Fabricado en acero inoxidable con revestimiento negro resistente al óxido. 4 ventosas para mayor estabilidad. Diseño 2 niveles para máximo aprovechamiento del espacio.',
+   sold:89,stars:5,lastUnits:false,timer:4*60*60},
+  {id:'T002',name:'Maquina Quita Callos Eléctrica Removedor',cat:'salud',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1635913/1737489352Screenshot_11.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1176532/1725899615Removedor%20de%20callos%20de%20pies%20el%C3%A9ctrico%208.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1635913/1737489352Screenshot_9.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1176555/1761839437Removedor%20de%20callos%20de%20pies%20el%C3%A9ctrico%2015.jpg'],
+   price:49000,oldPrice:89000,
+   desc:'Elimina callos, piel dura y talones agrietados de forma rápida y segura. Diseño ergonómico con mango cómodo. Cuerpo portátil giratorio 360° con rodillos de partículas microabrasivas impermeables y fáciles de reemplazar. ¡Resultados desde la primera aplicación!',
+   sold:340,stars:5,lastUnits:true,timer:30*60},
+  {id:'T003',name:'Armario 3 Cuerpos Tela No Tejida',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/640729/1707407078WhatsApp%20Image%202024-02-08%20at%2010.40.11%20AM.jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/431969/16968755751695661087Alpi88EsRuch6KZ4F4ep1M2qUqYsW5QfL9bm9PAu.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2151831/177886033588130.webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/697347/1774473913armarion%203.jpg'],
+   price:85000,oldPrice:149000,
+   desc:'Armario portátil de gran capacidad con barra para colgar ropa y 9 estantes. Construcción robusta con tela no tejida impermeable y tubos de acero de alta calidad. Ideal para organizar tu ropa, calzado y accesorios. Disponible en negro, gris, vino tinto y café.',
+   sold:210,stars:4,lastUnits:false,timer:6*60*60},
+  {id:'T004',name:'Zapatero Organizador 9 Niveles',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2151325/1778790428Captura%20de%20pantalla%202026-05-14%20152040.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2151325/1778790428Captura%20de%20pantalla%202026-05-14%20152147.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2139088/1777304863WhatsApp%20Image%202026-04-27%20at%2010.44.43.jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1876905/17526759711723776108Screenshot_2024_0807_221349.jpg'],
+   price:65000,oldPrice:110000,
+   desc:'Zapatero de 9 niveles con gran capacidad de almacenamiento. Organiza hasta 27 pares de zapatos. Estructura resistente y fácil de armar. Ideal para habitaciones, entradas y closets. Ahorra espacio y mantiene tu calzado ordenado y protegido.',
+   sold:175,stars:5,lastUnits:false,timer:2*60*60},
+  {id:'T005',name:'Hidrolavadora 6 Chorros Potentes',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1872413/1752165098Hidrolavadora%206%20chorros%203.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1872413/1752165098Hidrolavadora%206%20chorros%2010.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1872413/1752165098Hidrolavadora%206%20chorros%209.jpg'],
+   price:89900,oldPrice:160000,
+   desc:'Boquilla 6 en 1 con ángulos ajustables (0°, 15°, 25°, 40°). Presión máxima 450 PSI. Caudal 135L/h. Alcance más de 4 metros de altura. Lata de espuma incluida para mayor efecto limpiador. Perfecta para carros, motos, jardín, muebles y superficies difíciles.',
+   sold:95,stars:5,lastUnits:true,timer:3*60*60},
+  {id:'T006',name:'Organizador de Baño Universal 3 Niveles',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1815317/1762527418%F0%9F%98%8DORGANIZA%20TU%20BA%C3%91O,%20AHORRA%20ESPACIO%20CON%20EL%20ESTANTE%20ORGANIZADOR%20DE%20BA%C3%91O.LLEVALO%20A%20UN%20SUPER%20PRECIO%20.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1127641/17248682961698332152estante%20ba%C3%B1o.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1934840/1758597600Organizador%20de%20ba%C3%B1o%204.png'],
+   price:75000,oldPrice:130000,
+   desc:'Estante organizador de baño con diseño elegante en blanco. 3 niveles prácticos para organizar tus productos de higiene personal. Estructura de acero resistente. Profundidad de 25cm para máximo aprovechamiento. Se adapta a cualquier estilo de decoración.',
+   sold:142,stars:5,lastUnits:false,timer:45*60},
+  {id:'T007',name:'Perchero 4 Niveles Con Zapatero',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/671801/1708726377percheroZapatero4Niveles.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/233273/17019840001701984000Z%20-%20Tendedero%20-%201.jpg'],
+   price:59000,oldPrice:99000,
+   desc:'Rack multifuncional 4 en 1: cuelga ropa en la parte superior, organiza zapatos en la inferior y usa el nivel medio como mesa para bolsos y accesorios. Da glamour y orden a tu habitación. Diseño práctico y elegante que aprovecha cada rincón.',
+   sold:198,stars:4,lastUnits:false,timer:60*60},
+  {id:'T008',name:'Nebulizador Respirador Portátil',cat:'salud',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2155990/1779384719SEC%20RESPIRADOR_-2%20(1).jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2148270/17784646881764466495D_NQ_NP_2X_786151-MLU78819306019_082024-F.webp'],
+   price:55000,oldPrice:95000,
+   desc:'Nebulizador portátil silencioso ideal para tratamientos respiratorios en casa. Fácil de usar, perfecto para toda la familia incluyendo niños y adultos mayores. Convierte el líquido en micropartículas para una absorción efectiva. Compacto y recargable.',
+   sold:67,stars:5,lastUnits:false,timer:2*60*60},
+  {id:'T009',name:'Freidora de Aire 12L Extra Capacidad + Accesorios',cat:'cocina',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2152705/1778955350ChatGPT%20Image%2016%20may%202026,%2001_10_20%20p.m..png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2152705/1778955351ChatGPT%20Image%2016%20may%202026,%2001_05_39%20p.m..png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2152705/1778955351ChatGPT%20Image%2016%20may%202026,%2001_08_19%20p.m..png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2154464/1779231764AIRFRYER......jpg'],
+   price:235000,oldPrice:420000,
+   desc:'🍟 Freidora de aire X HOME con extra capacidad 12L. Cocina más fácil, rápido y saludable con hasta 80% menos aceite. Panel moderno e intuitivo. Cocción rápida y uniforme. Incluye accesorios. Ideal para familias. Perfecto para papas, alitas, empanadas, pizzas y mucho más.',
+   sold:55,stars:5,lastUnits:true,timer:24*60*60},
+  {id:'T010',name:'Fire TV Stick 4K Control de Voz',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1884233/1753385392Imagen%20de%20WhatsApp%202025-07-24%20a%20las%2011.15.27_97e32929.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2000277/1763589760fire%20tv%20magis..jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2000277/1767724666fire.jpg'],
+   price:99000,oldPrice:179000,
+   desc:'Convierte cualquier TV en un Smart TV. Control por voz Alexa. Acceso a Netflix, YouTube, Disney+, Prime Video, HBO Max y más. Resolución hasta 4K. Wi-Fi integrado. Fácil instalación en minutos. Sin mensualidad, pago único.',
+   sold:280,stars:5,lastUnits:false,timer:3*60*60},
+  {id:'T011',name:'Lonchera Eléctrica Portátil',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2132401/1776528877Captura%20de%20pantalla%202026-04-18%20111044.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2150102/1778686955photo_2026-05-12_16-25-56.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2150102/1778686955photo_2026-05-12_16-25-58.jpg'],
+   price:75000,oldPrice:130000,
+   desc:'Calienta tu comida en cualquier lugar. Conexión USB para auto, oficina o viajes. Mantiene los alimentos calientes por horas. Libre de BPA, material de alta calidad. Fácil de limpiar. Ideal para el trabajo, viajes y quienes cuidan su alimentación.',
+   sold:130,stars:5,lastUnits:false,timer:60*60},
+  {id:'T012',name:'Audífonos Bluetooth con Pantalla LED',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1966260/1760735613WhatsApp%20Image%202025-10-17%20at%204.11.38%20PM%20(1).jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1510875/173214620317298658215.jpg'],
+   price:59900,oldPrice:110000,
+   desc:'Audífonos inalámbricos con pantalla digital que muestra el nivel de batería. Sonido de alta calidad. Conexión Bluetooth estable. Batería de larga duración. Diseño cómodo y plegable. Compatible con todos los teléfonos Android e iPhone. Incluye cable de carga.',
+   sold:215,stars:4,lastUnits:false,timer:2*60*60},
+  {id:'T013',name:'Kit Buceo Snorkel Máscara',cat:'accesorios',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/683907/1709323851IMG-20240301-WA0039.jpg'],
+   price:59900,oldPrice:105000,
+   desc:'Equipo de snorkel completo para explorar el mundo submarino. Máscara de silicona de alta calidad con amplio campo visual. Tubo de respiración cómodo y antivaho. Ideal para playas, ríos y piscinas. Para adultos y niños. Perfecto para vacaciones.',
+   sold:88,stars:4,lastUnits:false,timer:45*60},
+  {id:'T014',name:'Audífonos Ambie Sound Oreja Abierta',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/372272/171837588557.PNG'],
+   price:55000,oldPrice:98000,
+   desc:'Auriculares de diseño oreja abierta: escuchas música y también tu entorno con seguridad. Bluetooth 5.2. 6 horas de reproducción + 24h con estuche de carga. Peso ultra ligero (4.2g por oreja). Impermeables IPX5. Micrófono integrado para llamadas. Ideal para deporte, trabajo y conducción.',
+   sold:310,stars:5,lastUnits:false,timer:30*60},
+  {id:'T015',name:'Proyector Portátil HD',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2028712/1766853261image%20-%202025-12-27T113356.503.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1213390/1726624197WhatsApp%20Image%202024-09-17%20at%208.40.44%20PM.jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1007720/1721785503WhatsApp%20Image%202024-07-23%20at%208.38.21%20PM.jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2011451/1764368578Proyector%20Portatil%203.jpg'],
+   price:165000,oldPrice:290000,
+   desc:'Proyector portátil con imagen HD nítida. Pantalla hasta 120 pulgadas. Conecta tu celular, USB, HDMI. Batería recargable para uso sin cables. Perfecto para cine en casa, presentaciones o viajes. Altavoz integrado. Compacto y fácil de transportar.',
+   sold:72,stars:4,lastUnits:true,timer:6*60*60},
+  {id:'T016',name:'Careta y Snorkel Kit Completo de Buceo',cat:'accesorios',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1776906/1746026425WhatsApp%20Image%202025-04-29%20at%202.21.01%20PM.jpeg'],
+   price:69000,oldPrice:120000,
+   desc:'Kit de buceo completo con máscara panorámica de cara completa y snorkel integrado. Campo de visión 180°. Anti-vaho avanzado. Válvula de purga. Fácil de ajustar para adultos. Ideal para vacaciones, esnórquel y exploración submarina. Incluye bolsa de transporte.',
+   sold:64,stars:4,lastUnits:false,timer:90*60},
+  {id:'T017',name:'Compresor de Aire Digital Portátil',cat:'accesorios',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2128613/1776114630gl1.jpg'],
+   price:89000,oldPrice:159000,
+   desc:'Infla neumáticos de carros, motos y bicicletas. Pantalla LED que muestra la presión actual. Apagado automático al alcanzar la presión deseada. Batería recargable interna. Linterna LED integrada para uso nocturno. Compacto y fácil de llevar en el maletero.',
+   sold:145,stars:5,lastUnits:false,timer:4*60*60},
+  {id:'T018',name:'Afeitadora 3 en 1 Recargable',cat:'salud',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/241636/17019755901701975590Screenshot_139.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2084758/1771097372202211292725100.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2084757/17710973659488ed82-c5b6-4498-986a-9d569175b40b.webp'],
+   price:55000,oldPrice:98000,
+   desc:'Afeitadora multifuncional 3 en 1: rasura, recorta y perfilador de precisión. Recargable USB. Cuchillas de acero inoxidable. Cabezal lavable. Apta para uso en seco y húmedo. Ideal para barba, bigote y cuello. Para hombres que quieren verse siempre impecables.',
+   sold:189,stars:4,lastUnits:false,timer:60*60},
+  {id:'T019',name:'Organizador de Condimentos Giratorio x18',cat:'cocina',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1908987/1769180297Organizador%20De%20Condimentos%20Giratorio%20X18_2.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1908987/1769180289Organizador%20De%20Condimentos%20Giratorio%20X18.png'],
+   price:69000,oldPrice:120000,
+   desc:'Organizador giratorio con 18 frascos incluidos. Base 360° para acceder fácilmente a todos tus condimentos. Añade elegancia y orden a tu cocina. Frascos herméticos de alta calidad. Etiquetas incluidas para identificar cada especia. Ahorra espacio y tiempo al cocinar.',
+   sold:230,stars:5,lastUnits:false,timer:2*60*60},
+  {id:'T020',name:'Tensiómetro Digital con Voz',cat:'salud',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2109657/17738473851771888968tensiometro%203.webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2130492/17763345271000000105.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2093052/17719638461720884377leman.webp'],
+   price:55000,oldPrice:95000,
+   desc:'Tensiómetro digital de brazo con voz en español. Mide presión arterial y pulso con alta precisión. Memoria para múltiples usuarios. Detecta irregularidades cardíacas. Pantalla grande y fácil de leer. Perfecto para adultos mayores y personas con hipertensión.',
+   sold:198,stars:5,lastUnits:false,timer:3*60*60},
+  {id:'T021',name:'Oxímetro Digital de Pulso',cat:'salud',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2152741/1778960041WhatsApp%20Image%202026-04-09%20at%204.57.08%20PM.jpeg'],
+   price:28000,oldPrice:55000,
+   desc:'Oxímetro de pulso rápido y preciso. Mide la saturación de oxígeno en sangre (SpO2) y la frecuencia cardíaca en segundos. Pantalla OLED de fácil lectura. Ideal para control en casa. Funciona con 2 pilas AAA. Compacto y liviano. Esencial para el cuidado de la salud.',
+   sold:415,stars:5,lastUnits:false,timer:30*60},
+  {id:'T022',name:'Estuche Huevo Juego Cubiertos 24 Pzas',cat:'cocina',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2111127/1773974903cubiertos-forma-de-huevo.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2111127/1773974903WhatsApp%20Image%202026-03-19%20at%2019.31.35.jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2111127/1773974903public.jpeg'],
+   price:89900,oldPrice:160000,
+   desc:'Elegante juego de cubiertos 24 piezas presentado en estuche con forma de huevo. Acero inoxidable de alta calidad, resistente y duradero. Incluye tenedores, cucharas, cuchillos y cucharitas. Perfecto como regalo o para tu mesa del diario. Presentación lujosa.',
+   sold:145,stars:5,lastUnits:true,timer:60*60},
+  {id:'T023',name:'Iniciador de Batería Cargador 12V Inteligente',cat:'accesorios',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2077325/1770401328cargador-bateria-para-carros-y-motos-12v-6-amp.webp'],
+   price:69000,oldPrice:125000,
+   desc:'¿Batería muerta? ¡Nunca más! Cargador inteligente 12V para carros y motos. Diagnostica, carga y repara baterías. Protección contra cortocircuito y sobrecarga. Pantalla indicadora de estado. Fácil conexión con pinzas tipo cocodrilo. Imprescindible para tu vehículo.',
+   sold:110,stars:5,lastUnits:false,timer:4*60*60},
+  {id:'T024',name:'Taladro Inalámbrico Profesional',cat:'accesorios',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2043245/176901088317676296461761583467110.jpg'],
+   price:125000,oldPrice:220000,
+   desc:'Taladro inalámbrico de alto rendimiento. Batería recargable de larga duración. Modos perforación y destornillador. Incluye set de brocas. Diseño ergonómico anti-fatiga. Ideal para hogar, trabajos de mantenimiento, instalación de muebles y mucho más.',
+   sold:78,stars:4,lastUnits:true,timer:8*60*60},
+  {id:'T025',name:'Organizador de Ollas y Tapas',cat:'cocina',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2126689/1775838291ollas%201.webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2126689/1775838291ollas.webp'],
+   price:59000,oldPrice:99000,
+   desc:'Organiza tus ollas y tapas de forma eficiente. Divisores ajustables. Estructura resistente de acero. Ahorra espacio en cajones y gabinetes. Fácil de instalar. Compatible con ollas de todos los tamaños. Mantén tu cocina limpia, ordenada y lista para cocinar.',
+   sold:165,stars:5,lastUnits:false,timer:45*60},
+  {id:'T026',name:'Consola Retro Portátil R36S 15000 Juegos',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2008339/1764092783video.png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2008339/1764092784video%20(3).png','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2008339/1764092783video%20(1).png'],
+   price:179000,oldPrice:320000,
+   desc:'Consola portátil retro con más de 15,000 juegos preinstalados. Pantalla IPS de 3.5". Batería 3500mAh. Soporte para PS1, GBA, SNES, NES, Sega y más. Controles cómodos tipo GameBoy. Salida HDMI para jugar en TV. ¡El regalo ideal para los amantes de los videojuegos!',
+   sold:92,stars:5,lastUnits:true,timer:12*60*60},
+  {id:'T027',name:'Juguete Perro Robot Interactivo',cat:'juguetes',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2001384/1763739468D_Q_NP_2X_957362-MLA96425148737_102025-T.webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1995592/1763073811Lobo%20movimiento.JPG'],
+   price:109000,oldPrice:190000,
+   desc:'Adorable perro robot interactivo que camina, baila y hace trucos. Responde al tacto y voz. Múltiples modos de juego. Pilas incluidas. Seguro para niños desde 3 años. El compañero perfecto para los más pequeños. Les encantará su pelaje suave y sus movimientos reales.',
+   sold:88,stars:5,lastUnits:false,timer:3*60*60},
+  {id:'T028',name:'TV Stick Android HD Streaming',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1965814/1760720817sin%20(3).JPG','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1965814/1760720817sin%20(1).JPG'],
+   price:89000,oldPrice:160000,
+   desc:'Convierte tu TV en Smart TV al instante. Soporte Android con acceso a Play Store. Reproducción HD/4K. Wi-Fi integrado. Control remoto incluido. Accede a Netflix, YouTube, Prime Video y todas tus apps favoritas. Sin mensualidades. Plug & Play en minutos.',
+   sold:195,stars:4,lastUnits:false,timer:2*60*60},
+  {id:'T029',name:'Kit Máquina Afeitadora para Mascotas',cat:'accesorios',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1942148/17591538771992f34d9d2-electrohogarcyc-gneuklg0t7n-iest5inm75d.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1942148/17591538771992f34e3e7-electrohogarcyc-gneuklg0t7n-bteqsvyf7nu.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1942148/17591538771992f34d56e-electrohogarcyc-gneuklg0t7n-3nqhgzuzcf.jpg'],
+   price:59000,oldPrice:105000,
+   desc:'Kit completo para peluquería de mascotas en casa. Silencioso para no asustar a tu perro o gato. Cuchillas de acero inoxidable ajustables. Recargable USB. Incluye accesorios para diferentes longitudes de pelo. Ahorra en peluquería y cuida a tu mascota con amor.',
+   sold:142,stars:5,lastUnits:false,timer:60*60},
+  {id:'T030',name:'Power Bank 10.000mAh Con Cables Incluidos',cat:'tecnologia',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1971753/176125897513ee3767-e1b3-4979-b91e-60045d161bc3.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1971753/176125897598402836-63d7-47d1-b973-db94c2fe68f0.jpg'],
+   price:85000,oldPrice:149000,
+   desc:'Power Bank 10,000mAh con carga rápida. Entradas: Tipo C y Micro USB. Salidas: USB, Tipo C, Lightning. Compatible con iPhone, Samsung, Xiaomi y todos los celulares. Cables incluidos. Diseño compacto y elegante. Perfecto para viajes, trabajo y emergencias.',
+   sold:268,stars:5,lastUnits:false,timer:4*60*60},
+  {id:'T031',name:'Báscula Inteligente Bluetooth Análisis Corporal',cat:'salud',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1930136/1758208266BASCULA%20BLUETOOTH%208.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1930136/1758208266BASCULA%20BLUETOOTH%2010.jpg'],
+   price:55000,oldPrice:99000,
+   desc:'Báscula inteligente con análisis corporal completo: peso, grasa, músculo, agua y más. Sincronización Bluetooth con tu celular. Compatible con Apple Health y Samsung Health. Capacidad hasta 180kg. Vidrio templado resistente. Pantalla LCD clara. Multiusuario para toda la familia.',
+   sold:188,stars:5,lastUnits:false,timer:3*60*60},
+  {id:'T032',name:'Perchero con Cubierta Organizador',cat:'hogar',
+   imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1900120/1755196031WhatsApp%20Image%202025-08-14%20at%201.16.21%20PM.jpeg'],
+   price:67000,oldPrice:119000,
+   desc:'Perchero con cubierta protectora que mantiene tu ropa libre de polvo y humedad. Varios niveles de organización. Estructura robusta y estable. Ideal para dormitorios, entradas y cuartos pequeños. Fácil de armar, sin herramientas. Solución elegante para organizar tu ropa.',
+   sold:99,stars:4,lastUnits:false,timer:90*60},
 ];
 
 let reviews = JSON.parse(localStorage.getItem('trogui_reviews') || 'null') || [
-  {name:'Valentina Torres',city:'Bogotá',stars:5,text:'Me llegó super rápido, en 4 días! El producto está 10/10, lo recomiendo 😍'},
-  {name:'Juan Camilo Restrepo',city:'Medellín',stars:5,text:'Pagé contra entrega y todo bien. La calidad es buenísima, gracias trogui!'},
-  {name:'Luisa Fernanda Gómez',city:'Cali',stars:4,text:'lindo producto aunq la entrega demoro un poco pero llegó bien, lo recomiendo'},
-  {name:'Andrés Felipe Ospina',city:'Bucaramanga',stars:5,text:'Segunda vez que compro aquí y siempre quedo satisfecho. 100% confiable'},
-  {name:'Natalia Suárez',city:'Barranquilla',stars:5,text:'Excelente! El quita callos me funcionó de maravilla desde el primer uso jajaja'},
+  {name:'Valentina Torres',city:'Bogotá',stars:5,text:'Me llegó en 4 días!! El producto está 10/10, lo recomiendo mucho 😍'},
+  {name:'Juan Camilo Restrepo',city:'Medellín',stars:5,text:'Pagué contra entrega y todo salió perfecto. La calidad es increíble, gracias TROGÜI!'},
+  {name:'Luisa Fernanda Gómez',city:'Cali',stars:4,text:'Muy buen producto, llegó bien empacado. Lo recomiendo!'},
+  {name:'Andrés Felipe Ospina',city:'Bucaramanga',stars:5,text:'Segunda vez que compro aquí y siempre quedo satisfecho. 100% confiable.'},
+  {name:'Natalia Suárez',city:'Barranquilla',stars:5,text:'Excelente! El quita callos funcionó de maravilla desde el primer uso!'},
 ];
 
 let cart = [];
 let orders = JSON.parse(localStorage.getItem('trogui_orders') || '[]');
 let currentOrderProduct = null;
 let timers = {};
-let sliderIndex = 0;
-let visitors = Math.floor(Math.random()*40)+15;
+let sliderIdx = 0;
+let visitors = Math.floor(Math.random()*38)+12;
+let rouletteSpun = false;
+let rouletteInactivityTimer = null;
 
-// ===================== INIT =====================
-document.addEventListener('DOMContentLoaded', ()=>{
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  loadSettings();
   renderProducts(products);
   startSlider();
   startNotifications();
-  updateVisitors();
-  loadPageSettings();
-  startVisitorCount();
   startShakeLoop();
+  updateVisitors();
+  startInactivityWatcher();
+  drawRoulette();
 });
 
-function loadPageSettings(){
+function loadSettings(){
   const tb = localStorage.getItem('trogui_topbar');
-  if(tb) document.querySelector('.topbar').innerHTML = tb;
+  if(tb) document.getElementById('topbar-text').textContent = tb;
   const pt = localStorage.getItem('trogui_prod_title');
-  if(pt) document.querySelector('.section-title').innerHTML = pt;
+  if(pt) document.getElementById('products-title').innerHTML = pt;
   const au = localStorage.getItem('trogui_audio');
-  if(au){ document.getElementById('audio-src').src=au; document.getElementById('audio-autoplay').load(); }
+  if(au){ document.getElementById('bg-audio-src').src=au; document.getElementById('bg-audio').load(); document.getElementById('bg-audio').play().catch(()=>{}); }
 }
 
-// ===================== SLIDER =====================
-function moveSlider(dir){sliderIndex=(sliderIndex+dir+3)%3;updateSlider();}
-function goSlide(i){sliderIndex=i;updateSlider();}
+// ========== SLIDER ==========
+function moveSlider(d){ sliderIdx=(sliderIdx+d+3)%3; updateSlider(); }
+function goSlide(i){ sliderIdx=i; updateSlider(); }
 function updateSlider(){
-  document.getElementById('slider-track').style.transform=`translateX(-${sliderIndex*100}%)`;
-  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===sliderIndex));
+  document.getElementById('slider-track').style.transform=`translateX(-${sliderIdx*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===sliderIdx));
 }
-function startSlider(){setInterval(()=>moveSlider(1),6000);}
+function startSlider(){ setInterval(()=>moveSlider(1), 6000); }
 
-// ===================== FORMAT =====================
-function fmt(n){return Number(n).toLocaleString('es-CO');}
+// ========== FORMAT ==========
+function fmt(n){ return Number(n).toLocaleString('es-CO'); }
 
-// ===================== PRODUCTS =====================
+// ========== PRODUCTS ==========
 function renderProducts(prods){
-  const grid=document.getElementById('products-grid');
-  grid.innerHTML='';
-  prods.forEach(p=>{
-    const disc=Math.round((1-p.price/p.oldPrice)*100);
-    const el=document.createElement('div');
-    el.className='product-card';
-    el.id='card-'+p.id;
-    el.innerHTML=`
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
+  if(prods.length===0){ grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);font-size:16px">😕 No se encontraron productos</div>'; return; }
+  prods.forEach(p => {
+    const disc = Math.round((1-p.price/p.oldPrice)*100);
+    const img = p.imgs && p.imgs[0] ? p.imgs[0] : 'https://via.placeholder.com/400x300?text=TROGUI';
+    const el = document.createElement('div');
+    el.className = 'product-card';
+    el.id = 'card-'+p.id;
+    el.innerHTML = `
       <div class="product-img-wrap" onclick="openModal('${p.id}')">
-        <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=TROGUI'">
-        <div class="badge-offer">-${disc}% OFF</div>
-        <div class="badge-sold">✅ ${p.sold}+ vendidos</div>
-        ${p.lastUnits?'<div class="badge-last">⚠️ Últimas unidades</div>':''}
+        <img src="${img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=TROGUI'">
+        <div class="badge-off">-${disc}% OFF</div>
+        <div class="badge-sold-c">✅ ${p.sold}+ vendidos</div>
+        ${p.lastUnits?'<div class="badge-last">⚠️ ¡Últimas!</div>':''}
       </div>
       <div class="product-info" onclick="openModal('${p.id}')">
         <div class="product-name">${p.name}</div>
@@ -729,100 +861,98 @@ function renderProducts(prods){
           <span class="price-new">$${fmt(p.price)}</span>
         </div>
         <div class="timer-badge" id="timer-${p.id}">⏰ Cargando...</div>
-        <div class="free-ship">🚚 Envío GRATIS a toda Colombia</div>
-        <div class="delivery-info">💵 Pago contra entrega disponible</div>
+        <div class="free-ship">🚚 Envío GRATIS toda Colombia</div>
+        <div class="contra-e">💵 Pago Contra Entrega disponible</div>
       </div>
-      <div class="product-info" style="padding-top:0">
-        <div class="card-btns">
-          <button class="btn-add" onclick="event.stopPropagation();addToCart('${p.id}')">🛒 Al Carrito</button>
-          <button class="btn-pedir" id="pedir-${p.id}" onclick="event.stopPropagation();openOrderFormDirect('${p.id}')">🔥 ¡Pedir Ahora!</button>
-        </div>
+      <div class="card-btns">
+        <button class="btn-add" onclick="event.stopPropagation();addToCart('${p.id}')">🛒 Al Carrito</button>
+        <button class="btn-pedir" id="pedir-${p.id}" onclick="event.stopPropagation();openOrderDirect('${p.id}')">🔥 ¡Pedir Ya!</button>
       </div>`;
     grid.appendChild(el);
-    startTimer(p.id,p.timer);
+    startTimer(p.id, p.timer);
   });
 }
 
-function filterCat(cat,el){
+function filterCat(cat, el){
   document.querySelectorAll('.nav-inner a').forEach(a=>a.classList.remove('active'));
   el.classList.add('active');
-  const filtered=cat==='all'?products:products.filter(p=>p.cat===cat);
-  renderProducts(filtered);
+  const f = cat==='all' ? products : products.filter(p=>p.cat===cat);
+  renderProducts(f);
 }
 
-// ===================== SHAKE LOOP =====================
-function startShakeLoop(){
-  setInterval(()=>{
-    const btns=document.querySelectorAll('.btn-pedir');
-    if(btns.length===0) return;
-    const idx=Math.floor(Math.random()*btns.length);
-    const btn=btns[idx];
-    btn.classList.remove('shaking');
-    void btn.offsetWidth;
-    btn.classList.add('shaking');
-    setTimeout(()=>btn.classList.remove('shaking'),700);
-  },2500);
-}
-
-// ===================== TIMER =====================
-function startTimer(id,seconds){
+// ========== TIMER ==========
+function startTimer(id, seconds){
   if(timers[id]) clearInterval(timers[id]);
-  let remaining=seconds;
+  let rem = seconds;
   function update(){
-    const el=document.getElementById('timer-'+id);
-    if(!el) return;
-    if(remaining<=0){el.innerHTML='⚡ ¡Oferta vigente!';return;}
-    const h=Math.floor(remaining/3600);
-    const m=Math.floor((remaining%3600)/60);
-    const s=remaining%60;
-    let label=h>0?`${h}h ${m}m ${s}s`:m>0?`${m}m ${s}s`:`${s}s`;
-    el.innerHTML=`⏰ Oferta acaba en: <b>${label}</b>`;
-    remaining--;
+    const el = document.getElementById('timer-'+id);
+    if(!el){ clearInterval(timers[id]); return; }
+    if(rem<=0){ el.innerHTML='⚡ ¡Oferta vigente!'; return; }
+    const h=Math.floor(rem/3600),m=Math.floor((rem%3600)/60),s=rem%60;
+    const label=h>0?`${h}h ${m}m ${s}s`:m>0?`${m}m ${s}s`:`${s}s`;
+    el.innerHTML=`⏰ Acaba en: <b>${label}</b>`;
+    rem--;
   }
   update();
   timers[id]=setInterval(update,1000);
 }
 
-// ===================== MODAL =====================
+// ========== SHAKE ==========
+function startShakeLoop(){
+  setInterval(()=>{
+    const btns=document.querySelectorAll('.btn-pedir');
+    if(!btns.length) return;
+    const btn=btns[Math.floor(Math.random()*btns.length)];
+    btn.classList.remove('shaking');
+    void btn.offsetWidth;
+    btn.classList.add('shaking');
+    setTimeout(()=>btn.classList.remove('shaking'),700);
+  },2800);
+}
+
+// ========== MODAL ==========
 function openModal(id){
-  const p=products.find(x=>x.id===id);
+  const p = products.find(x=>x.id===id);
   if(!p) return;
-  const disc=Math.round((1-p.price/p.oldPrice)*100);
-  const revHtml=reviews.map(r=>`
+  const disc = Math.round((1-p.price/p.oldPrice)*100);
+  const imgs = p.imgs && p.imgs.length ? p.imgs : ['https://via.placeholder.com/400x300?text=TROGUI'];
+  const galleryHtml = imgs.map((src,i)=>`<img src="${src}" alt="${p.name}" class="modal-media-item${i===0?' active-img':''}" onerror="this.src='https://via.placeholder.com/400x300?text=TROGUI'" onclick="setActiveImg(this)">`).join('');
+  const revHtml = reviews.map(r=>`
     <div class="review-item">
       <div class="review-top">
         <div class="review-avatar">${r.name[0]}</div>
-        <div><div class="review-name">${r.name} - ${r.city}</div><div class="review-stars">${'⭐'.repeat(r.stars)}</div></div>
+        <div><div class="review-name">${r.name} — ${r.city}</div><div class="review-stars">${'⭐'.repeat(r.stars)}</div></div>
       </div>
       <div class="review-text">${r.text}</div>
     </div>`).join('');
   document.getElementById('modal-content').innerHTML=`
-    <div class="modal-imgs">
-      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=TROGUI'">
-      <img src="${p.img2||p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=TROGUI'">
-    </div>
-    <div style="font-size:11px;color:var(--gray);margin-bottom:4px">ID: ${p.id}</div>
+    <div class="modal-gallery">${galleryHtml}</div>
+    <span style="font-size:11px;color:var(--gray)">ID: ${p.id}</span>
     <div class="modal-title">${p.name}</div>
-    <div class="stars">${'⭐'.repeat(p.stars)} <span style="color:var(--gray);font-size:13px">${p.stars}.0 (${p.sold}+ vendidos)</span></div>
+    <div class="stars">${'⭐'.repeat(p.stars)}<span style="color:var(--gray);font-size:13px">${p.stars}.0 (${p.sold}+ vendidos)</span></div>
     <div class="modal-price-wrap">
       <span class="modal-price-old">$${fmt(p.oldPrice)}</span>
       <span class="modal-price-new">$${fmt(p.price)}</span>
-      <span style="background:#ffe0cc;color:var(--orange);font-weight:800;padding:4px 10px;border-radius:20px;font-size:13px">-${disc}%</span>
+      <span style="background:#ffe0cc;color:var(--orange);font-weight:900;padding:5px 12px;border-radius:20px;font-size:13px">-${disc}% OFF</span>
     </div>
     <div class="modal-delivery">
-      🚚 <strong>Envío GRATIS</strong> a toda Colombia · Entrega en <strong>3 a 7 días hábiles</strong><br>
-      💵 <strong>Pago Contra Entrega</strong> disponible · Interrapidísimo · Coordinadora · Envia
+      🚚 <strong>Envío GRATIS</strong> a toda Colombia · Entrega <strong>3 a 7 días hábiles</strong><br>
+      💵 <strong>Pago Contra Entrega</strong> · Interrapidísimo · Coordinadora · Envia
     </div>
     <div class="modal-desc">${p.desc}</div>
-    ${p.lastUnits?'<div style="background:#fff0f0;border:1px solid var(--red);border-radius:10px;padding:10px;font-size:13px;font-weight:800;color:var(--red)">⚠️ ¡ÚLTIMAS UNIDADES! Stock limitado</div>':''}
-    <button class="btn-order" onclick="openOrderForm('${p.id}')">🔥 ¡Pedir Ahora - Pago Contra Entrega!</button>
-    <h3 style="margin:20px 0 12px;font-family:'Poppins',sans-serif">⭐ Reseñas de Clientes</h3>
+    ${p.lastUnits?'<div style="background:#fff0f0;border:1px solid var(--red);border-radius:11px;padding:11px;font-size:13px;font-weight:800;color:var(--red);margin-bottom:10px">⚠️ ¡ÚLTIMAS UNIDADES! Stock muy limitado</div>':''}
+    <button class="btn-order" onclick="openOrderForm('${p.id}')">🔥 ¡Pedir Ahora — Pago Contra Entrega!</button>
+    <h3 style="margin:22px 0 12px;font-family:'Poppins',sans-serif;font-size:17px">⭐ Reseñas de Clientes</h3>
     <div class="review-list">${revHtml}</div>`;
   document.getElementById('product-modal').classList.add('active');
 }
-function closeModal(){document.getElementById('product-modal').classList.remove('active');}
+function setActiveImg(img){
+  document.querySelectorAll('.modal-gallery img').forEach(i=>i.classList.remove('active-img'));
+  img.classList.add('active-img');
+}
+function closeModal(){ document.getElementById('product-modal').classList.remove('active'); }
 
-// ===================== ORDER FORM =====================
+// ========== ORDER FORM ==========
 function openOrderForm(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
@@ -830,7 +960,7 @@ function openOrderForm(id){
   closeModal();
   _showOrderForm(p);
 }
-function openOrderFormDirect(id){
+function openOrderDirect(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
   currentOrderProduct=p;
@@ -840,10 +970,10 @@ function _showOrderForm(p){
   document.getElementById('form-prod-name').textContent=p.name+' (ID: '+p.id+')';
   document.getElementById('form-price-show').innerHTML=`
     <div><div style="font-size:13px;color:var(--gray);font-weight:700">Precio anterior:</div><div class="fold">$${fmt(p.oldPrice)}</div></div>
-    <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--gray)">Pagas hoy:</div><div class="fprice">$${fmt(p.price)}</div></div>`;
-  document.getElementById('order-form-section').classList.add('active');
+    <div style="text-align:right"><div style="font-size:13px;color:var(--gray);font-weight:700">Pagas al recibir:</div><div class="fprice">$${fmt(p.price)}</div></div>`;
+  document.getElementById('order-overlay').classList.add('active');
 }
-function closeOrderForm(){document.getElementById('order-form-section').classList.remove('active');}
+function closeOrderForm(){ document.getElementById('order-overlay').classList.remove('active'); }
 
 function confirmOrder(){
   const nombre=document.getElementById('f-nombre').value.trim();
@@ -853,293 +983,381 @@ function confirmOrder(){
   const direccion=document.getElementById('f-direccion').value.trim();
   const telefono=document.getElementById('f-telefono').value.trim();
   const nota=document.getElementById('f-nota').value.trim();
-  if(!nombre||!apellido||!depto||!ciudad||!direccion||!telefono){alert('Por favor completa todos los campos obligatorios.');return;}
+  if(!nombre||!apellido||!depto||!ciudad||!direccion||!telefono){
+    alert('⚠️ Por favor completa todos los campos obligatorios.');return;
+  }
   const p=currentOrderProduct;
   const disc=Math.round((1-p.price/p.oldPrice)*100);
-  const order={
-    id:'ORD'+Date.now(),
-    product:p.name,
-    productId:p.id,
-    price:p.price,
-    oldPrice:p.oldPrice,
-    discount:disc,
-    nombre,apellido,
-    departamento:depto,
-    ciudad,direccion,telefono,nota,
-    fecha:new Date().toLocaleString('es-CO'),
-    fechaISO:new Date().toISOString()
-  };
+  const order={id:'ORD'+Date.now(),product:p.name,productId:p.id,price:p.price,oldPrice:p.oldPrice,discount:disc,nombre,apellido,departamento:depto,ciudad,direccion,telefono,nota,fecha:new Date().toLocaleString('es-CO'),fechaISO:new Date().toISOString()};
   orders.push(order);
   localStorage.setItem('trogui_orders',JSON.stringify(orders));
   const msg=encodeURIComponent(
-    `🛍️ *NUEVO PEDIDO - TROGÜI*\n\n`+
-    `📦 *Producto:* ${p.name}\n`+
-    `🆔 *ID:* ${p.id}\n`+
-    `💰 *Precio:* $${fmt(p.price)} (-${disc}%)\n`+
-    `\n👤 *Cliente:* ${nombre} ${apellido}\n`+
-    `🗺️ *Departamento:* ${depto}\n`+
-    `🏙️ *Ciudad:* ${ciudad}\n`+
-    `🏠 *Dirección:* ${direccion}\n`+
-    `📞 *Teléfono:* ${telefono}\n`+
-    `📝 *Nota:* ${nota||'Sin nota'}\n\n`+
-    `✅ Pago contra entrega`
+    `🛍️ *NUEVO PEDIDO - TROGÜI*\n\n📦 *Producto:* ${p.name}\n🆔 *ID:* ${p.id}\n💰 *Precio:* $${fmt(p.price)} (-${disc}%)\n\n👤 *Cliente:* ${nombre} ${apellido}\n🗺️ *Departamento:* ${depto}\n🏙️ *Ciudad:* ${ciudad}\n🏠 *Dirección:* ${direccion}\n📞 *Teléfono:* ${telefono}\n📝 *Nota:* ${nota||'Sin nota'}\n\n✅ Pago contra entrega`
   );
   closeOrderForm();
   window.open(`https://wa.me/573206572598?text=${msg}`,'_blank');
 }
 
-// ===================== CART =====================
+// ========== CART ==========
 function addToCart(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
-  const existing=cart.find(x=>x.id===id);
-  if(existing) existing.qty++;
+  const ex=cart.find(x=>x.id===id);
+  if(ex) ex.qty++;
   else cart.push({...p,qty:1});
   updateCartUI();
-  showFloatMsg('✅ '+p.name+' agregado al carrito');
+  showFloatMsg('✅ '+p.name.substring(0,28)+'... al carrito');
 }
-function removeFromCart(id){cart=cart.filter(x=>x.id!==id);updateCartUI();}
+function removeFromCart(id){ cart=cart.filter(x=>x.id!==id); updateCartUI(); }
+function changeQty(id,delta){
+  const item=cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty=Math.max(1,item.qty+delta);
+  updateCartUI();
+}
 function updateCartUI(){
   const count=cart.reduce((a,b)=>a+b.qty,0);
   document.getElementById('cart-count').textContent=count;
   const list=document.getElementById('cart-items-list');
-  if(cart.length===0){list.innerHTML='<div class="empty-cart">🛒 Tu carrito está vacío</div>';document.getElementById('cart-total').textContent='';document.getElementById('btn-checkout').style.display='none';return;}
+  if(!cart.length){
+    list.innerHTML='<div class="empty-cart">🛒<br>Tu carrito está vacío<br><small style="font-size:13px;color:#aaa">Agrega productos para comenzar</small></div>';
+    document.getElementById('cart-total').textContent='';
+    document.getElementById('btn-checkout').style.display='none';
+    return;
+  }
   list.innerHTML=cart.map(item=>`
     <div class="cart-item">
-      <img src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/70?text=T'">
+      <img src="${item.imgs&&item.imgs[0]||''}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/72?text=T'">
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">$${fmt(item.price)} × ${item.qty}</div>
+        <div class="cart-item-price">$${fmt(item.price)}</div>
+        <div class="cart-qty">
+          <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
+        </div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">✕</button>
+      <button class="cart-remove" onclick="removeFromCart('${item.id}')">✕</button>
     </div>`).join('');
   const total=cart.reduce((a,b)=>a+b.price*b.qty,0);
-  document.getElementById('cart-total').innerHTML=`Total: <span style="color:var(--orange)">$${fmt(total)}</span>`;
+  document.getElementById('cart-total').innerHTML=`Total: <span>$${fmt(total)}</span>`;
   document.getElementById('btn-checkout').style.display='block';
 }
-function toggleCart(){document.getElementById('cart-drawer').classList.toggle('open');}
+function toggleCart(){ document.getElementById('cart-drawer').classList.toggle('open'); }
 function checkoutCart(){
-  if(cart.length===0) return;
+  if(!cart.length) return;
   const lines=cart.map(i=>`• ${i.name} x${i.qty} = $${fmt(i.price*i.qty)}`).join('\n');
   const total=cart.reduce((a,b)=>a+b.price*b.qty,0);
   const msg=encodeURIComponent(`🛍️ *PEDIDO CARRITO - TROGÜI*\n\n${lines}\n\n💰 *Total: $${fmt(total)}*\n\nDeseo pagar contra entrega 🙏`);
   window.open(`https://wa.me/573206572598?text=${msg}`,'_blank');
 }
 
-// ===================== SEARCH =====================
+// ========== SEARCH ==========
 function levenshtein(a,b){
-  const m=a.length,n=b.length,dp=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  const m=a.length,n=b.length;
+  if(m===0) return n;
+  if(n===0) return m;
+  const dp=[];
+  for(let i=0;i<=m;i++){dp[i]=[i];for(let j=1;j<=n;j++) dp[i][j]=0;}
   for(let j=0;j<=n;j++) dp[0][j]=j;
-  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++) dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++){
+    if(a[i-1]===b[j-1]) dp[i][j]=dp[i-1][j-1];
+    else dp[i][j]=1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  }
   return dp[m][n];
 }
 function searchProducts(q){
   const dd=document.getElementById('search-dropdown');
-  if(!q||q.length<2){dd.classList.remove('open');renderProducts(products);return;}
-  const ql=q.toLowerCase();
+  if(!q||q.length<2){ dd.classList.remove('open'); renderProducts(products); return; }
+  const ql=q.toLowerCase().replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u');
   const scored=products.map(p=>{
-    const nl=p.name.toLowerCase();
-    const exact=nl.includes(ql)?0:1;
-    const lev=Math.min(...nl.split(' ').map(w=>levenshtein(ql,w)));
-    return{p,score:exact*10+lev};
-  }).filter(x=>x.score<6).sort((a,b)=>a.score-b.score).slice(0,8);
-  if(scored.length===0){dd.innerHTML='<div style="padding:12px 16px;color:var(--gray);font-size:14px">No se encontraron productos</div>';dd.classList.add('open');return;}
+    const nl=p.name.toLowerCase().replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u');
+    const dl=p.desc.toLowerCase().replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u');
+    const exact=nl.includes(ql)||dl.includes(ql)?0:1;
+    const words=nl.split(' ');
+    const lev=Math.min(...words.map(w=>levenshtein(ql,w)));
+    return{p,score:exact*8+lev};
+  }).filter(x=>x.score<7).sort((a,b)=>a.score-b.score).slice(0,8);
+  if(!scored.length){
+    dd.innerHTML='<div style="padding:14px 16px;color:var(--gray);font-size:14px">😕 No encontramos ese producto</div>';
+    dd.classList.add('open');
+    renderProducts([]);
+    return;
+  }
   dd.innerHTML=scored.map(({p})=>`
-    <div class="search-dropdown-item" onclick="openModal('${p.id}');document.getElementById('search-dropdown').classList.remove('open')">
-      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/36?text=T'">
-      <div><div style="font-weight:700;font-size:14px">${p.name}</div><div style="color:var(--orange);font-weight:800;font-size:13px">$${fmt(p.price)}</div></div>
+    <div class="search-dd-item" onclick="openModal('${p.id}');document.getElementById('search-dropdown').classList.remove('open')">
+      <img src="${p.imgs&&p.imgs[0]||''}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/40?text=T'">
+      <div><div class="sdi-name">${p.name}</div><div class="sdi-price">$${fmt(p.price)}</div></div>
     </div>`).join('');
   dd.classList.add('open');
   renderProducts(scored.map(x=>x.p));
 }
-document.addEventListener('click',e=>{if(!e.target.closest('.search-bar')) document.getElementById('search-dropdown').classList.remove('open');});
+function doSearch(){ searchProducts(document.getElementById('search-input').value); }
+document.addEventListener('click',e=>{ if(!e.target.closest('.search-bar')) document.getElementById('search-dropdown').classList.remove('open'); });
 
-// ===================== DELIVERY CALC =====================
+// ========== DELIVERY ==========
 function calcDelivery(){
   const sel=document.getElementById('delivery-city');
-  const days=parseInt(sel.value)||5;
-  if(!sel.value){alert('Selecciona una ciudad');return;}
-  const now=new Date();
-  now.setDate(now.getDate()+days);
-  const opts={weekday:'long',year:'numeric',month:'long',day:'numeric'};
-  const dateStr=now.toLocaleDateString('es-CO',opts);
+  const days=parseInt(sel.value)||0;
+  if(!days){ alert('Selecciona una ciudad'); return; }
+  const date=new Date();
+  date.setDate(date.getDate()+days);
+  const dateStr=date.toLocaleDateString('es-CO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const el=document.getElementById('delivery-result');
   el.style.display='block';
-  el.innerHTML=`📦 Tu pedido llegaría aproximadamente el <strong>${dateStr}</strong> (entre ${days} y ${days+1} días hábiles).`;
+  el.innerHTML=`📦 Tu pedido llegaría aproximadamente el <strong>${dateStr}</strong> (entre ${days} y ${days+2} días hábiles).`;
 }
 
-// ===================== NOTIFICATIONS =====================
-const notifNames=[
-  {name:'Juan Camilo Paz',city:'Medellín'},{name:'Valentina Torres',city:'Bogotá'},
-  {name:'Luisa Gómez',city:'Cali'},{name:'Andrés Ospina',city:'Bucaramanga'},
-  {name:'Natalia Suárez',city:'Barranquilla'},{name:'Carlos Herrera',city:'Pereira'},
-  {name:'María José López',city:'Manizales'},{name:'Felipe Restrepo',city:'Cartagena'},
-  {name:'Sofía Martínez',city:'Ibagué'},{name:'Daniel Vargas',city:'Santa Marta'},
+// ========== NOTIFICATIONS ==========
+const notifPeople=[
+  {name:'Ana María Roa',city:'Bogotá'},{name:'Camilo Vargas',city:'Medellín'},
+  {name:'Sofía López',city:'Cali'},{name:'Jorge Herrera',city:'Barranquilla'},
+  {name:'Daniela Ruiz',city:'Bucaramanga'},{name:'Mauricio Torres',city:'Pereira'},
+  {name:'Valentina Soto',city:'Cartagena'},{name:'Felipe Molina',city:'Manizales'},
+  {name:'Gloria Jiménez',city:'Ibagué'},{name:'Ernesto Díaz',city:'Santa Marta'},
 ];
+let notifIdx=0;
 function startNotifications(){
-  let i=0;
   setInterval(()=>{
-    const {name,city}=notifNames[i%notifNames.length];
+    const {name,city}=notifPeople[notifIdx%notifPeople.length];
     const p=products[Math.floor(Math.random()*products.length)];
-    showNotif(`🛍️ <span class="notif-name">${name}</span> de ${city} hizo un pedido de <b>${p.name}</b>`);
-    i++;
-  },8000);
+    showNotif(`🛍️ <span class="nn">${name}</span> de ${city} acaba de pedir <b>${p.name.substring(0,30)}</b>`);
+    notifIdx++;
+  },9000);
 }
 function showNotif(html){
   const nb=document.getElementById('notif-box');
-  nb.innerHTML=html;nb.style.display='block';
-  setTimeout(()=>nb.style.display='none',4000);
+  nb.innerHTML=html; nb.style.display='block';
+  setTimeout(()=>nb.style.display='none',5000);
 }
 function showFloatMsg(msg){
+  const existing=document.querySelector('.float-msg');
+  if(existing) existing.remove();
   const div=document.createElement('div');
-  div.style.cssText='position:fixed;bottom:150px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:10px 20px;border-radius:20px;font-weight:700;font-size:14px;z-index:9999;animation:slideUp .4s';
-  div.textContent=msg;
+  div.className='float-msg'; div.textContent=msg;
   document.body.appendChild(div);
-  setTimeout(()=>div.remove(),2500);
+  setTimeout(()=>div.remove(),2800);
 }
 function updateVisitors(){
   setInterval(()=>{
-    visitors=Math.max(8,visitors+Math.floor(Math.random()*5)-2);
-    document.querySelectorAll('#visitors-count,#visitors-count2').forEach(el=>el.textContent=visitors);
+    visitors=Math.max(8,visitors+Math.floor(Math.random()*7)-3);
+    document.querySelectorAll('#v1,#v2').forEach(el=>el.textContent=visitors);
+  },5000);
+  document.querySelectorAll('#v1,#v2').forEach(el=>el.textContent=visitors);
+}
+
+// ========== ROULETTE ==========
+const rouletteSegments=[
+  {label:'🚚 Envío GRATIS',color:'#FF5200',prize:'¡Envío GRATIS en tu pedido!',win:true},
+  {label:'5% Descuento',color:'#00b050',prize:'¡5% de descuento adicional en tu pedido!',win:true},
+  {label:'💵 Contra Entrega',color:'#1a1a2e',prize:'¡Tienes Pago Contra Entrega disponible!',win:true},
+  {label:'🎁 Regalo Sorpresa',color:'#e94560',prize:'¡Recibirás un pequeño regalo con tu pedido!',win:true},
+  {label:'😅 Mejor Suerte',color:'#888',prize:'¡No ganaste esta vez! Pero tenemos envío gratis de todos modos 😊',win:false},
+  {label:'10% Extra OFF',color:'#FF5200',prize:'¡10% de descuento adicional! Cuéntale al vendedor.',win:true},
+  {label:'😅 Casi!',color:'#aaa',prize:'¡Casi! Pero igual tienes precios increíbles 🎉',win:false},
+  {label:'🌟 Cliente VIP',color:'#f5c518',prize:'¡Eres Cliente VIP! Prioridad en atención.',win:true},
+];
+let rouletteAngle=0;
+let rouletteSpinning=false;
+
+function drawRoulette(angle=0){
+  const canvas=document.getElementById('roulette-canvas');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const cx=140,cy=140,radius=135;
+  const n=rouletteSegments.length;
+  const arc=2*Math.PI/n;
+  ctx.clearRect(0,0,280,280);
+  rouletteSegments.forEach((seg,i)=>{
+    const start=angle+i*arc-Math.PI/2;
+    const end=start+arc;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,radius,start,end);
+    ctx.closePath();
+    ctx.fillStyle=seg.color;
+    ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.3)';
+    ctx.lineWidth=2;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+arc/2);
+    ctx.textAlign='right';
+    ctx.fillStyle='#fff';
+    ctx.font='bold 11px Nunito,sans-serif';
+    ctx.fillText(seg.label,radius-8,4);
+    ctx.restore();
+  });
+  // Center circle
+  ctx.beginPath();
+  ctx.arc(cx,cy,22,0,2*Math.PI);
+  ctx.fillStyle='#fff';
+  ctx.fill();
+  ctx.fillStyle='#FF5200';
+  ctx.font='bold 13px Nunito,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('TROGÜI',cx,cy+4);
+}
+
+function spinRoulette(){
+  if(rouletteSpinning) return;
+  rouletteSpinning=true;
+  document.getElementById('roulette-btn').disabled=true;
+  document.getElementById('roulette-result').style.display='none';
+  // Bias: win 80% of time
+  const winSegs=rouletteSegments.map((s,i)=>({...s,i})).filter(s=>s.win);
+  const loseSegs=rouletteSegments.map((s,i)=>({...s,i})).filter(s=>!s.win);
+  const chosen=Math.random()<0.8 ? winSegs[Math.floor(Math.random()*winSegs.length)] : loseSegs[Math.floor(Math.random()*loseSegs.length)];
+  const n=rouletteSegments.length;
+  const arc=2*Math.PI/n;
+  const targetIdx=chosen.i;
+  const totalSpins=5+Math.random()*3;
+  const totalAngle=totalSpins*2*Math.PI - targetIdx*arc - arc/2 + Math.random()*arc*0.6;
+  const duration=5000;
+  let start=null;
+  const baseAngle=rouletteAngle;
+  function animate(ts){
+    if(!start) start=ts;
+    const elapsed=ts-start;
+    const progress=Math.min(elapsed/duration,1);
+    const ease=1-Math.pow(1-progress,4);
+    rouletteAngle=baseAngle+totalAngle*ease;
+    drawRoulette(rouletteAngle);
+    if(progress<1){ requestAnimationFrame(animate); }
+    else {
+      rouletteSpinning=false;
+      const res=document.getElementById('roulette-result');
+      res.style.display='block';
+      res.innerHTML=chosen.win
+        ? `🎉 <b>¡Felicidades!</b><br>${chosen.prize}<br><small style="color:var(--gray)">Muestra esta pantalla al hacer tu pedido.</small>`
+        : `😅 <b>¡Suerte la próxima!</b><br>${chosen.prize}`;
+      res.style.color=chosen.win?'var(--orange)':'var(--gray)';
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function openRoulette(){ document.getElementById('roulette-overlay').classList.add('active'); }
+function closeRoulette(){ document.getElementById('roulette-overlay').classList.remove('active'); }
+
+// Inactivity watcher (1 min)
+function startInactivityWatcher(){
+  let lastActivity=Date.now();
+  const events=['mousemove','keydown','scroll','click','touchstart'];
+  events.forEach(e=>document.addEventListener(e,()=>{ lastActivity=Date.now(); }));
+  setInterval(()=>{
+    if(Date.now()-lastActivity > 60000 && !rouletteSpun){
+      rouletteSpun=true;
+      openRoulette();
+    }
   },5000);
 }
-function startVisitorCount(){
-  document.querySelectorAll('#visitors-count,#visitors-count2').forEach(el=>el.textContent=visitors);
-}
 
-// ===================== ADMIN AUTH =====================
+// ========== ADMIN AUTH ==========
 function adminAuth(panel){
-  const pass=prompt('Ingresa la contraseña de administrador:');
-  if(pass!==ADMIN_PASS){alert('Contraseña incorrecta');return;}
+  const pass=prompt('🔐 Contraseña de administrador:');
+  if(pass!==ADMIN_PASS){ alert('❌ Contraseña incorrecta'); return; }
   if(panel==='r') openAdminR();
   else if(panel==='c') openAdminC();
-  else if(panel==='e') openAdminE();
+  else openAdminE();
 }
-function closeAdmin(id){document.getElementById(id).classList.remove('active');}
+function closeAdmin(id){ document.getElementById(id).classList.remove('active'); }
 
-// ===================== ADMIN R =====================
-function openAdminR(){renderAdminProducts();document.getElementById('admin-r').classList.add('active');}
+// ========== ADMIN R: PRODUCTS ==========
+function openAdminR(){ renderAdminProducts(); document.getElementById('admin-r').classList.add('active'); }
 
-function mkLabel(text,styles){
-  const l=document.createElement('label');l.textContent=text;
-  Object.assign(l.style,{fontWeight:'800',fontSize:'13px',display:'block',marginBottom:'3px',marginTop:'8px',...(styles||{})});
-  return l;
-}
-function mkInput(id,value,type,placeholder){
-  const inp=document.createElement('input');
-  inp.type=type||'text';inp.id=id;inp.value=value||'';
-  if(placeholder) inp.placeholder=placeholder;
-  Object.assign(inp.style,{width:'100%',padding:'8px 10px',border:'1.5px solid #e5e5e5',borderRadius:'8px',fontSize:'13px',fontFamily:'Nunito,sans-serif',boxSizing:'border-box'});
-  return inp;
-}
-function buildImgRow(pid,suffix,currentSrc,label){
-  const prevImg=document.createElement('img');
-  prevImg.id='prev'+suffix+'-'+pid;prevImg.src=currentSrc||'https://via.placeholder.com/80?text=IMG';prevImg.alt='preview';
-  Object.assign(prevImg.style,{width:'80px',height:'80px',objectFit:'cover',borderRadius:'10px',border:'2px solid #e5e5e5',background:'#f4f4f4',flexShrink:'0'});
-  prevImg.onerror=function(){this.src='https://via.placeholder.com/80?text=IMG';};
-  const urlInp=mkInput('ai'+suffix+'-'+pid,currentSrc,'text','🔗 URL de imagen (https://...)');
-  urlInp.addEventListener('input',function(){const v=this.value.trim();if(v){prevImg.src=v;}});
-  const fileInp=document.createElement('input');fileInp.type='file';fileInp.accept='image/*';fileInp.style.cssText='display:none';
-  fileInp.addEventListener('change',function(){
-    const file=this.files[0];if(!file)return;
-    const reader=new FileReader();
-    reader.onload=function(e){urlInp.value=e.target.result;prevImg.src=e.target.result;showFloatMsg('✅ Imagen cargada. Pulsa Guardar.');};
-    reader.readAsDataURL(file);
-  });
-  const fileBtn=document.createElement('label');fileBtn.textContent='📁 Subir foto';fileBtn.appendChild(fileInp);
-  Object.assign(fileBtn.style,{display:'block',background:'#FF5200',color:'#fff',padding:'7px 10px',borderRadius:'8px',cursor:'pointer',fontSize:'12px',fontWeight:'800',textAlign:'center',marginTop:'4px'});
-  const col=document.createElement('div');Object.assign(col.style,{flex:'1',minWidth:'160px',display:'flex',flexDirection:'column',gap:'4px'});
-  col.appendChild(urlInp);col.appendChild(fileBtn);
-  const row=document.createElement('div');Object.assign(row.style,{display:'flex',gap:'10px',alignItems:'flex-start',flexWrap:'wrap',marginBottom:'6px'});
-  row.appendChild(prevImg);row.appendChild(col);
-  const lbl=mkLabel(label,{color:'#FF5200'});
-  const wrap=document.createElement('div');wrap.appendChild(lbl);wrap.appendChild(row);
-  return wrap;
-}
-function buildProductCard(p){
-  const card=document.createElement('div');card.className='admin-product-item';card.id='aitem-'+p.id;
-  const hdr=document.createElement('div');Object.assign(hdr.style,{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'8px'});
-  const title=document.createElement('b');title.textContent=p.id+' — '+p.name;Object.assign(title.style,{fontSize:'13px',color:'#FF5200'});
-  const delBtn=document.createElement('button');delBtn.textContent='🗑️ Eliminar';delBtn.className='btn-del-admin';delBtn.onclick=()=>deleteProduct(p.id);
-  hdr.appendChild(title);hdr.appendChild(delBtn);card.appendChild(hdr);
-  card.appendChild(mkLabel('Nombre'));card.appendChild(mkInput('an-'+p.id,p.name));
-  card.appendChild(mkLabel('Descripción'));
-  const ta=document.createElement('textarea');ta.id='ad-'+p.id;ta.rows=2;ta.textContent=p.desc||'';
-  Object.assign(ta.style,{width:'100%',padding:'8px 10px',border:'1.5px solid #e5e5e5',borderRadius:'8px',fontSize:'13px',fontFamily:'Nunito,sans-serif',resize:'vertical',boxSizing:'border-box'});
-  card.appendChild(ta);
-  const r1=document.createElement('div');r1.className='row2';
-  const c1=document.createElement('div');c1.appendChild(mkLabel('Precio ($)'));c1.appendChild(mkInput('ap-'+p.id,p.price,'number'));r1.appendChild(c1);
-  const c2=document.createElement('div');c2.appendChild(mkLabel('Precio anterior ($)'));c2.appendChild(mkInput('ao-'+p.id,p.oldPrice,'number'));r1.appendChild(c2);
-  card.appendChild(r1);
-  const r2=document.createElement('div');r2.className='row2';
-  const c3=document.createElement('div');c3.appendChild(mkLabel('Vendidos'));c3.appendChild(mkInput('av-'+p.id,p.sold,'number'));r2.appendChild(c3);
-  const c4=document.createElement('div');c4.appendChild(mkLabel('Estrellas (1-5)'));const sinp=mkInput('as-'+p.id,p.stars,'number');sinp.min='1';sinp.max='5';c4.appendChild(sinp);r2.appendChild(c4);
-  card.appendChild(r2);
-  card.appendChild(buildImgRow(p.id,'',p.img,'📷 Imagen Principal'));
-  card.appendChild(buildImgRow(p.id,'2',p.img2||p.img,'📷 Imagen Secundaria'));
-  card.appendChild(mkLabel('Categoría'));
-  const sel=document.createElement('select');sel.id='ac-'+p.id;
-  Object.assign(sel.style,{width:'100%',padding:'8px',border:'1.5px solid #e5e5e5',borderRadius:'8px',fontSize:'13px',fontFamily:'Nunito,sans-serif'});
-  ['belleza','hogar','tecnologia','salud','fitness','juguetes','accesorios'].forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;if(p.cat===c)opt.selected=true;sel.appendChild(opt);});
-  card.appendChild(sel);
-  const r3=document.createElement('div');r3.className='row2';Object.assign(r3.style,{marginTop:'6px'});
-  const c5=document.createElement('div');c5.appendChild(mkLabel('Últimas unidades'));
-  const sel2=document.createElement('select');sel2.id='alu-'+p.id;
-  Object.assign(sel2.style,{width:'100%',padding:'8px',border:'1.5px solid #e5e5e5',borderRadius:'8px',fontSize:'13px',fontFamily:'Nunito,sans-serif'});
-  [{v:'true',t:'Sí'},{v:'false',t:'No'}].forEach(({v,t})=>{const o=document.createElement('option');o.value=v;o.textContent=t;if((p.lastUnits?'true':'false')===v)o.selected=true;sel2.appendChild(o);});
-  c5.appendChild(sel2);r3.appendChild(c5);
-  const c6=document.createElement('div');c6.appendChild(mkLabel('Timer (segundos)'));c6.appendChild(mkInput('at-'+p.id,p.timer,'number'));r3.appendChild(c6);
-  card.appendChild(r3);
-  const saveBtn=document.createElement('button');saveBtn.textContent='💾 Guardar este producto';saveBtn.className='btn-save-admin';
-  Object.assign(saveBtn.style,{marginTop:'12px',width:'100%',fontSize:'14px'});saveBtn.onclick=()=>saveOneProduct(p.id);
-  card.appendChild(saveBtn);
-  return card;
-}
 function renderAdminProducts(){
-  const list=document.getElementById('admin-product-list');list.innerHTML='';
-  products.forEach(p=>list.appendChild(buildProductCard(p)));
+  const list=document.getElementById('admin-product-list');
+  list.innerHTML='';
+  products.forEach(p=>{
+    const div=document.createElement('div');
+    div.className='admin-product-item';
+    div.id='aitem-'+p.id;
+    const imgsJson=JSON.stringify(p.imgs||[]).replace(/"/g,'&quot;');
+    div.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <b style="color:var(--orange);font-size:13px">${p.id} — ${p.name}</b>
+        <button class="btn-del-admin" onclick="deleteProduct('${p.id}')">🗑️ Eliminar</button>
+      </div>
+      <label>Nombre</label><input type="text" id="an-${p.id}" value="${p.name.replace(/"/g,'&quot;')}">
+      <label>Descripción</label><textarea id="ad-${p.id}" rows="3">${p.desc}</textarea>
+      <div class="admin-row2">
+        <div><label>Precio ($)</label><input type="number" id="ap-${p.id}" value="${p.price}"></div>
+        <div><label>Precio Anterior ($)</label><input type="number" id="ao-${p.id}" value="${p.oldPrice}"></div>
+      </div>
+      <div class="admin-row2">
+        <div><label>Vendidos</label><input type="number" id="av-${p.id}" value="${p.sold}"></div>
+        <div><label>Estrellas (1-5)</label><input type="number" id="as-${p.id}" value="${p.stars}" min="1" max="5"></div>
+      </div>
+      <label>Categoría</label>
+      <select id="ac-${p.id}">
+        ${['hogar','tecnologia','salud','belleza','fitness','accesorios','juguetes','cocina'].map(c=>`<option value="${c}"${p.cat===c?' selected':''}>${c}</option>`).join('')}
+      </select>
+      <label>URLs de Imágenes/GIFs (una por línea)</label>
+      <textarea id="ai-${p.id}" rows="4" placeholder="https://imagen1.jpg&#10;https://imagen2.jpg&#10;https://gif.gif">${(p.imgs||[]).join('\n')}</textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px" id="preview-${p.id}">
+        ${(p.imgs||[]).map(src=>`<img src="${src}" class="img-preview" onerror="this.style.display='none'">`).join('')}
+      </div>
+      <div class="admin-row2" style="margin-top:8px">
+        <div><label>Últimas unidades</label><select id="alu-${p.id}"><option value="false"${!p.lastUnits?' selected':''}>No</option><option value="true"${p.lastUnits?' selected':''}>Sí</option></select></div>
+        <div><label>Timer (segundos)</label><input type="number" id="at-${p.id}" value="${p.timer}"></div>
+      </div>
+      <button class="btn-save-admin" style="width:100%;margin-top:12px;font-size:14px" onclick="saveOneProduct('${p.id}')">💾 Guardar este producto</button>`;
+    list.appendChild(div);
+    // live preview update
+    const ta=div.querySelector(`#ai-${p.id}`);
+    const prev=div.querySelector(`#preview-${p.id}`);
+    ta.addEventListener('input',()=>{
+      const urls=ta.value.split('\n').map(u=>u.trim()).filter(Boolean);
+      prev.innerHTML=urls.map(src=>`<img src="${src}" class="img-preview" onerror="this.style.display='none'">`).join('');
+    });
+  });
 }
-function deleteProduct(id){
-  if(!confirm('¿Eliminar este producto?'))return;
-  products=products.filter(p=>p.id!==id);
-  localStorage.setItem('trogui_products',JSON.stringify(products));
-  renderAdminProducts();renderProducts(products);
-}
-function addNewProduct(){
-  const newId='P'+String(Date.now()).slice(-5);
-  products.push({id:newId,name:'Nuevo Producto',cat:'hogar',img:'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=400',img2:'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=400',price:49000,oldPrice:89000,desc:'Descripción del producto.',sold:10,stars:5,lastUnits:false,timer:3600});
-  localStorage.setItem('trogui_products',JSON.stringify(products));
-  renderAdminProducts();renderProducts(products);
-  setTimeout(()=>document.getElementById('admin-product-list').lastElementChild?.scrollIntoView({behavior:'smooth'}),150);
-}
+
 function saveOneProduct(id){
-  const p=products.find(x=>x.id===id);if(!p)return;
-  const nEl=document.getElementById('an-'+id);if(!nEl)return;
-  p.name=nEl.value||p.name;
+  const p=products.find(x=>x.id===id);
+  if(!p) return;
+  p.name=document.getElementById('an-'+id).value||p.name;
   p.desc=document.getElementById('ad-'+id).value;
   p.price=parseInt(document.getElementById('ap-'+id).value)||p.price;
   p.oldPrice=parseInt(document.getElementById('ao-'+id).value)||p.oldPrice;
   p.sold=parseInt(document.getElementById('av-'+id).value)||p.sold;
   p.stars=parseInt(document.getElementById('as-'+id).value)||p.stars;
-  const img1=document.getElementById('ai-'+id).value.trim();
-  const img2=document.getElementById('ai2-'+id).value.trim();
-  if(img1)p.img=img1;if(img2)p.img2=img2;
   p.cat=document.getElementById('ac-'+id).value;
+  const imgsRaw=document.getElementById('ai-'+id).value.split('\n').map(u=>u.trim()).filter(Boolean);
+  if(imgsRaw.length) p.imgs=imgsRaw;
   p.lastUnits=document.getElementById('alu-'+id).value==='true';
   p.timer=parseInt(document.getElementById('at-'+id).value)||p.timer;
-  localStorage.setItem('trogui_products',JSON.stringify(products));
-  renderProducts(products);showFloatMsg('✅ "'+p.name+'" guardado!');
-}
-function saveProducts(silent){
-  products.forEach(p=>saveOneProduct(p.id));
-  localStorage.setItem('trogui_products',JSON.stringify(products));
+  localStorage.setItem('trogui_v2_products',JSON.stringify(products));
   renderProducts(products);
-  if(!silent)showFloatMsg('✅ Todos los productos guardados!');
+  showFloatMsg('✅ "'+p.name.substring(0,24)+'" guardado!');
 }
 
-// ===================== ADMIN C - PEDIDOS =====================
-let filteredOrders = [];
+function saveAllProducts(){
+  products.forEach(p=>saveOneProduct(p.id));
+  showFloatMsg('✅ Todos los productos guardados!');
+}
 
+function addNewProduct(){
+  const newId='T'+String(Date.now()).slice(-4);
+  products.push({id:newId,name:'Nuevo Producto',cat:'hogar',imgs:['https://via.placeholder.com/400x300?text=TROGUI'],price:49000,oldPrice:89000,desc:'Descripción del producto.',sold:10,stars:5,lastUnits:false,timer:3600});
+  localStorage.setItem('trogui_v2_products',JSON.stringify(products));
+  renderAdminProducts();
+  renderProducts(products);
+  setTimeout(()=>document.getElementById('admin-product-list').lastElementChild?.scrollIntoView({behavior:'smooth'}),150);
+}
+
+function deleteProduct(id){
+  if(!confirm('¿Eliminar este producto?')) return;
+  products=products.filter(p=>p.id!==id);
+  localStorage.setItem('trogui_v2_products',JSON.stringify(products));
+  renderAdminProducts();
+  renderProducts(products);
+}
+
+// ========== ADMIN C: ORDERS ==========
+let filteredOrders=[];
 function openAdminC(){
   filteredOrders=[...orders].reverse();
   renderOrderStats();
@@ -1147,127 +1365,96 @@ function openAdminC(){
   document.getElementById('order-search').value='';
   document.getElementById('admin-c').classList.add('active');
 }
-
 function renderOrderStats(){
   const total=orders.length;
-  const totalRevenue=orders.reduce((s,o)=>s+(o.price||0),0);
+  const totalRev=orders.reduce((s,o)=>s+(o.price||0),0);
   const today=new Date().toLocaleDateString('es-CO');
-  const todayOrders=orders.filter(o=>o.fecha&&o.fecha.startsWith(today)).length;
+  const todayCount=orders.filter(o=>o.fecha&&o.fecha.startsWith(today)).length;
   const ciudades=[...new Set(orders.map(o=>o.ciudad).filter(Boolean))].length;
   document.getElementById('orders-stats').innerHTML=`
-    <div class="stat-card"><div class="sv">${total}</div><div class="sl">Total pedidos</div></div>
-    <div class="stat-card"><div class="sv">$${fmt(totalRevenue)}</div><div class="sl">Ingresos totales</div></div>
-    <div class="stat-card"><div class="sv">${todayOrders}</div><div class="sl">Pedidos hoy</div></div>
+    <div class="stat-card"><div class="sv">${total}</div><div class="sl">Total Pedidos</div></div>
+    <div class="stat-card"><div class="sv">$${fmt(totalRev)}</div><div class="sl">Ingresos</div></div>
+    <div class="stat-card"><div class="sv">${todayCount}</div><div class="sl">Pedidos Hoy</div></div>
     <div class="stat-card"><div class="sv">${ciudades}</div><div class="sl">Ciudades</div></div>`;
 }
-
 function renderOrdersList(list){
   const cont=document.getElementById('admin-orders-list');
-  if(list.length===0){
-    cont.innerHTML=`<div class="no-orders"><div class="no-ico">📭</div><b>No hay pedidos${document.getElementById('order-search').value?' con ese filtro':' aún'}.</b></div>`;
-    return;
-  }
+  if(!list.length){ cont.innerHTML='<div class="no-orders">📭 No hay pedidos aún</div>'; return; }
   cont.innerHTML=list.map(o=>{
-    const disc=o.discount||Math.round((1-(o.price/o.oldPrice))*100)||0;
     const waMsg=encodeURIComponent(`Hola ${o.nombre}, tu pedido de *${o.product}* por $${fmt(o.price)} está confirmado. ¡Gracias por comprar en TROGÜI! 🛍️`);
-    return `
-    <div class="order-card">
-      <div class="order-card-header">
-        <div>
-          <div class="order-id">#${o.id}</div>
-          <div class="order-product-name">${o.product}</div>
-        </div>
-        <div class="order-time-badge">🕐 ${o.fecha||'—'}</div>
-      </div>
+    return `<div class="order-card">
+      <div class="order-product-name">${o.product}</div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:8px">#${o.id} · ${o.fecha}</div>
       <div class="order-grid">
-        <div class="order-field">
-          <span class="of-label">👤 Nombre</span>
-          <span class="of-value">${o.nombre} ${o.apellido||''}</span>
-        </div>
-        <div class="order-field">
-          <span class="of-label">📞 Teléfono</span>
-          <span class="of-value">${o.telefono}</span>
-        </div>
-        <div class="order-field">
-          <span class="of-label">🗺️ Departamento</span>
-          <span class="of-value">${o.departamento||'—'}</span>
-        </div>
-        <div class="order-field">
-          <span class="of-label">🏙️ Ciudad</span>
-          <span class="of-value">${o.ciudad}</span>
-        </div>
-        <div class="order-field" style="grid-column:1/-1">
-          <span class="of-label">🏠 Dirección</span>
-          <span class="of-value">${o.direccion}</span>
-        </div>
+        <div class="order-field"><span class="of-label">👤 Nombre</span><span class="of-value">${o.nombre} ${o.apellido||''}</span></div>
+        <div class="order-field"><span class="of-label">📞 Teléfono</span><span class="of-value">${o.telefono}</span></div>
+        <div class="order-field"><span class="of-label">🗺️ Departamento</span><span class="of-value">${o.departamento||'—'}</span></div>
+        <div class="order-field"><span class="of-label">🏙️ Ciudad</span><span class="of-value">${o.ciudad}</span></div>
+        <div class="order-field" style="grid-column:1/-1"><span class="of-label">🏠 Dirección</span><span class="of-value">${o.direccion}</span></div>
       </div>
       <div class="order-price-row">
-        <div>
-          <div class="order-price-new">$${fmt(o.price)}</div>
-          <div class="order-price-old">Antes $${fmt(o.oldPrice)}</div>
-        </div>
-        <div class="order-discount-badge">-${disc}% OFF</div>
-        <button class="order-wa-btn" onclick="window.open('https://wa.me/57${o.telefono.replace(/\D/g,'')}?text=${waMsg}','_blank')">💬 Contactar</button>
+        <div><div class="order-price-new">$${fmt(o.price)}</div><div class="order-price-old">Antes $${fmt(o.oldPrice)}</div></div>
+        <button class="order-wa-btn" onclick="window.open('https://wa.me/57${(o.telefono||'').replace(/\D/g,'')}?text=${waMsg}','_blank')">💬 Contactar</button>
       </div>
-      ${o.nota?`<div class="order-nota">📝 Nota: ${o.nota}</div>`:''}
+      ${o.nota?`<div class="order-nota">📝 ${o.nota}</div>`:''}
     </div>`;
   }).join('');
 }
-
 function filterOrders(q){
-  if(!q){filteredOrders=[...orders].reverse();renderOrdersList(filteredOrders);return;}
+  if(!q){ filteredOrders=[...orders].reverse(); renderOrdersList(filteredOrders); return; }
   const ql=q.toLowerCase();
   filteredOrders=[...orders].reverse().filter(o=>
-    (o.nombre||'').toLowerCase().includes(ql)||
-    (o.apellido||'').toLowerCase().includes(ql)||
-    (o.ciudad||'').toLowerCase().includes(ql)||
-    (o.departamento||'').toLowerCase().includes(ql)||
-    (o.product||'').toLowerCase().includes(ql)||
-    (o.telefono||'').includes(q)||
-    (o.id||'').toLowerCase().includes(ql)
+    (o.nombre||'').toLowerCase().includes(ql)||(o.apellido||'').toLowerCase().includes(ql)||
+    (o.ciudad||'').toLowerCase().includes(ql)||(o.product||'').toLowerCase().includes(ql)||
+    (o.telefono||'').includes(q)||(o.id||'').toLowerCase().includes(ql)
   );
   renderOrdersList(filteredOrders);
 }
-
-function exportOrdersCSV(){
-  if(orders.length===0){alert('No hay pedidos para exportar.');return;}
-  const headers=['ID','Producto','Precio','Precio Anterior','Descuento %','Nombre','Apellido','Departamento','Ciudad','Dirección','Teléfono','Nota','Fecha'];
-  const rows=orders.map(o=>[
-    o.id,o.product,o.price,o.oldPrice,o.discount||'',
-    o.nombre,o.apellido||'',o.departamento||'',o.ciudad,o.direccion,o.telefono,o.nota||'',o.fecha
-  ].map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(','));
-  const csv='\uFEFF'+[headers.join(','),...rows].join('\n');
+function exportCSV(){
+  if(!orders.length){ alert('No hay pedidos para exportar.'); return; }
+  const h=['ID','Producto','Precio','Descuento%','Nombre','Apellido','Departamento','Ciudad','Dirección','Teléfono','Nota','Fecha'];
+  const rows=orders.map(o=>[o.id,o.product,o.price,o.discount||'',o.nombre,o.apellido||'',o.departamento||'',o.ciudad,o.direccion,o.telefono,o.nota||'',o.fecha].map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv='\uFEFF'+[h.join(','),...rows].join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='pedidos_trogui_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+  const a=document.createElement('a');
+  a.href=url; a.download='pedidos_trogui_'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
   URL.revokeObjectURL(url);
-  showFloatMsg('✅ CSV exportado correctamente');
+  showFloatMsg('✅ CSV exportado!');
 }
-
 function clearOrders(){
-  if(!confirm('¿Limpiar TODOS los pedidos? Esta acción no se puede deshacer.'))return;
-  orders=[];localStorage.removeItem('trogui_orders');openAdminC();
+  if(!confirm('¿Eliminar TODOS los pedidos? Esto no se puede deshacer.')) return;
+  orders=[];
+  localStorage.removeItem('trogui_orders');
+  openAdminC();
 }
 
-// ===================== ADMIN E =====================
+// ========== ADMIN E: PAGE EDITOR ==========
 function openAdminE(){
-  document.getElementById('edit-topbar').value=document.querySelector('.topbar').innerHTML.replace(/<[^>]+>/g,'');
-  document.getElementById('edit-prod-title').value=document.querySelector('.section-title').textContent;
-  document.getElementById('audio-url-input').value=localStorage.getItem('trogui_audio')||'';
+  document.getElementById('edit-topbar').value=document.getElementById('topbar-text').textContent;
+  document.getElementById('edit-prod-title').value=document.getElementById('products-title').textContent;
+  document.getElementById('audio-url').value=localStorage.getItem('trogui_audio')||'';
   renderAdminReviews();
   document.getElementById('admin-e').classList.add('active');
 }
-function savePageSetting(key){
-  if(key==='topbar'){const val=document.getElementById('edit-topbar').value;document.querySelector('.topbar').textContent=val;localStorage.setItem('trogui_topbar',val);}
-  else if(key==='prod-title'){const val=document.getElementById('edit-prod-title').value;document.querySelector('.section-title').innerHTML=val;localStorage.setItem('trogui_prod_title',val);}
-  showFloatMsg('✅ Guardado correctamente');
+function saveSetting(key){
+  if(key==='topbar'){
+    const v=document.getElementById('edit-topbar').value;
+    document.getElementById('topbar-text').textContent=v;
+    localStorage.setItem('trogui_topbar',v);
+  } else if(key==='prod-title'){
+    const v=document.getElementById('edit-prod-title').value;
+    document.getElementById('products-title').innerHTML=v;
+    localStorage.setItem('trogui_prod_title',v);
+  }
+  showFloatMsg('✅ Guardado!');
 }
 function setAudio(){
-  const url=document.getElementById('audio-url-input').value.trim();
-  if(!url){alert('Ingresa una URL de audio');return;}
-  document.getElementById('audio-src').src=url;
-  document.getElementById('audio-autoplay').load();
-  document.getElementById('audio-autoplay').play();
+  const url=document.getElementById('audio-url').value.trim();
+  if(!url){ alert('Ingresa una URL de audio'); return; }
+  document.getElementById('bg-audio-src').src=url;
+  document.getElementById('bg-audio').load();
+  document.getElementById('bg-audio').play().catch(()=>{});
   localStorage.setItem('trogui_audio',url);
   showFloatMsg('✅ Audio establecido');
 }
@@ -1288,7 +1475,7 @@ function saveReviews(){
     text:document.getElementById('rt-'+i).value||r.text,
   }));
   localStorage.setItem('trogui_reviews',JSON.stringify(reviews));
-  showFloatMsg('✅ Reseñas guardadas');
+  showFloatMsg('✅ Reseñas guardadas!');
 }
 </script>
 </body>
