@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TROGÜI - Tienda Online Colombia 🇨🇴</title>
+<title>TROGÜI - Tienda Colombia 🇨🇴</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -519,7 +519,236 @@ nav{background:var(--orange);position:sticky;top:70px;z-index:800}
   <button class="admin-btn c-btn" title="Ver Pedidos" onclick="adminAuth('c')">C</button>
   <button class="admin-btn e-btn" title="Editar Página" onclick="adminAuth('e')">E</button>
 </div>
+<!-- ADMIN R: PRODUCTS -->
+<div class="admin-overlay" id="admin-r">
+  <div class="admin-panel">
+    <h2>✏️ Editor Completo de Productos</h2>
 
+    <div class="visitors-badge">
+      <span class="visitors-dot"></span>
+      <span id="v1">0</span>
+      personas en la página ahora
+    </div>
+
+    <button class="btn-add-prod" onclick="addNewProduct()">
+      ➕ Agregar Producto
+    </button>
+
+    <div id="admin-product-list"></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+      <button class="btn-save-admin" onclick="saveAllProducts()">
+        💾 Guardar Todos
+      </button>
+
+      <button onclick="closeAdmin('admin-r')"
+      style="background:#eee;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function renderAdminProducts(){
+
+ const container=document.getElementById("admin-product-list");
+
+ container.innerHTML="";
+
+ products.forEach((p,index)=>{
+
+  container.innerHTML+=`
+
+  <div class="admin-product-item">
+
+    <h3 style="margin-bottom:10px">
+      Producto #${index+1}
+    </h3>
+
+    <label>Nombre</label>
+    <input type="text"
+      value="${p.name||''}"
+      onchange="products[${index}].name=this.value">
+
+    <label>Precio Actual</label>
+    <input type="number"
+      value="${p.price||0}"
+      onchange="products[${index}].price=this.value">
+
+    <label>Precio Anterior</label>
+    <input type="number"
+      value="${p.oldPrice||0}"
+      onchange="products[${index}].oldPrice=this.value">
+
+    <label>Descripción</label>
+    <textarea
+      onchange="products[${index}].description=this.value">${p.description||''}</textarea>
+
+    <label>Stock</label>
+    <input type="number"
+      value="${p.stock||10}"
+      onchange="products[${index}].stock=this.value">
+
+    <hr style="margin:15px 0">
+
+    <h4>Imagen Principal</h4>
+
+    <input type="file"
+      accept="image/*"
+      onchange="uploadImage(event,${index})">
+
+    <br><br>
+
+    <input type="text"
+      placeholder="https://imagen.jpg"
+      onchange="products[${index}].image=this.value">
+
+    <br><br>
+
+    ${
+      p.image ?
+      `<img src="${p.image}"
+      style="width:120px;height:120px;object-fit:cover;border-radius:10px">`
+      :
+      ''
+    }
+
+    <hr style="margin:15px 0">
+
+    <h4>Video / GIF</h4>
+
+    <input type="file"
+      accept="video/*,image/gif"
+      onchange="uploadVideo(event,${index})">
+
+    <br><br>
+
+    <input type="text"
+      placeholder="https://video.mp4 o gif"
+      onchange="products[${index}].video=this.value">
+
+    <br><br>
+
+    ${
+      p.video ?
+      `
+      <video
+      src="${p.video}"
+      autoplay
+      muted
+      loop
+      playsinline
+      controls
+      style="width:220px;border-radius:10px">
+      </video>
+      `
+      :
+      ''
+    }
+
+    <hr style="margin:15px 0">
+
+    <button
+      class="btn-del-admin"
+      onclick="deleteProduct(${index})">
+      🗑 Eliminar Producto
+    </button>
+
+  </div>
+
+  `;
+ });
+
+}
+
+function uploadImage(event,index){
+
+ const file=event.target.files[0];
+
+ if(!file) return;
+
+ const reader=new FileReader();
+
+ reader.onload=function(e){
+
+  products[index].image=e.target.result;
+
+  renderAdminProducts();
+
+ };
+
+ reader.readAsDataURL(file);
+
+}
+
+function uploadVideo(event,index){
+
+ const file=event.target.files[0];
+
+ if(!file) return;
+
+ const reader=new FileReader();
+
+ reader.onload=function(e){
+
+  products[index].video=e.target.result;
+
+  renderAdminProducts();
+
+ };
+
+ reader.readAsDataURL(file);
+
+}
+
+function addNewProduct(){
+
+ products.push({
+
+   name:"Nuevo Producto",
+   price:0,
+   oldPrice:0,
+   description:"",
+   stock:10,
+   image:"",
+   video:""
+
+ });
+
+ renderAdminProducts();
+
+}
+
+function deleteProduct(index){
+
+ if(confirm("¿Eliminar este producto?")){
+
+   products.splice(index,1);
+
+   renderAdminProducts();
+
+ }
+
+}
+
+function saveAllProducts(){
+
+ localStorage.setItem(
+   "trogui_products",
+   JSON.stringify(products)
+ );
+
+ alert("Productos guardados correctamente");
+
+ if(typeof renderProducts==="function"){
+   renderProducts();
+ }
+
+}
+
+</script>
 <!-- ADMIN R: PRODUCTS -->
 <div class="admin-overlay" id="admin-r">
   <div class="admin-panel">
@@ -763,11 +992,476 @@ let products = JSON.parse(localStorage.getItem('trogui_v2_products') || 'null') 
    price:89000,oldPrice:160000,
    desc:'Convierte tu TV en Smart TV al instante. Soporte Android con acceso a Play Store. Reproducción HD/4K. Wi-Fi integrado. Control remoto incluido. Accede a Netflix, YouTube, Prime Video y todas tus apps favoritas. Sin mensualidades. Plug & Play en minutos.',
    sold:195,stars:4,lastUnits:false,timer:2*60*60},
+  {id:'T032',name:'Parlante JBL Boombox 3 Mini LED',cat:'tecnologia',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/827576/1714766066425321695_7609998525712221_4306800719508153007_n.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/827576/171476606615a438cb39617cc026517efb13949d88.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/827576/1714766066427540955_7456219337747742_1902590583006082060_n.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/827576/1714766066421837815_6940456066081576_2793123522810349384_n.jpg'
+],
+price:89000,oldPrice:169000,
+desc:'Disfruta un sonido potente con bajos profundos y luces LED que siguen el ritmo de la música. Ideal para reuniones, fiestas, paseos y uso diario. Conexión Bluetooth rápida, diseño portátil y batería recargable para llevar la diversión a cualquier lugar.',
+sold:184,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T033',name:'Parlante JBL Wind 3 Portátil',cat:'tecnologia',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1618784/1736435001WhatsApp%20Image%202025-01-09%20at%2010.00.48%20AM%20(1).jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1618784/1736435000WhatsApp%20Image%202025-01-09%20at%2010.00.51%20AM.jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1618784/1736435000WhatsApp%20Image%202025-01-09%20at%2010.00.51%20AM%20(2).jpeg'
+],
+price:55000,oldPrice:119000,
+desc:'Perfecto para bicicleta, moto o caminatas. Incluye Bluetooth, radio FM, entrada auxiliar y reproducción por microSD. Resistente a salpicaduras y fácil de instalar. Lleva tu música favorita a cualquier aventura.',
+sold:223,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T034',name:'Parlante JBL Flip 6 Con Marquilla',cat:'tecnologia',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2133937/1776781569Captura%20de%20pantalla%202026-04-21%20092329.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2133937/1776781569Imagen%20de%20WhatsApp%202024-12-20%20a%20las%2015.00.38_6450639f%20(1).jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2133937/1776781569WhatsApp%20Image%202025-08-19%20at%2010.38.44%20AM%20(1).jpeg'
+],
+price:65000,oldPrice:139000,
+desc:'Sonido potente y diseño moderno para disfrutar música en cualquier lugar. Conexión Bluetooth estable, batería recargable y excelente calidad de audio para reuniones, oficina o entretenimiento diario.',
+sold:157,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T035',name:'Parlante JBL Charge 5',cat:'tecnologia',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/675632/1708974851photo_5089455367687089337_x%20(1).jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1616579/1736272346image%20(4).png',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/675632/1708974851photo_5089455367687089390_y.jpg'
+],
+price:63000,oldPrice:129000,
+desc:'Potencia, portabilidad y autonomía en un solo equipo. Ideal para quienes buscan un parlante compacto con gran volumen y sonido envolvente para fiestas, viajes o uso diario.',
+sold:245,stars:5,lastUnits:false,timer:4*60*60},
+
+{id:'T036',name:'Consola Q9 Pro Retro',cat:'tecnologia',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1974861/17614359421.webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1974861/17614359423.webp'
+],
+price:169000,oldPrice:289000,
+desc:'Con miles de juegos clásicos incluidos, controles inalámbricos y salida HDMI, esta consola es perfecta para disfrutar en familia. Revive la nostalgia y diviértete durante horas sin necesidad de internet.',
+sold:132,stars:5,lastUnits:false,timer:5*60*60},
+
+{id:'T037',name:'Consola Retro 10000 Juegos 4K',cat:'tecnologia',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/355902/17018761741701876174da165ae2e8f6121968db11c04c1586f6-product.jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1202261/1760218038Dise%C3%B1o%20sin%20t%C3%ADtulo%20-%202025-08-13T111659.315.png'
+],
+price:69000,oldPrice:149000,
+desc:'Más de 10.000 juegos clásicos en una sola consola. Incluye dos controles inalámbricos para jugar con amigos o familiares. Compatible con televisores mediante HDMI y calidad de imagen 4K.',
+sold:311,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T038',name:'Termo Premium 3 En 1',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1223914/1726847960termo3.webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1223914/1726847960451034626_18030781265116909_6319577442867853304_n.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1223914/1726847960termo33.webp'
+],
+price:49000,oldPrice:99000,
+desc:'Mantén tus bebidas frías o calientes por más tiempo. Diseño elegante, práctico y resistente para oficina, gimnasio, universidad o viajes. Ideal para quienes buscan comodidad todos los días.',
+sold:287,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T039',name:'Depilador Recargable',cat:'salud',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1884098/1753379889depilador.JPG'
+],
+price:39000,oldPrice:79000,
+desc:'Elimina el vello de forma rápida, cómoda y sin irritaciones. Diseño compacto y recargable para usar en casa o llevar de viaje. Ideal para mantener una apariencia impecable en minutos.',
+sold:176,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T040',name:'Filtro Universal Para Ducha',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1876903/1752676012filtro%20de%20ducha%20universal.JPG'
+],
+price:55000,oldPrice:110000,
+desc:'Ayuda a reducir cloro, impurezas y malos olores del agua. Protege tu piel y cabello mientras disfrutas de una ducha más saludable. Fácil instalación compatible con la mayoría de duchas estándar.',
+sold:198,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T041',name:'Lámpara Solar 50W',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1209291/1740405054lampara%20sola%2050w%20gd.JPG'
+],
+price:59900,oldPrice:129900,
+desc:'Ilumina patios, terrazas, fincas y exteriores sin aumentar el consumo de energía. Funciona con energía solar, brinda excelente iluminación nocturna y es resistente para uso exterior.',
+sold:165,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T042',name:'Cámara Digital Para Niños',cat:'juguetes',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1584177/1734034325IMG_6987.JPG',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1584177/1734034325IMG_6988.JPG'
+],
+price:49000,oldPrice:99000,
+desc:'Estimula la creatividad de los niños permitiéndoles tomar fotos y grabar videos fácilmente. Resistente, segura y divertida. Un regalo ideal para desarrollar imaginación y aprendizaje.',
+sold:224,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T043',name:'Almohada Ortopédica Premium',cat:'salud',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/655374/1729089926ALMOHADA.webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/655374/1729089926ALMOHADA%20ORTOPEDICA223.webp'
+],
+price:45000,oldPrice:95000,
+desc:'Diseñada para brindar soporte cervical y mejorar la postura al dormir. Ayuda a disminuir molestias en cuello y espalda, proporcionando un descanso más cómodo y reparador.',
+sold:354,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T044',name:'Ejercitador De Manos Ajustable',cat:'salud',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/323974/17018817971701881797D_NQ_NP_646020-MCO70479652653_072023-O.jpeg'
+],
+price:28000,oldPrice:59000,
+desc:'Fortalece dedos, manos y antebrazos. Ideal para deportistas, músicos, rehabilitación física o personas que desean mejorar fuerza y resistencia de agarre.',
+sold:173,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T045',name:'Rodillera De Compresión',cat:'salud',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/587016/1704688558rodillera.jpeg'
+],
+price:29000,oldPrice:59000,
+desc:'Brinda soporte y estabilidad durante caminatas, ejercicio o actividades diarias. Ayuda a reducir molestias articulares y mejora la sensación de seguridad al moverte.',
+sold:191,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T046',name:'Masajeador Facial Antiarrugas',cat:'belleza',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1243990/17272726811718573660MASAJEADOR%20FACIAL.jpeg'
+],
+price:49000,oldPrice:99000,
+desc:'Ayuda a mejorar la apariencia de la piel mediante suaves vibraciones que favorecen la relajación facial. Ideal para complementar tu rutina de cuidado personal desde casa.',
+sold:145,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T047',name:'Maletín Antirrobo Impermeable',cat:'accesorios',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/870258/1716052118maleta%20manos%20Libres.JPG',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/870258/1766246446Mochila%20Cruzada%20Impermeable%20Antirrobo%20-%20Carga%20USB%20ND.jpg'
+],
+price:55000,oldPrice:119000,
+desc:'Protege tus pertenencias con un diseño moderno, impermeable y resistente. Cuenta con múltiples compartimentos para organizar celular, billetera, llaves y accesorios de forma segura.',
+sold:278,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T048',name:'Reloj Despertador Con Proyector LED',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2160113/1779813291RELOJ%20PROYECTOR%20LED%208.JPG',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2160113/1779813291RELOJ%20PROYECTOR%20LED%2014.jpg'
+],
+price:55000,oldPrice:119000,
+desc:'Visualiza la hora proyectada en techo o pared sin levantarte de la cama. Incluye temperatura, humedad y pantalla LED de fácil lectura. Perfecto para dormitorios modernos.',
+sold:169,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T049',name:'Maleta Cabina De Viaje',cat:'viajes',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1358873/1741453295Maleta%20Amazon%20Con%20Zapatero%20Gris%20A.JPG',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1358873/1741453295Maleta%20Amazon%20Con%20Zapatero%20Lila%206.jpg'
+],
+price:89000,oldPrice:169000,
+desc:'Ideal para viajes cortos, gimnasio o escapadas de fin de semana. Amplio espacio interior, compartimentos funcionales y diseño elegante para llevar todo organizado.',
+sold:144,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T050',name:'Molino Eléctrico Multiusos',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1918942/1757248815IMG_0493.jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2148755/1778530520Molinillo%20de%20caf%C3%A9%20el%C3%A9ctrico%20de%20cocina%20Grande%202.jpg'
+],
+price:49900,oldPrice:99900,
+desc:'Muele café, especias, semillas y otros ingredientes en segundos. Potente, compacto y fácil de usar. Perfecto para quienes disfrutan preparar alimentos frescos en casa.',
+sold:188,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T051',name:'Organizador Para Lavadora',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/337207/17018798431701879843WhatsApp%20Image%202023-07-31%20at%208.15.30%20PM.jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/591719/1704992977ORGANIZADOR%20LAVADORA..jpg'
+],
+price:79000,oldPrice:149000,
+desc:'Aprovecha el espacio sobre la lavadora y mantén detergentes, suavizantes y accesorios siempre organizados. Ideal para baños y zonas de lavado pequeñas.',
+sold:152,stars:5,lastUnits:false,timer:3*60*60},
   {id:'T029',name:'Kit Máquina Afeitadora para Mascotas',cat:'accesorios',
    imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1942148/17591538771992f34d9d2-electrohogarcyc-gneuklg0t7n-iest5inm75d.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1942148/17591538771992f34e3e7-electrohogarcyc-gneuklg0t7n-bteqsvyf7nu.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1942148/17591538771992f34d56e-electrohogarcyc-gneuklg0t7n-3nqhgzuzcf.jpg'],
    price:59000,oldPrice:105000,
    desc:'Kit completo para peluquería de mascotas en casa. Silencioso para no asustar a tu perro o gato. Cuchillas de acero inoxidable ajustables. Recargable USB. Incluye accesorios para diferentes longitudes de pelo. Ahorra en peluquería y cuida a tu mascota con amor.',
    sold:142,stars:5,lastUnits:false,timer:60*60},
+  {id:'T052',name:'Estufa Eléctrica Doble Puesto',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2031440/1767718572Haac6d35fa02d468eb197d8b2a91bd799Y.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2002901/1763821917D_NQ_NP_2X_833686-MCO79108625469_092024-F.webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1646802/1738172135estufas.webp'
+],
+price:65000,oldPrice:129000,
+desc:'Cocina de forma rápida y práctica sin necesidad de gas. Cuenta con dos puestos para preparar varias recetas al mismo tiempo. Ideal para apartamentos, oficinas, fincas o estudiantes.',
+sold:247,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T053',name:'Estufa Eléctrica Un Puesto',cat:'hogar',
+imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2129027/1776178830estu.webp'],
+price:49000,oldPrice:99000,
+desc:'Solución práctica para cocinar en espacios reducidos. Compacta, fácil de transportar y perfecta para apartamentos, habitaciones, oficinas o viajes.',
+sold:196,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T054',name:'Buzo Colombia Mundial Cuello Alto',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2160515/1779829600COOMBIA%20AMARILLO%20NUEVO.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2160515/1779829600COOMBIA%20NEGRO%20NUEVO.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2160515/1779829600COOMBIA%20azul%20oscuroNUEVO.jpg'
+],
+price:115000,oldPrice:199000,
+desc:'Chaqueta premium inspirada en la Selección Colombia. Fabricada en tela de excelente calidad, cuello alto, cremallera completa y tallas para hombre y mujer. Ideal para lucir la pasión por Colombia con estilo.',
+sold:312,stars:5,lastUnits:false,timer:4*60*60},
+
+{id:'T055',name:'Buzo Junior FC',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2080820/17707696941000000157.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2080820/17707696941000000156.jpg'
+],
+price:95000,oldPrice:169000,
+desc:'Diseño deportivo cómodo y moderno para los verdaderos hinchas del Junior. Perfecto para uso diario, eventos deportivos o regalar a un apasionado del fútbol.',
+sold:154,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T056',name:'Buzo Deportivo Cali Bordado',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2044517/1769109981WhatsApp%20Image%202026-01-15%20at%202.57.16%20PM.jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2044517/1769109984WhatsApp%20Image%202026-01-15%20at%202.57.15%20PM.jpeg'
+],
+price:115000,oldPrice:199000,
+desc:'Buzo premium bordado para los seguidores del Deportivo Cali. Confección cómoda, excelente acabado y diseño elegante para demostrar tu pasión verdiblanca.',
+sold:142,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T057',name:'Buzo Millonarios FC',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2080700/1770761411MILLONARIOS%201.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2080700/1770761411MILLONARIOS%203.jpg'
+],
+price:115000,oldPrice:199000,
+desc:'Prenda deportiva diseñada para los aficionados embajadores. Tela cómoda, excelente calidad y acabados modernos para cualquier ocasión.',
+sold:201,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T058',name:'Buzo América De Cali',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1836238/1748668187AMERICA.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1836238/1748668186ROJO.jpg'
+],
+price:115000,oldPrice:199000,
+desc:'Lleva con orgullo los colores de La Mechita. Diseño moderno, cómodo y perfecto para acompañarte en cualquier momento del día.',
+sold:263,stars:5,lastUnits:false,timer:4*60*60},
+
+{id:'T059',name:'Saco América De Cali Premium',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1735937/1770477714AMERICA%20RAMON%20GARRA%204.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1735937/1770477714COLLAGE%20AMERICA.jpg'
+],
+price:95000,oldPrice:169000,
+desc:'La pasión de un pueblo reflejada en una prenda cómoda y elegante. Ideal para hinchas que quieren representar al América dentro y fuera del estadio.',
+sold:174,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T060',name:'Buzo Atlético Nacional',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1666448/1763070522NACIONAL%20RAMON%20VERTICAL%204.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1669284/1763069456collage%203.jpg'
+],
+price:95000,oldPrice:179000,
+desc:'Diseñado para los verdaderos verdolagas. Cómodo, resistente y con acabados de alta calidad para acompañarte durante todo el año.',
+sold:286,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T061',name:'Buzo Independiente Medellín',cat:'ropa',
+imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1851963/1750177022WhatsApp%20Image%202025-06-17%20at%2010.41.38.jpeg'],
+price:115000,oldPrice:199000,
+desc:'Representa al Poderoso de la Montaña con una prenda deportiva cómoda, moderna y perfecta para cualquier ocasión.',
+sold:135,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T062',name:'Buzo Once Caldas',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2077063/1775406122NEUMO%20ONCE%20CALDAS%201.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2077063/1775406123NEUMO%20ONCE%20CALDAS%203.jpg'
+],
+price:115000,oldPrice:199000,
+desc:'Diseño exclusivo inspirado en uno de los equipos históricos del fútbol colombiano. Cómodo, elegante y de excelente calidad.',
+sold:117,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T063',name:'Buzo Once Caldas Bordado',cat:'ropa',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1822990/1747409041ONCE-Photoroom.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1822990/1747409041WhatsApp%20Image%202025-05-15%20at%2018.11.49%20(1).jpeg'
+],
+price:95000,oldPrice:169000,
+desc:'Acabados bordados premium y diseño elegante para quienes viven la pasión del Once Caldas todos los días.',
+sold:121,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T064',name:'Buzo Colombia Petróleo',cat:'ropa',
+imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2134937/1776822875WhatsApp%20Image%202026-04-21%20at%208.44.57%20PM.jpeg'],
+price:115000,oldPrice:199000,
+desc:'Edición especial con diseño moderno y colores llamativos. Ideal para fanáticos de la Selección Colombia que buscan destacar.',
+sold:164,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T065',name:'Toldillo Plegable',cat:'bebes',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2147859/1778344866Toldillo-Plegable-BebeAzul3.webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1593349/1734472536IMG-20241216-WA0045.jpg'
+],
+price:49000,oldPrice:99000,
+desc:'Protege a tu bebé de mosquitos e insectos mientras duerme. Diseño plegable, liviano y fácil de transportar para usar en casa o viajes.',
+sold:238,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T066',name:'Toldillo Para Bebés',cat:'bebes',
+imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/921828/171900446117018815061701881506toldillo-mosquitero-bebes-cuna-plegable-cama-portatil-312012-importadora-blue-353152921_1200x1200.jpeg'],
+price:59900,oldPrice:119900,
+desc:'Brinda tranquilidad y protección mientras tu bebé descansa. Fácil de instalar y compatible con diferentes tipos de cunas.',
+sold:207,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T067',name:'Silla Mecedora Para Bebé',cat:'bebes',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2015545/1764878056WhatsApp%20Image%202025-12-03%20at%2010.58.48%20AM.jpeg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2092041/1771882063mecedora%203.jpg'
+],
+price:119000,oldPrice:219000,
+desc:'Ayuda a relajar y entretener al bebé gracias a su suave movimiento. Cómoda, segura y perfecta para los primeros meses de crecimiento.',
+sold:148,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T068',name:'Juego De Ollas Premium',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2041825/1768875446w=1200,h=1200,fit=pad%20(12).webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1817856/1747071190Imagen%20de%20WhatsApp%202025-05-12%20a%20las%2012.31.21_2cd5bc55.jpg'
+],
+price:69900,oldPrice:149900,
+desc:'Renueva tu cocina con un juego completo de ollas resistentes y elegantes. Distribuyen el calor uniformemente para cocinar de manera más eficiente.',
+sold:293,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T069',name:'Sellador Y Cortador De Bolsas',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1960353/176014278933ea0d74-e47f-4d51-bcdf-9d1d818534f5.JPG',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2013355/1764696875bol.webp'
+],
+price:32000,oldPrice:69000,
+desc:'Mantén tus alimentos frescos por más tiempo sellando bolsas en segundos. Fácil de usar, portátil y perfecto para la cocina diaria.',
+sold:354,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T070',name:'Utensilio Multifuncional Cocina',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1515374/17485563742.jpg',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2126664/1775837217cocina.webp'
+],
+price:75000,oldPrice:139000,
+desc:'Herramienta práctica que facilita múltiples tareas en la cocina. Ahorra tiempo y mejora la preparación de tus recetas favoritas.',
+sold:138,stars:5,lastUnits:false,timer:2*60*60},
+  {id:'T072',name:'Juego de Ollas Antiadherentes Premium',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2041825/1768875446w=1200,h=1200,fit=pad%20(12).webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1817856/1747071190Imagen%20de%20WhatsApp%202025-05-12%20a%20las%2012.31.21_2cd5bc55.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2041825/1768875445w=1200,h=1200,fit=pad%20(10).webp'],
+ price:69900,oldPrice:139000,
+ desc:'Renueva tu cocina con este completo juego de ollas antiadherentes. Distribuyen el calor de forma uniforme, reducen el consumo de aceite y facilitan la limpieza. Ideales para preparar tus recetas favoritas de manera rápida y práctica. Resistentes, elegantes y perfectas para el uso diario.',
+ sold:201,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T073',name:'Sellador y Cortador de Bolsas Portátil',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1960353/176014278933ea0d74-e47f-4d51-bcdf-9d1d818534f5.JPG','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2013355/1764696875bol.webp'],
+ price:32000,oldPrice:69000,
+ desc:'Mantén tus alimentos frescos por más tiempo. Este práctico sellador y cortador portátil evita desperdicios, conserva snacks, arroz, café y mucho más. Funciona en segundos y ocupa muy poco espacio. Ideal para hogares organizados y ahorradores.',
+ sold:263,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T074',name:'Utensilio Multifuncional de Cocina',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1515374/17485563742.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2126664/1775837217cocina.webp'],
+ price:75000,oldPrice:129000,
+ desc:'Herramienta versátil diseñada para facilitar múltiples tareas en la cocina. Ahorra tiempo en la preparación de alimentos y mejora la organización de tus espacios. Resistente, fácil de limpiar y perfecta para cualquier hogar moderno.',
+ sold:116,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T075',name:'Organizador Metálico para Cocina',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2159999/1779807048ORGANIZADOR%20METALICO%20DE%20COCINA%201.webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1085959/1723832912WhatsApp%20Image%202024-08-16%20at%2012.58.33%20PM.jpeg'],
+ price:42000,oldPrice:79000,
+ desc:'Aprovecha el espacio de tus paredes y mantén utensilios, cucharas y accesorios siempre organizados. Diseño resistente y elegante que ayuda a mantener la cocina ordenada y funcional. Fácil instalación y gran capacidad.',
+ sold:171,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T076',name:'Set de Utensilios de Cocina 12 Piezas',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/377463/17018734491701873449Utensilio-de-cocina-12pz-Verde-1.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/377463/17018734491701873449Utensilio-de-cocina-12pz-Rojo-2.jpg'],
+ price:49900,oldPrice:99000,
+ desc:'Set completo de utensilios de silicona resistente al calor con elegantes mangos de madera. No raya ollas ni sartenes, es fácil de limpiar y aporta un toque moderno a tu cocina. Incluye soporte organizador para mantener todo en su lugar.',
+ sold:312,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T077',name:'Gorro Terapéutico para Migraña y Dolor de Cabeza',cat:'salud',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/656487/1708057119WhatsApp%20Image%202023-08-29%20at%206.27.56%20PM%20(1).jpeg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/926788/171943595358b7d2b7-f548-4f85-9eaa-82dbfefe3d98.jpeg'],
+ price:35000,oldPrice:69000,
+ desc:'Alivio relajante para migrañas, estrés, cansancio visual y dolores de cabeza. Puede utilizarse frío o tibio para brindar una sensación inmediata de bienestar. Su diseño cómodo cubre completamente la zona afectada y ayuda a relajarte en minutos.',
+ sold:289,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T078',name:'Radios Comunicadores Baofeng X2',cat:'tecnologia',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2034990/1768246197IMG_0355.jpeg'],
+ price:75000,oldPrice:149000,
+ desc:'Comunicación clara y estable para trabajo, seguridad, fincas, viajes y actividades al aire libre. Incluye dos radios, cargadores, auriculares y accesorios completos. Excelente alcance y batería de larga duración para mantenerte siempre conectado.',
+ sold:152,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T079',name:'Sofá Inflable Portátil',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2130523/1776346965sofa%201.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2130523/1776346965SOFA%20AZUL.jpeg'],
+ price:79000,oldPrice:149000,
+ desc:'Descansa cómodamente en la playa, camping, parque o jardín. Se infla rápidamente y ofrece gran comodidad sin necesidad de muebles pesados. Ligero, resistente y fácil de transportar a cualquier lugar.',
+ sold:136,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T080',name:'Destornillador Eléctrico Inalámbrico',cat:'herramientas',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1750036/1744224377DESTOR.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1750036/1768490298photo_2026-01-05_14-52-13.jpg'],
+ price:49000,oldPrice:99000,
+ desc:'Ideal para reparaciones en el hogar, muebles y proyectos de bricolaje. Facilita el trabajo, ahorra tiempo y reduce el esfuerzo. Diseño ergonómico, batería recargable y gran precisión para cualquier tarea.',
+ sold:247,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T081',name:'Candado con Alarma para Moto',cat:'accesorios',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1882997/1753289533candado%20alarma.webp'],
+ price:39000,oldPrice:79000,
+ desc:'Protege tu motocicleta con este candado de alta resistencia equipado con alarma sonora. Detecta movimientos sospechosos y emite una potente alerta para disuadir robos. Seguridad adicional para tu tranquilidad.',
+ sold:322,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T082',name:'Depiladora Trimmer Recargable 4 en 1',cat:'belleza',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2141242/1777486064gememy%20mujer%7D.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2141242/1777486062gemmey%20mujer.jpg'],
+ price:49900,oldPrice:99000,
+ desc:'Elimina vello facial y corporal de forma rápida, segura y sin irritaciones. Incluye diferentes cabezales para adaptarse a cada zona del cuerpo. Recargable, compacta y perfecta para mantener una apariencia impecable.',
+ sold:183,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T083',name:'Aspiradora Inalámbrica 3 en 1',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1881968/1777060523ASPIRADORA%203%20EN%201.webp','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1881968/1777060523ASPIRAORA%203%20EN%201.webp'],
+ price:65000,oldPrice:129000,
+ desc:'Potente aspiradora portátil con gran capacidad de succión para hogar, oficina y automóvil. Elimina polvo, migas y suciedad en segundos. Ligera, recargable y fácil de usar, ideal para mantener cualquier espacio impecable.',
+ sold:341,stars:5,lastUnits:false,timer:3*60*60},
+
+{id:'T084',name:'Limpiador Eléctrico Multifuncional 9 en 1',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2102797/1776435194limpiadotr%209%20en%201.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2102797/1776435194CEPILLO%20LIM%20NPIADOR.webp'],
+ price:65000,oldPrice:129000,
+ desc:'Limpia baños, cocinas, juntas, vidrios y superficies difíciles sin esfuerzo. Incluye múltiples accesorios para diferentes usos. Ahorra tiempo y consigue resultados profesionales en cada limpieza.',
+ sold:229,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T085',name:'Tapete Antideslizante para Baño',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1132537/1724951185TAPETE%20DE%20BA%C3%91O%202.webp'],
+ price:32000,oldPrice:65000,
+ desc:'Mayor seguridad y comodidad al salir de la ducha. Material absorbente, suave al tacto y con base antideslizante que ayuda a prevenir accidentes. Ideal para baños modernos y hogares con niños o adultos mayores.',
+ sold:286,stars:5,lastUnits:false,timer:60*60},
+
+{id:'T086',name:'Maleta Tocador para Niñas',cat:'infantil',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2010932/17643471924988295547701627829.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2010932/1768315742tocadr%202.jpg'],
+ price:89000,oldPrice:159000,
+ desc:'Divertido set de belleza infantil para estimular la imaginación y el juego creativo. Incluye accesorios organizados en una práctica maleta portátil. Ideal para regalar y disfrutar horas de entretenimiento.',
+ sold:164,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T087',name:'Ducha Portátil Recargable',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2140982/1777474239ducha%203333.jpg'],
+ price:55000,oldPrice:109000,
+ desc:'Perfecta para camping, viajes, mascotas, jardines y emergencias. Funciona con batería recargable y proporciona un flujo constante de agua donde lo necesites. Compacta, práctica y fácil de transportar.',
+ sold:198,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T088',name:'Máquina Eléctrica para Pintar',cat:'herramientas',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/422645/1741295923MAQUINA%20REAL.jpg'],
+ price:135000,oldPrice:229000,
+ desc:'Obtén acabados uniformes y profesionales en paredes, muebles y superficies. Reduce el tiempo de trabajo y evita marcas de brocha. Ideal para proyectos de remodelación, pintura doméstica y uso profesional.',
+ sold:119,stars:5,lastUnits:false,timer:4*60*60},
+
+{id:'T089',name:'Kit de Aseo para Bebé 9 Piezas',cat:'bebes',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1920100/1771462301BEBE%20REAL.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1920100/1757360432kit%20bebe%20N.webp'],
+ price:49900,oldPrice:99000,
+ desc:'Todo lo necesario para el cuidado diario de tu bebé en un práctico estuche portátil. Incluye accesorios seguros y diseñados especialmente para los más pequeños. Ideal para el hogar y para llevar de viaje.',
+ sold:274,stars:5,lastUnits:false,timer:2*60*60},
+
+{id:'T090',name:'Electroestimulador de Gimnasia Pasiva',cat:'salud',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/2086052/1771287122ELETRODO.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/2086052/1771287122ELECTP.jpg'],
+ price:45000,oldPrice:89000,
+ desc:'Ayuda a relajar músculos cansados, aliviar tensiones y complementar rutinas de bienestar. Cuenta con diferentes niveles de intensidad y programas de masaje para adaptarse a tus necesidades diarias.',
+ sold:205,stars:5,lastUnits:false,timer:60*60},
+{id:'T091',name:'Juego de Tapetes Antideslizantes',cat:'hogar',
+ imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1951912/1759788205nuebo%20tap.jpg'],
+ price:45000,oldPrice:89000,
+ desc:'Protege tus pisos y añade confort a cualquier espacio del hogar. Material resistente, fácil de limpiar y diseño moderno que combina con cualquier decoración. Ideal para baños, habitaciones y salas.',
+ sold:158,stars:5,lastUnits:false,timer:60*60},
+{id:'T071',name:'Organizador Metálico De Cocina',cat:'hogar',
+imgs:[
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/2159999/1779807048ORGANIZADOR%20METALICO%20DE%20COCINA%201.webp',
+'https://d39ru7awumhhs2.cloudfront.net/colombia/products/1085959/1723832912WhatsApp%20Image%202024-08-16%20at%2012.58.33%20PM.jpeg'
+],
+price:42000,oldPrice:89000,
+desc:'Organiza utensilios, especias y accesorios aprovechando el espacio de las paredes. Diseño resistente y moderno para una cocina más ordenada.',
+sold:225,stars:5,lastUnits:false,timer:2*60*60},
   {id:'T030',name:'Power Bank 10.000mAh Con Cables Incluidos',cat:'tecnologia',
    imgs:['https://d39ru7awumhhs2.cloudfront.net/colombia/products/1971753/176125897513ee3767-e1b3-4979-b91e-60045d161bc3.jpg','https://d39ru7awumhhs2.cloudfront.net/colombia/products/1971753/176125897598402836-63d7-47d1-b973-db94c2fe68f0.jpg'],
    price:85000,oldPrice:149000,
@@ -1477,6 +2171,48 @@ function saveReviews(){
   localStorage.setItem('trogui_reviews',JSON.stringify(reviews));
   showFloatMsg('✅ Reseñas guardadas!');
 }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // MEZCLA LOS PRODUCTOS CADA VEZ QUE ALGUIEN ABRE LA PÁGINA
+    const grid = document.querySelector(".products-grid");
+
+    if (grid) {
+        const productos = Array.from(grid.children);
+
+        for (let i = productos.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [productos[i], productos[j]] = [productos[j], productos[i]];
+        }
+
+        productos.forEach(producto => {
+            grid.appendChild(producto);
+        });
+    }
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // MEZCLA LOS PRODUCTOS CADA VEZ QUE ALGUIEN ABRE LA PÁGINA
+    const grid = document.querySelector(".products-grid");
+
+    if (grid) {
+        const productos = Array.from(grid.children);
+
+        for (let i = productos.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [productos[i], productos[j]] = [productos[j], productos[i]];
+        }
+
+        productos.forEach(producto => {
+            grid.appendChild(producto);
+        });
+    }
+
+});
 </script>
 </body>
 </html>
