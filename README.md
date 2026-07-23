@@ -312,7 +312,18 @@ nav{background:var(--orange);position:sticky;top:70px;z-index:800}
 @media(max-width:380px){
   .products-grid{grid-template-columns:1fr}
 }
+/* GIF/VIDEO in modal */
+.modal-media-item{border-radius:12px;overflow:hidden;height:190px;object-fit:cover;width:100%}
+</style>
+</head>
+<body>
 
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-scroll" id="topbar-text">
+    🇨🇴 Envíos a TODA Colombia &nbsp;|&nbsp; 💵 PAGO CONTRA ENTREGA &nbsp;|&nbsp; 📦 Interrapidísimo · Coordinadora · Envia &nbsp;|&nbsp; ⭐ +500 clientes felices &nbsp;|&nbsp; 🔒 Compra 100% segura &nbsp;|&nbsp; 🚚 Envío GRATIS en todos los productos
+  </div>
+</div>
 /* GIF/VIDEO in modal */
 .modal-media-item{border-radius:12px;overflow:hidden;height:190px;object-fit:cover;width:100%}
 </style>
