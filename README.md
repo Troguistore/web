@@ -7,6 +7,9 @@
 <meta name="description" content="Trogüi, bodega colombiana con más de 3 años de experiencia. Productos para hogar, cocina, tecnología y salud. Envío gratis a toda Colombia y pago contra entrega.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23ff6a00%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 font-family=%22Arial%22 font-weight=%22900%22 fill=%22white%22 text-anchor=%22middle%22>T</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://d39ru7awumhhs2.cloudfront.net">
+<link rel="dns-prefetch" href="https://d39ru7awumhhs2.cloudfront.net">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -245,8 +248,17 @@ nav.cat-nav::-webkit-scrollbar{display:none;}
 .btn.full{width:100%;margin-top:2px;}
 .btn-dark{background:var(--black);color:#fff;}
 .btn-dark:hover{background:#000;}
-.btn-orange{background:var(--orange);color:#fff;}
-.btn-orange:hover{background:var(--orange-dark);}
+.btn-orange{background:var(--orange);color:#fff;animation:btnShake 3.2s ease-in-out infinite;}
+.btn-orange:hover{background:var(--orange-dark);animation:none;}
+@keyframes btnShake{
+  0%,84%{transform:translateX(0) scale(1);}
+  86%{transform:translateX(-3px) scale(1.02);}
+  88%{transform:translateX(3px) scale(1.02);}
+  90%{transform:translateX(-3px) scale(1.02);}
+  92%{transform:translateX(2px) scale(1.02);}
+  94%{transform:translateX(0) scale(1.03);}
+  100%{transform:translateX(0) scale(1);}
+}
 .sold-row{font-size:.7rem;color:var(--gray);}
 .timer-row .icon{width:13px;height:13px;color:var(--orange-dark);}
 .empty-ico{color:var(--gray);margin-bottom:8px;}
@@ -300,7 +312,7 @@ nav.cat-nav::-webkit-scrollbar{display:none;}
   padding:16px;border-radius:12px;font-size:1rem;font-weight:800;
   display:flex;align-items:center;justify-content:center;gap:10px;
 }
-.cta-whatsapp{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(37,211,102,.4);animation:pulseBtn 1.7s ease-in-out infinite;}
+.cta-whatsapp{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(37,211,102,.4);animation:btnShake 3.2s ease-in-out infinite;}
 .cta-whatsapp .icon{width:20px;height:20px;}
 .cta-buy{background:var(--orange);color:#fff;box-shadow:0 6px 18px rgba(255,106,0,.4);}
 .cta-cart{background:var(--black);color:#fff;}
@@ -1218,8 +1230,11 @@ const SOCIAL = {
 /* ---------- Pedidos: contraseña, almacenamiento y hoja de cálculo ---------- */
 const ORDERS_PASSWORD = '3214';
 const ORDERS_STORAGE_KEY = 'trogui_orders_v1';
-/* Pega aquí la URL de tu Google Apps Script (Web App) para recibir pedidos en una hoja de cálculo.
-   Si la dejas vacía, los pedidos igual quedan guardados en este navegador (panel de Pedidos). */
+/* Pega aquí la URL de tu Google Apps Script (Web App) para que los pedidos se vean
+   EN LÍNEA desde cualquier celular o computador, no solo en el navegador donde se hizo el pedido.
+   Instrucciones completas en el mensaje de Claude. Ejemplo de URL válida:
+   'https://script.google.com/macros/s/AKfycb.../exec'
+   Si la dejas vacía, los pedidos solo quedan guardados en el navegador de cada visitante (modo local). */
 const GOOGLE_SCRIPT_URL = '';
 
 /* ---------- Calculadora de tiempos de entrega ---------- */
@@ -1381,22 +1396,41 @@ function writeOrders(list){
   try{ localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(list)); }catch(e){ console.error('No se pudo guardar pedidos', e); }
 }
 function saveOrder(order){
+  // Guardado local inmediato (respaldo, funciona incluso sin internet en ese instante)
   const list = readOrders();
   list.unshift(order);
   writeOrders(list);
+  // Envío a la hoja de cálculo en línea, para que se vea desde cualquier dispositivo
   if(GOOGLE_SCRIPT_URL){
     fetch(GOOGLE_SCRIPT_URL, {
       method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'text/plain'},
-      body: JSON.stringify(order)
-    }).catch(()=>{ /* si falla, el pedido ya quedó guardado localmente */ });
+      mode:'no-cors', // Apps Script no siempre permite leer la respuesta, pero sí recibe los datos
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'create', order})
+    }).catch(()=>{ /* si falla la conexión, el pedido ya quedó guardado localmente como respaldo */ });
   }
 }
 function updateOrderStatus(id, status){
   const list = readOrders();
   const idx = list.findIndex(o=>o.id===id);
   if(idx>-1){ list[idx].estado = status; writeOrders(list); }
+  if(GOOGLE_SCRIPT_URL){
+    fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'updateStatus', id, status})
+    }).catch(()=>{});
+  }
+}
+async function fetchOrdersOnline(){
+  if(!GOOGLE_SCRIPT_URL) return null;
+  try{
+    const res = await fetch(GOOGLE_SCRIPT_URL + '?t=' + Date.now());
+    if(!res.ok) return null;
+    const data = await res.json();
+    return Array.isArray(data) ? data : null;
+  }catch(e){ return null; }
 }
 
 /* ---------- Estado en memoria ---------- */
@@ -1640,7 +1674,7 @@ function footerHtml(){
     <div class="footer-inner">
       <div>
         <div class="foot-logo">TR<span>O</span>GÜI</div>
-        <p>Trogüi es una bodega colombiana con más de 3 años en el mercado, especializada en productos para el hogar, tecnología y bienestar. Trabajamos con productos 100% nuevos y garantizados, pensando siempre en la satisfacción de nuestros clientes.</p>
+        <p>Trogüi es una bodega colombiana con más de 3 años en el mercado, con sede en <b>Bogotá y Cali</b>, especializada en productos para el hogar, tecnología y bienestar. Trabajamos con productos 100% nuevos y garantizados, pensando siempre en la satisfacción de nuestros clientes.</p>
         <div class="social-row">
           <a class="social-pill" href="${SOCIAL.tiktok}" target="_blank" title="TikTok">${ICONS.tiktok}</a>
           <a class="social-pill" href="${SOCIAL.instagram}" target="_blank" title="Instagram">${ICONS.instagram}</a>
@@ -1969,7 +2003,7 @@ function openOrderModal(product){
             <label class="radio-opt" id="opt_oficina"><input type="radio" name="entrega" value="oficina" onchange="toggleEntrega()"> Recoger en oficina Interrapidísimo</label>
           </div>
         </div>
-        <div class="form-row" id="direccionRow"><label>Dirección completa *</label><input type="text" id="f_direccion" required placeholder="Ej: Cra 45 #12-30, Barrio Laureles"></div>
+        <div class="form-row" id="direccionRow"><label id="direccionLabel">Dirección completa *</label><input type="text" id="f_direccion" required placeholder="Ej: Cra 45 #12-30, Barrio Laureles"></div>
         <div class="form-row"><label>Nota (opcional)</label><textarea id="f_nota" rows="2" placeholder="Color, talla u otra indicación..."></textarea></div>
         <button type="submit" class="modal-submit" id="orderSubmitBtn">${ICONS.check}<span>Confirmar pedido</span></button>
         ${carriersHtml(true)}
@@ -1997,14 +2031,17 @@ function toggleEntrega(){
   document.getElementById('opt_oficina').classList.toggle('checked', !casa);
   const dirRow = document.getElementById('direccionRow');
   const dirInput = document.getElementById('f_direccion');
+  const dirLabel = document.getElementById('direccionLabel');
   if(casa){
     dirRow.style.display = '';
     dirInput.required = true;
     dirInput.placeholder = 'Ej: Cra 45 #12-30, Barrio Laureles';
+    if(dirLabel) dirLabel.textContent = 'Dirección completa *';
   } else {
     dirRow.style.display = '';
     dirInput.required = false;
-    dirInput.placeholder = 'Oficina Interrapidísimo más cercana (opcional)';
+    dirInput.placeholder = 'Nombre o ubicación de la oficina (si la conoces)';
+    if(dirLabel) dirLabel.textContent = 'Oficina Interrapidísimo (opcional)';
   }
 }
 function submitOrder(product, qty){
@@ -2087,28 +2124,46 @@ function checkOrdersPass(){
     showToast('Clave incorrecta');
   }
 }
-function openOrdersDashboard(){
+async function openOrdersDashboard(){
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.id = 'ordersDashOverlay';
-  const orders = readOrders();
-  const pendientes = orders.filter(o=>o.estado==='Pendiente').length;
-  const entregados = orders.filter(o=>o.estado==='Entregado').length;
   overlay.innerHTML = `
     <div class="modal wide">
       <div class="modal-close" onclick="closeModal('ordersDashOverlay')">✕</div>
       <h3>Pedidos de la tienda</h3>
-      <p class="sub">Estos pedidos quedan guardados en este navegador${GOOGLE_SCRIPT_URL?' y también en tu hoja de cálculo conectada':''}.</p>
-      <div class="orders-summary">
-        <span class="pill">Total: ${orders.length}</span>
-        <span class="pill">Pendientes: ${pendientes}</span>
-        <span class="pill">Entregados: ${entregados}</span>
-      </div>
-      <div id="ordersList">
-        ${orders.length ? orders.map(orderCardHtml).join('') : '<div class="orders-empty">Todavía no hay pedidos registrados.</div>'}
-      </div>
+      <p class="sub" id="ordersSourceNote">Cargando pedidos...</p>
+      <div class="orders-summary" id="ordersSummary"></div>
+      <div id="ordersList"><div class="orders-empty">Cargando...</div></div>
     </div>`;
   document.body.appendChild(overlay);
+  await renderOrdersInto();
+}
+async function renderOrdersInto(){
+  let orders = readOrders();
+  let sourceNote = 'Estos pedidos están guardados en este navegador (modo local, conecta tu hoja de cálculo para verlos en línea desde cualquier dispositivo).';
+  if(GOOGLE_SCRIPT_URL){
+    const online = await fetchOrdersOnline();
+    if(online){
+      orders = online;
+      sourceNote = 'Pedidos en línea, actualizados en tiempo real desde tu hoja de cálculo. Se ven igual desde cualquier celular o computador.';
+    } else {
+      sourceNote = 'No se pudo conectar con tu hoja de cálculo en este momento, mostrando el respaldo guardado en este navegador.';
+    }
+  }
+  const noteEl = document.getElementById('ordersSourceNote');
+  const summaryEl = document.getElementById('ordersSummary');
+  const listEl = document.getElementById('ordersList');
+  if(!noteEl || !summaryEl || !listEl) return; // el modal pudo haberse cerrado mientras cargaba
+  const pendientes = orders.filter(o=>o.estado==='Pendiente').length;
+  const entregados = orders.filter(o=>o.estado==='Entregado').length;
+  noteEl.textContent = sourceNote;
+  summaryEl.innerHTML = `
+    <span class="pill">Total: ${orders.length}</span>
+    <span class="pill">Pendientes: ${pendientes}</span>
+    <span class="pill">Entregados: ${entregados}</span>
+    <span class="pill" style="cursor:pointer;" onclick="renderOrdersInto()">↻ Actualizar</span>`;
+  listEl.innerHTML = orders.length ? orders.map(orderCardHtml).join('') : '<div class="orders-empty">Todavía no hay pedidos registrados.</div>';
 }
 function orderCardHtml(o){
   const fecha = new Date(o.fecha);
@@ -2138,8 +2193,8 @@ function orderCardHtml(o){
 }
 function setOrderStatus(id, status){
   updateOrderStatus(id, status);
-  closeModal('ordersDashOverlay');
-  openOrdersDashboard();
+  renderOrdersInto();
+  showToast('Estado actualizado');
 }
 
 /* ---------- ASISTENTE TROGÜI (búsqueda inteligente estilo chat) ---------- */
@@ -2159,6 +2214,7 @@ function openAiChat(){
         <span class="ai-suggest-chip" onclick="aiQuickAsk('Busco un regalo para niños')">Regalo para niños</span>
         <span class="ai-suggest-chip" onclick="aiQuickAsk('Tienen algo de tecnología barato')">Tecnología barata</span>
         <span class="ai-suggest-chip" onclick="aiQuickAsk('Cuánto se demora el envío')">Tiempo de envío</span>
+        <span class="ai-suggest-chip" onclick="aiQuickAsk('Dónde están ubicados')">¿Dónde están?</span>
       </div>
       <div class="ai-chat-body" id="aiChatBody"></div>
       <div class="ai-input-row">
@@ -2216,13 +2272,23 @@ function aiRespond(text){
   aiRemoveTyping();
   const norm = normalizeTxt(text);
 
+  // Preguntas sobre ubicación / quiénes son
+  if(/(donde estan|donde queda|ubicad|de donde son|de donde envian|sede|bodega|tienda fisica|oficina de ustedes)/.test(norm)){
+    aiPushBotMessage('Somos una bodega colombiana con más de 3 años en el mercado. Estamos ubicados principalmente en <b>Bogotá</b> y también tenemos operación en <b>Cali</b>. Desde ahí despachamos a <b>toda Colombia</b>. 🇨🇴');
+    return;
+  }
+  // Preguntas sobre transportadora
+  if(/(transportadora|interrapidisimo|envia\b|coordinadora|quien envia|como envian|con que empresa)/.test(norm)){
+    aiPushBotMessage('Trabajamos con transportadoras autorizadas: <b>Interrapidísimo</b>, <b>Envía</b> y <b>Coordinadora</b>, con cobertura en toda Colombia. Puedes elegir recibir en tu casa o recoger en la oficina de Interrapidísimo más cercana.');
+    return;
+  }
   // Preguntas sobre envío / entrega
   if(/(envio|entrega|demora|tarda|cuanto.*llega|dias)/.test(norm)){
     const cityMatch = CIUDADES_PRINCIPALES.find(c=> norm.includes(c));
     if(cityMatch || /bogota|medellin|cali|barranquilla/.test(norm)){
       aiPushBotMessage('A las ciudades principales (Bogotá, Medellín, Cali, Barranquilla y similares) la entrega es de <b>3 a 5 días hábiles</b>. Si me dices tu ciudad exacta te confirmo el tiempo.');
     } else {
-      aiPushBotMessage('Para ciudades principales el envío es de <b>3 a 5 días hábiles</b>, y para municipios u otras zonas de <b>3 a 7 días hábiles</b>. Todo con pago contra entrega. ¿Me dices tu ciudad para calcularlo exacto?');
+      aiPushBotMessage('Para ciudades principales el envío es de <b>3 a 5 días hábiles</b>, y para municipios u otras zonas de <b>3 a 7 días hábiles</b>. Enviamos con Interrapidísimo, Envía y Coordinadora a toda Colombia, con pago contra entrega. ¿Me dices tu ciudad para calcularlo exacto?');
     }
     return;
   }
