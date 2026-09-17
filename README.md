@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es-CO">
 <head>
 <meta charset="UTF-8">
@@ -1234,7 +1235,7 @@ const ORDERS_STORAGE_KEY = 'trogui_orders_v1';
    Instrucciones completas en el mensaje de Claude. Ejemplo de URL válida:
    'https://script.google.com/macros/s/AKfycb.../exec'
    Si la dejas vacía, los pedidos solo quedan guardados en el navegador de cada visitante (modo local). */
-const GOOGLE_SCRIPT_URL = '';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvEih0Rz1ILAVLiUywaDBCXuOVFggogxNBtkoIp5Rwp9aKVM-pd5IQ56t31dpwezk/exec';
 
 /* ---------- Calculadora de tiempos de entrega ---------- */
 const CIUDADES_PRINCIPALES = ['bogota','medellin','cali','barranquilla','cartagena','bucaramanga','pereira',
@@ -1711,8 +1712,8 @@ function footerHtml(){
 function fabsHtml(){
   return `
   <a class="fab-whatsapp" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Trogüi, tengo una pregunta.')}" target="_blank" title="Escríbenos por WhatsApp">${ICONS.whatsapp}</a>
-  <div class="fab-ai" onclick="openAiChat()" title="Asistente Trogüi">
-    <span class="fab-ai-label">Pregúntale al asistente</span>
+  <div class="fab-ai" onclick="openAiChat()" title="Lucas — Asistente Trogüi">
+    <span class="fab-ai-label">Habla con Lucas</span>
     ${ICONS.bot}
   </div>
   <div class="fab-admin" onclick="openAdminLogin()" title="Panel de productos">R</div>
@@ -2206,8 +2207,8 @@ function openAiChat(){
   overlay.innerHTML = `
     <div class="modal">
       <div class="modal-close" onclick="closeModal('aiChatOverlay')">✕</div>
-      <h3>Asistente Trogüi</h3>
-      <p class="sub">Cuéntame qué necesitas y te recomiendo productos al instante.</p>
+      <h3>Lucas — Asistente Trogüi</h3>
+      <p class="sub">Te ayudo a encontrar lo que buscas y resuelvo tus dudas al instante.</p>
       <div class="ai-suggest-row">
         <span class="ai-suggest-chip" onclick="aiQuickAsk('Necesito algo para organizar la cocina')">Organizar cocina</span>
         <span class="ai-suggest-chip" onclick="aiQuickAsk('Busco un regalo para niños')">Regalo para niños</span>
@@ -2222,7 +2223,7 @@ function openAiChat(){
       </div>
     </div>`;
   document.body.appendChild(overlay);
-  aiPushBotMessage('¡Hola! Soy el asistente de Trogüi. Cuéntame qué buscas (por ejemplo "algo para la cocina" o "un regalo barato") y te muestro opciones. También puedo decirte los tiempos de envío. 😊');
+  aiPushBotMessage('¡Hola! Soy <b>Lucas</b>, el asistente de Trogüi 😊. Cuéntame qué buscas o qué necesitas saber (envíos, pagos, garantía, productos) y te ayudo al instante.');
 }
 function aiQuickAsk(text){
   document.getElementById('aiChatInput').value = text;
@@ -2271,6 +2272,21 @@ function aiRespond(text){
   aiRemoveTyping();
   const norm = normalizeTxt(text);
 
+  // Saludos
+  if(/^(hola|buenas|buenos dias|buenas tardes|buenas noches|hey|ola)\b/.test(norm) && norm.length < 25){
+    aiPushBotMessage('¡Hola! Qué bueno tenerte por aquí 😊 ¿Buscas algo en especial hoy, o tienes alguna duda sobre envíos, pagos o garantía?');
+    return;
+  }
+  // Agradecimientos / despedida
+  if(/(gracias|listo|vale|ok grac|chao|hasta luego)/.test(norm)){
+    aiPushBotMessage('¡Con mucho gusto! Cualquier otra duda me escribes por aquí, o si prefieres hablar con una persona, dale clic al botón verde de WhatsApp. 🙌');
+    return;
+  }
+  // Quiere hablar con un humano
+  if(/(persona real|humano|asesor|hablar con alguien|atencion al cliente)/.test(norm)){
+    aiPushBotMessage(`Claro, con gusto te comunico con nuestro equipo. <a href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" style="color:var(--orange-dark);font-weight:700;">Haz clic aquí para escribirnos por WhatsApp</a> y te atendemos personalmente.`);
+    return;
+  }
   // Preguntas sobre ubicación / quiénes son
   if(/(donde estan|donde queda|ubicad|de donde son|de donde envian|sede|bodega|tienda fisica|oficina de ustedes)/.test(norm)){
     aiPushBotMessage('Somos una bodega colombiana con más de 3 años en el mercado. Estamos ubicados principalmente en <b>Bogotá</b> y también tenemos operación en <b>Cali</b>. Desde ahí despachamos a <b>toda Colombia</b>. 🇨🇴');
@@ -2281,37 +2297,87 @@ function aiRespond(text){
     aiPushBotMessage('Trabajamos con transportadoras autorizadas: <b>Interrapidísimo</b>, <b>Envía</b> y <b>Coordinadora</b>, con cobertura en toda Colombia. Puedes elegir recibir en tu casa o recoger en la oficina de Interrapidísimo más cercana.');
     return;
   }
-  // Preguntas sobre envío / entrega
-  if(/(envio|entrega|demora|tarda|cuanto.*llega|dias)/.test(norm)){
+  // Preguntas sobre horario de atención
+  if(/(horario|a que hora|atienden|abren|cierran)/.test(norm)){
+    aiPushBotMessage('Nuestra tienda en línea está disponible <b>24/7</b> para que compres cuando quieras. Nuestro equipo por WhatsApp responde en horario extendido, y si escribes fuera de horario te contestamos apenas sea posible.');
+    return;
+  }
+  // Preguntas sobre envío / entrega (con cálculo si menciona ciudad)
+  if(/(envio|entrega|demora|tarda|cuanto.*llega|dias|llega a)/.test(norm)){
     const cityMatch = CIUDADES_PRINCIPALES.find(c=> norm.includes(c));
-    if(cityMatch || /bogota|medellin|cali|barranquilla/.test(norm)){
-      aiPushBotMessage('A las ciudades principales (Bogotá, Medellín, Cali, Barranquilla y similares) la entrega es de <b>3 a 5 días hábiles</b>. Si me dices tu ciudad exacta te confirmo el tiempo.');
+    if(cityMatch){
+      aiPushBotMessage(`Para esa zona, al ser una ciudad principal, la entrega es de <b>3 a 5 días hábiles</b>. Enviamos con Interrapidísimo, Envía o Coordinadora, y pagas contra entrega.`);
+    } else if(/bogota|medellin|cali|barranquilla/.test(norm)){
+      aiPushBotMessage('A las ciudades principales (Bogotá, Medellín, Cali, Barranquilla y similares) la entrega es de <b>3 a 5 días hábiles</b>.');
     } else {
-      aiPushBotMessage('Para ciudades principales el envío es de <b>3 a 5 días hábiles</b>, y para municipios u otras zonas de <b>3 a 7 días hábiles</b>. Enviamos con Interrapidísimo, Envía y Coordinadora a toda Colombia, con pago contra entrega. ¿Me dices tu ciudad para calcularlo exacto?');
+      aiPushBotMessage('Depende de a dónde llegue: <b>3 a 5 días hábiles</b> en ciudades principales, y <b>3 a 7 días hábiles</b> en municipios u otras zonas. ¿Me cuentas tu ciudad para darte el tiempo exacto?');
     }
     return;
   }
   // Preguntas sobre pago
-  if(/(pago|contraentrega|contra entrega|efectivo|tarjeta)/.test(norm)){
-    aiPushBotMessage('Manejamos <b>pago contra entrega</b> en toda Colombia: pagas cuando el pedido llega a tus manos, sin anticipos. 👍');
+  if(/(pago|contraentrega|contra entrega|efectivo|tarjeta|debo pagar antes)/.test(norm)){
+    aiPushBotMessage('Manejamos <b>pago contra entrega</b> en toda Colombia: pagas en efectivo cuando el pedido llega a tus manos, sin anticipos ni sorpresas. 👍');
     return;
   }
   // Preguntas sobre garantía
-  if(/(garantia|devolucion|cambio|dañado|no sirve)/.test(norm)){
-    aiPushBotMessage('Todos nuestros productos tienen <b>garantía de 30 a 60 días</b> según el artículo, y tienes <b>5 días hábiles</b> desde la entrega para reportar cualquier inconveniente.');
+  if(/(garantia|devolucion|cambio|dañado|no sirve|defectuoso)/.test(norm)){
+    aiPushBotMessage('Todos nuestros productos tienen <b>garantía de 30 a 60 días</b> según el artículo, y tienes <b>5 días hábiles</b> desde la entrega para reportar cualquier inconveniente sin complicaciones.');
     return;
   }
-  // Búsqueda de productos
+  // Presupuesto / algo barato
+  if(/(barato|economico|menos de|presupuesto|regalo)/.test(norm)){
+    const cheap = [...STATE.products].sort((a,b)=>a.price-b.price).slice(0,3);
+    let html = 'Con gusto. Aquí van algunas opciones económicas que están gustando mucho:';
+    cheap.forEach(p=>{
+      html += `<div class="mini-product" onclick="closeModal('aiChatOverlay');goToProduct('${p.id}')">
+        <img src="${p.imgs[0]}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';">
+        <div><div class="mp-name">${escapeHtml(p.name)}</div><div class="mp-price">${money(p.price)}</div></div>
+      </div>`;
+    });
+    html += `<div style="margin-top:8px;font-size:.78rem;color:var(--gray);">¿Buscas para alguna categoría en particular (cocina, tecnología, hogar)? Así te muestro algo más específico.</div>`;
+    aiPushBotMessage(html);
+    return;
+  }
+  // Preguntas sobre tallas
+  if(/(talla|tallas|numero de zapato|que talla|manejan tallas)/.test(norm)){
+    aiPushBotMessage('Depende del producto: algunos como la ropa deportiva manejan varias tallas, y otros son de talla única. En la página de cada producto te indicamos si aplica, y si tienes dudas te confirmamos por WhatsApp antes de que confirmes tu pedido.');
+    return;
+  }
+  // Preguntas sobre cambios de color/talla (no por daño)
+  if(/(cambio de color|cambiar de talla|me equivoque|talla equivocada|no me quedo|no me sirvio la talla)/.test(norm)){
+    aiPushBotMessage('Sí aceptamos cambios si te equivocaste de color o talla (no por daño del producto), pero en ese caso el costo del envío de cambio corre por cuenta del cliente. Escríbenos por WhatsApp y te explicamos el proceso paso a paso.');
+    return;
+  }
+  // Preguntas sobre descuentos por cantidad
+  if(/(descuento por cantidad|si compro varios|mayoreo|al por mayor|descuento por varias unidades|precio por varios)/.test(norm)){
+    aiPushBotMessage('En algunos productos sí manejamos descuento por comprar varias unidades, depende del artículo. Cuéntame qué producto y cuántas unidades te interesan, y te confirmo si aplica descuento.');
+    return;
+  }
+  // Preguntas sobre costo extra del pago contra entrega
+  if(/(recargo|costo extra|cobran algo mas|cobran adicional|tiene algun costo el contra entrega)/.test(norm)){
+    aiPushBotMessage('No, el pago contra entrega <b>no tiene ningún costo extra</b>. Pagas exactamente el precio que ves en la página, sin recargos ni sorpresas.');
+    return;
+  }
+  // Preguntas sobre qué pasa si no está en casa
+  if(/(no estoy|no estaba|no habia nadie|no me encontraron|reprogramar|volver a intentar)/.test(norm)){
+    aiPushBotMessage('Tranquilo/a, si no te encuentran en la entrega, <b>se reprograma la entrega</b> para otro día. Solo asegúrate de tener el teléfono disponible para que la transportadora te contacte y coordinen un nuevo horario.');
+    return;
+  }
+  // Preguntas sobre envíos internacionales
+  if(/(internacional|otro pais|fuera de colombia|envian a|envian al exterior)/.test(norm)){
+    aiPushBotMessage('Por ahora solo hacemos envíos <b>dentro de Colombia</b>, a toda ciudad o municipio del país. No manejamos envíos internacionales.');
+    return;
+  }
   const matches = STATE.products.filter(p=> fuzzyIncludes(p.name+' '+p.desc+' '+(CAT_LABELS[p.cat]?.label||p.cat), text)).slice(0,3);
   if(matches.length){
-    let html = `Encontré esto para ti:`;
+    let html = `Pensando en lo que me dices, esto es lo que más se ajusta:`;
     matches.forEach(p=>{
       html += `<div class="mini-product" onclick="closeModal('aiChatOverlay');goToProduct('${p.id}')">
         <img src="${p.imgs[0]}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';">
         <div><div class="mp-name">${escapeHtml(p.name)}</div><div class="mp-price">${money(p.price)}</div></div>
       </div>`;
     });
-    html += `<div style="margin-top:8px;font-size:.78rem;color:var(--gray);">Haz clic en un producto para verlo completo.</div>`;
+    html += `<div style="margin-top:8px;font-size:.78rem;color:var(--gray);">Haz clic en un producto para verlo completo, o cuéntame más para afinar la búsqueda.</div>`;
     aiPushBotMessage(html);
     return;
   }
@@ -2329,7 +2395,15 @@ function aiRespond(text){
     aiPushBotMessage(html);
     return;
   }
-  aiPushBotMessage('No encontré algo exacto con esas palabras. Prueba contándome para qué lo necesitas (por ejemplo: "algo para la cocina", "un regalo", "tecnología") o escríbenos por WhatsApp y te ayudamos personalmente. 🙂');
+  // No entendió: en vez de disculparse sin más, ofrece caminos concretos (opciones "pensantes")
+  const cats = Object.keys(CAT_LABELS).slice(0,4);
+  let html = 'No estoy seguro de haber entendido bien 🤔 ¿Te refieres a alguna de estas opciones?';
+  html += `<div class="ai-suggest-row" style="margin-top:8px;">`;
+  cats.forEach(c=> html += `<span class="ai-suggest-chip" onclick="aiQuickAsk('Busco algo de ${CAT_LABELS[c].label}')">${CAT_LABELS[c].label}</span>`);
+  html += `<span class="ai-suggest-chip" onclick="aiQuickAsk('Cuánto se demora el envío')">Envíos</span>`;
+  html += `<span class="ai-suggest-chip" onclick="aiQuickAsk('Quiero hablar con una persona')">Hablar con alguien</span>`;
+  html += `</div>`;
+  aiPushBotMessage(html);
 }
 
 /* ---------- ADMIN DE PRODUCTOS (contraseña 4325) ---------- */
