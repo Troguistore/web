@@ -504,6 +504,7 @@ footer{background:var(--black);color:#d9d9d0;margin-top:40px;padding:40px 14px 2
 .order-line b{font-weight:700;}
 .order-status{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:999px;}
 .order-status.pendiente{background:#fff4ea;color:var(--orange-dark);}
+.order-status.resuelto{background:#e6f3ff;color:#1a5aa8;}
 .order-status.entregado{background:#e9f9ee;color:#1a8a4a;}
 .order-status.cancelado{background:#fbe9e7;color:#c0392b;}
 .order-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
@@ -1610,7 +1611,7 @@ function starIcons(n){
   return '★'.repeat(n) + '☆'.repeat(Math.max(0,5-n));
 }
 function escapeHtml(s){
-  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function goToProduct(id){ location.hash = '#/producto/' + encodeURIComponent(id); }
@@ -2058,9 +2059,14 @@ function submitOrder(product, qty){
   const btn = document.getElementById('orderSubmitBtn');
   if(btn){ btn.disabled = true; btn.innerHTML = 'Enviando pedido...'; }
 
+  const now = new Date();
+  const fechaLegible = now.toLocaleDateString('es-CO', {day:'2-digit', month:'short', year:'numeric', timeZone:'America/Bogota'});
+  const horaLegible = now.toLocaleTimeString('es-CO', {hour:'2-digit', minute:'2-digit', timeZone:'America/Bogota'});
+
   const order = {
     id: 'PED-' + Date.now(),
-    fecha: new Date().toISOString(),
+    fecha: now.toISOString(),
+    fechaLegible, horaLegible,
     nombre, telefono, departamento, ciudad, entrega, direccion, nota,
     producto: product.name, productoId: product.id, cantidad: qty,
     precioUnitario: product.price, total,
@@ -2156,36 +2162,42 @@ async function renderOrdersInto(){
   const listEl = document.getElementById('ordersList');
   if(!noteEl || !summaryEl || !listEl) return; // el modal pudo haberse cerrado mientras cargaba
   const pendientes = orders.filter(o=>o.estado==='Pendiente').length;
+  const resueltos = orders.filter(o=>o.estado==='Resuelto').length;
   const entregados = orders.filter(o=>o.estado==='Entregado').length;
   noteEl.textContent = sourceNote;
   summaryEl.innerHTML = `
     <span class="pill">Total: ${orders.length}</span>
     <span class="pill">Pendientes: ${pendientes}</span>
+    <span class="pill">Resueltos: ${resueltos}</span>
     <span class="pill">Entregados: ${entregados}</span>
     <span class="pill" style="cursor:pointer;" onclick="renderOrdersInto()">↻ Actualizar</span>`;
   listEl.innerHTML = orders.length ? orders.map(orderCardHtml).join('') : '<div class="orders-empty">Todavía no hay pedidos registrados.</div>';
 }
 function orderCardHtml(o){
   const fecha = new Date(o.fecha);
-  const fechaStr = fecha.toLocaleString('es-CO', {dateStyle:'medium', timeStyle:'short'});
+  const fechaStr = fecha.toLocaleDateString('es-CO', {day:'2-digit', month:'short', year:'numeric'});
+  const horaStr = fecha.toLocaleTimeString('es-CO', {hour:'2-digit', minute:'2-digit'});
   const estadoClass = (o.estado||'Pendiente').toLowerCase();
   return `
   <div class="order-card">
     <div class="order-card-head">
       <div>
         <b>${escapeHtml(o.nombre)}</b>
-        <div class="date">${fechaStr}</div>
+        <div class="date">📅 ${fechaStr} &nbsp;·&nbsp; 🕒 ${horaStr}</div>
       </div>
-      <span class="order-status ${estadoClass}">${o.estado}</span>
+      <span class="order-status ${estadoClass}">${escapeHtml(o.estado)}</span>
     </div>
-    <div class="order-line"><b>Producto:</b> ${escapeHtml(o.producto)} x${o.cantidad} — ${money(o.total)}</div>
+    <div class="order-line"><b>ID pedido:</b> ${escapeHtml(o.id)}</div>
+    <div class="order-line"><b>Producto:</b> ${escapeHtml(o.producto)} (x${escapeHtml(o.cantidad)}) — ${money(o.total)}</div>
+    <div class="order-line"><b>Cliente:</b> ${escapeHtml(o.nombre)}</div>
     <div class="order-line"><b>Teléfono:</b> ${escapeHtml(o.telefono)}</div>
     <div class="order-line"><b>Ubicación:</b> ${escapeHtml(o.ciudad)}, ${escapeHtml(o.departamento)}</div>
     <div class="order-line"><b>Entrega:</b> ${o.entrega==='casa'?'A domicilio':'Oficina Interrapidísimo'}${o.direccion?' — '+escapeHtml(o.direccion):''}</div>
-    <div class="order-line"><b>Tiempo estimado:</b> ${o.entregaEstimada||'—'}</div>
+    <div class="order-line"><b>Tiempo estimado:</b> ${escapeHtml(o.entregaEstimada)||'—'}</div>
     ${o.nota ? `<div class="order-line"><b>Nota:</b> ${escapeHtml(o.nota)}</div>` : ''}
     <div class="order-actions">
       <button class="${o.estado==='Pendiente'?'active':''}" onclick="setOrderStatus('${o.id}','Pendiente')">Pendiente</button>
+      <button class="${o.estado==='Resuelto'?'active':''}" onclick="setOrderStatus('${o.id}','Resuelto')">Resuelto</button>
       <button class="${o.estado==='Entregado'?'active':''}" onclick="setOrderStatus('${o.id}','Entregado')">Entregado</button>
       <button class="${o.estado==='Cancelado'?'active':''}" onclick="setOrderStatus('${o.id}','Cancelado')">Cancelado</button>
     </div>
@@ -2194,7 +2206,7 @@ function orderCardHtml(o){
 function setOrderStatus(id, status){
   updateOrderStatus(id, status);
   renderOrdersInto();
-  showToast('Estado actualizado');
+  showToast('Estado actualizado a: ' + status);
 }
 
 /* ---------- ASISTENTE TROGÜI (búsqueda inteligente estilo chat) ---------- */
