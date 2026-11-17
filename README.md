@@ -2606,5 +2606,33 @@ function saveProduct(id){
 render();
 
 </script>
+<script>
+(function(){
+  function ev(name, data, opts){ try{ if(window.fbq) fbq('track', name, data, opts||{}); }catch(e){} }
+
+  var _save = saveOrder;
+  saveOrder = function(order){
+    _save(order);
+    ev('Purchase', {value:order.total, currency:'COP', content_ids:[order.productId], content_type:'product', num_items:order.cantidad}, {eventID:order.id});
+  };
+
+  var _open = openOrderModal;
+  openOrderModal = function(product){
+    _open(product);
+    if(product){
+      var q = document.getElementById('qtyInput');
+      var n = q ? parseInt(q.value||'1') : 1;
+      ev('InitiateCheckout', {value:product.price*n, currency:'COP', content_ids:[product.id], content_type:'product', num_items:n});
+    }
+  };
+
+  function viewContent(p){
+    if(p) ev('ViewContent', {content_ids:[p.id], content_type:'product', content_name:p.name, value:p.price, currency:'COP'});
+  }
+  var _render = renderProductPage;
+  renderProductPage = function(p){ _render(p); viewContent(p); };
+  if(currentRoute().name === 'product') viewContent(currentProduct());
+})();
+</script>
 </body>
 </html>
